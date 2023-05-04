@@ -10,10 +10,8 @@ namespace Levi9.ERP.Domain.Model
 {
     public class ProductDocument
     {
-        [Key, Column(Order = 0)]
         public int ProductId { get; set; }
         public Product Product { get; set; }
-        [Key, Column(Order = 1)]
         public int DocumentId { get; set; }
         public Document Document { get; set; }
         [Required, Range(0, float.MaxValue)]
