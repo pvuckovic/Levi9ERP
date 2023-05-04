@@ -1,6 +1,12 @@
+using Levi9.ERP.Data.Migrations;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder.Services.AddDbContext<DataBaseContext>(options =>
+               options.UseSqlServer(builder.Configuration.GetConnectionString("ErpDatabase")));
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
