@@ -49,6 +49,10 @@ namespace Levi9.ERP.Data.Migrations
                 .HasOne(e => e.Document)
                 .WithMany(e => e.ProductDocuments)
                 .HasForeignKey(e => e.DocumentId);
+
+            modelBuilder.Entity<Client>()
+                .HasIndex(e => e.Email)
+                .IsUnique();
         }
     }
 }

@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 
 namespace Levi9.ERP.Domain.Model
 {
-    [Index(nameof(Client.Email), IsUnique = true)]
     public class Client
     {
         public int Id { get; set; }

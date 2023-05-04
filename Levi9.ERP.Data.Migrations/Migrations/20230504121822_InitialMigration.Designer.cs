@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Levi9.ERP.Data.Migrations.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    [Migration("20230504121131_InitialMigration")]
+    [Migration("20230504121822_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
