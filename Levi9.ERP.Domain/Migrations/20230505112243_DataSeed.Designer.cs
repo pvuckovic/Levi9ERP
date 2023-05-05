@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Levi9.ERP.Domain.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    [Migration("20230505100202_DataSeed")]
+    [Migration("20230505112243_DataSeed")]
     partial class DataSeed
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -78,7 +78,7 @@ namespace Levi9.ERP.Domain.Migrations
                             Id = 1,
                             Address = "Njegoseva 2",
                             Email = "zlatko123@gmail.com",
-                            GlobalId = new Guid("81bf7c0d-361d-4f34-8174-671bc3a61d39"),
+                            GlobalId = new Guid("a63367b5-deca-4a84-8039-33a09f01b822"),
                             LastUpdate = "634792557112051692",
                             Name = "Zlatko",
                             Phone = "064322222",
@@ -122,7 +122,7 @@ namespace Levi9.ERP.Domain.Migrations
                             Id = 1,
                             ClientId = 1,
                             DocumentType = "INVOICE",
-                            GlobalId = new Guid("9d372feb-2fa0-4533-941a-066f5225251b"),
+                            GlobalId = new Guid("e01d5457-2533-41a9-91e8-1bfdc94994e1"),
                             LastUpdate = "634792557112051692"
                         });
                 });
@@ -163,7 +163,7 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 1,
                             PriceListId = 1,
                             Currency = "USD",
-                            GlobalId = new Guid("074091b2-9f5a-47a7-9d9f-88462a039809"),
+                            GlobalId = new Guid("0d8fb8d9-51b0-44fc-91d1-694c7fbd2ce8"),
                             LastUpdate = "634792557112051692",
                             PriceValue = 12f
                         });
@@ -197,7 +197,7 @@ namespace Levi9.ERP.Domain.Migrations
                         new
                         {
                             Id = 1,
-                            GlobalId = new Guid("f4201c92-7b75-40b7-9291-34a82b5c5da9"),
+                            GlobalId = new Guid("c54089e4-ab4e-4326-9495-83c6b6e49ce2"),
                             LastUpdate = "634792557112051692",
                             Name = "USD Price List"
                         });
@@ -243,7 +243,7 @@ namespace Levi9.ERP.Domain.Migrations
                         {
                             Id = 1,
                             AvailableQuantity = 70,
-                            GlobalId = new Guid("9942c39e-bd3c-404c-8207-36a6ae06ec46"),
+                            GlobalId = new Guid("3c239011-7197-4e7d-88e0-3234f4f4150e"),
                             ImageUrl = "someurl123344444",
                             LastUpdate = "634792557112051692",
                             Name = "Shirt"
