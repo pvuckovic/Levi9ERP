@@ -1,3 +1,4 @@
+using Levi9.ERP.Domain;
 using Levi9.ERP.Domain.Repository;
 using Levi9.ERP.Domain.Service;
 using Microsoft.EntityFrameworkCore;
@@ -29,6 +30,13 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+using (var context = builder.Services.BuildServiceProvider().GetService<DataBaseContext>())
+{
+    context.Database.EnsureDeleted();
+    context.Database.Migrate();
+
+}
 
 app.MapControllers();
 

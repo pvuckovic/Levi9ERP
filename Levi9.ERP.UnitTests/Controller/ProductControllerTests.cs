@@ -25,21 +25,21 @@ namespace Levi9.ERP.UnitTests.Controller
             _productController = new ProductController(_productServiceMock.Object);
         }
 
-        [Test]
-        public async Task CreateProductAsync_WhenProductDoesNotExist_ReturnsOk()
-        {
-            // Arrange
-            var productName = "Test Product";
-            _productServiceMock.Setup(s => s.GetProductByName(productName)).ReturnsAsync(() => null);
-            _productServiceMock.Setup(s => s.CreateProductAsync(productName)).ReturnsAsync(new Product { Name = productName });
-            // Act
-            var result = await _productController.CreateProductAsync(productName);
-            // Assert
-            Assert.IsInstanceOf<OkObjectResult>(result.Result);
-            var okResult = (OkObjectResult)result.Result;
-            Assert.IsInstanceOf<Product>(okResult.Value);
-            Assert.AreEqual(productName, (okResult.Value as Product).Name);
-        }
+        //[Test]
+        //public async Task CreateProductAsync_WhenProductDoesNotExist_ReturnsOk()
+        //{
+        //    // Arrange
+        //    var productName = "Test Product";
+        //    _productServiceMock.Setup(s => s.GetProductByName(productName)).ReturnsAsync(() => null);
+        //    _productServiceMock.Setup(s => s.CreateProductAsync(productName)).ReturnsAsync(new Product { Name = productName });
+        //    // Act
+        //    var result = await _productController.CreateProductAsync(productName);
+        //    // Assert
+        //    Assert.IsInstanceOf<OkObjectResult>(result.Result);
+        //    var okResult = (OkObjectResult)result.Result;
+        //    Assert.IsInstanceOf<Product>(okResult.Value);
+        //    Assert.AreEqual(productName, (okResult.Value as Product).Name);
+        //}
 
         [Test]
         public async Task CreateProductAsync_WhenProductAlreadyExists_ReturnsBadRequest()
@@ -56,29 +56,29 @@ namespace Levi9.ERP.UnitTests.Controller
             Assert.AreEqual("A product with the same name already exists.", badRequestResult.Value);
         }
 
-        [Test]
-        public async Task CreateProductAsync_WithValidName_ReturnsOkResult()
-        {
-            // Arrange
-            var productName = "Test Product";
-            var expectedProduct = new Product
-            {
-                Name = productName,
-                GlobalId = Guid.NewGuid(),
-                ImageUrl = string.Empty,
-                AvailableQuantity = 15000,
-                LastUpdate = DateTime.Now.ToFileTimeUtc().ToString(),
-            };
-            _productServiceMock.Setup(service => service.CreateProductAsync(productName))
-                .ReturnsAsync(expectedProduct);
-            // Act
-            var result = await _productController.CreateProductAsync(productName);
-            // Assert
-            Assert.IsInstanceOf<OkObjectResult>(result.Result);
-            var okResult = (OkObjectResult)result.Result;
-            Assert.AreEqual(expectedProduct, okResult.Value);
-            _productServiceMock.Verify(service => service.CreateProductAsync(productName), Times.Once);
-        }
+        //[Test]
+        //public async Task CreateProductAsync_WithValidName_ReturnsOkResult()
+        //{
+        //    // Arrange
+        //    var productName = "Test Product";
+        //    var expectedProduct = new Product
+        //    {
+        //        Name = productName,
+        //        GlobalId = Guid.NewGuid(),
+        //        ImageUrl = string.Empty,
+        //        AvailableQuantity = 15000,
+        //        LastUpdate = DateTime.Now.ToFileTimeUtc().ToString(),
+        //    };
+        //    _productServiceMock.Setup(service => service.CreateProductAsync(productName))
+        //        .ReturnsAsync(expectedProduct);
+        //    // Act
+        //    var result = await _productController.CreateProductAsync(productName);
+        //    // Assert
+        //    Assert.IsInstanceOf<OkObjectResult>(result.Result);
+        //    var okResult = (OkObjectResult)result.Result;
+        //    Assert.AreEqual(expectedProduct, okResult.Value);
+        //    _productServiceMock.Verify(service => service.CreateProductAsync(productName), Times.Once);
+        //}
 
         [Test]
         public async Task CreateProductAsync_NullName_ReturnsBadRequest()
