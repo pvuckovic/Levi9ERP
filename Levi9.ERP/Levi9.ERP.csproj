@@ -19,7 +19,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Levi9.ERP.Data.Migrations\Levi9.ERP.Data.Migrations.csproj" />
     <ProjectReference Include="..\Levi9.ERP.Domain\Levi9.ERP.Domain.csproj" />
-    <ProjectReference Include="..\Levi9.ERP.UnitTests\Levi9.ERP.UnitTests.csproj" />
   </ItemGroup>
 
 </Project>
