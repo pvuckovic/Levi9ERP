@@ -15,8 +15,4 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Levi9.ERP.Domain\Levi9.ERP.Domain.csproj" />
-  </ItemGroup>
-
 </Project>
