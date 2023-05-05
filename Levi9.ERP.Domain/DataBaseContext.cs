@@ -3,11 +3,10 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Levi9.ERP.Data.Migrations
+namespace Levi9.ERP.Domain
 {
     public class DataBaseContext : DbContext
     {
@@ -25,7 +24,7 @@ namespace Levi9.ERP.Data.Migrations
             //base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Price>()
-            .HasKey(e => new { e.ProductId, e.PriceListId});
+            .HasKey(e => new { e.ProductId, e.PriceListId });
 
             modelBuilder.Entity<Price>()
                 .HasOne(e => e.Product)

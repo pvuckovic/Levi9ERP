@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Levi9.ERP.Data.Migrations.Migrations
+namespace Levi9.ERP.Domain.Migrations
 {
     public partial class InitialMigration : Migration
     {
