@@ -1,4 +1,4 @@
-using Levi9.ERP.Data.Migrations;
+using Levi9.ERP.Domain;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
