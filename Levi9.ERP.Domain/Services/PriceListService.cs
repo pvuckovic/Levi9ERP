@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using Levi9.ERP.Domain.Contracts;
 using Levi9.ERP.Domain.Models.DTO;
+using Levi9.ERP.Domain.Repositories;
 
 namespace Levi9.ERP.Domain.Services
 {
