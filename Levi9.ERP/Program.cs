@@ -1,6 +1,6 @@
 using Levi9.ERP.Domain;
-using Levi9.ERP.Domain.Repository;
-using Levi9.ERP.Domain.Service;
+using Levi9.ERP.Domain.Repositories;
+using Levi9.ERP.Domain.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +12,8 @@ builder.Services.AddDbContext<Levi9.ERP.Domain.DataBaseContext>(options =>
 
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IProductService, ProductService>();
+
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
