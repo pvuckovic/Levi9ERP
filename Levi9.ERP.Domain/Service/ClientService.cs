@@ -21,6 +21,7 @@ namespace Levi9.ERP.Domain.Service
         public ClientDTO CreateClient(ClientDTO clientModel)
         {
             clientModel.GlobalId = Guid.NewGuid();
+            clientModel.LastUpdate = DateTime.Now.ToFileTimeUtc().ToString();
             var clientEntity = clientRepository.AddClient(clientModel);
             return clientEntity;
 
