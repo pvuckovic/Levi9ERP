@@ -1,14 +1,8 @@
 ﻿using AutoMapper;
 using Levi9.ERP.Domain.Contracts;
-using Levi9.ERP.Domain.Model;
-using Levi9.ERP.Domain.Model.DTO;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Levi9.ERP.Domain.Models.DTO;
 
-namespace Levi9.ERP.Domain.Service
+namespace Levi9.ERP.Domain.Services
 {
     public class PriceListService : IPriceListService
     {
@@ -21,11 +15,6 @@ namespace Levi9.ERP.Domain.Service
         }
         public async Task<PriceListDTO> GetByIdAsync(int id)
         {
-            if (id <= 0)
-            {
-                throw new ArgumentException("Invalid id");
-            }
-
             var priceList = await _priceListRepository.GetByIdAsync(id);
             var priceListDto = _mapper.Map<PriceListDTO>(priceList);
 

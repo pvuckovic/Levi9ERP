@@ -1,11 +1,7 @@
 ﻿using AutoMapper;
 using Levi9.ERP.Data.Response;
 using Levi9.ERP.Domain.Contracts;
-using Levi9.ERP.Domain.Model;
-using Levi9.ERP.Domain.Model.DTO;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Routing;
 
 namespace Levi9.ERP.Controllers
 {
@@ -24,7 +20,9 @@ namespace Levi9.ERP.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id) 
         {
-            /*
+            if(id <= 0)
+                return BadRequest($"Invalid number({id}) of ID");
+
             var priceDTO = await _priceListService.GetByIdAsync(id);
 
             if(priceDTO == null) 
@@ -33,21 +31,6 @@ namespace Levi9.ERP.Controllers
             var priceListResponse = _mapper.Map<PriceListResponse>(priceDTO);
 
             return Ok(priceListResponse);
-            */
-            try
-            {
-                var priceDTO = await _priceListService.GetByIdAsync(id);
-                var priceListResponse = _mapper.Map<PriceListResponse>(priceDTO);
-                return Ok(priceListResponse);
-            }
-            catch(InvalidOperationException)
-            {
-                return NotFound($"Nonexistent price list with ID: {id}");
-            }
-            catch(ArgumentException)
-            {
-                return BadRequest($"Invalid number({id}) of ID");
-            }
         }
     }
 }

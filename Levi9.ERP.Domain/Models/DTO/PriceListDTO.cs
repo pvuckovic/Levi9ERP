@@ -1,6 +1,6 @@
-﻿namespace Levi9.ERP.Data.Response
+﻿namespace Levi9.ERP.Domain.Models.DTO
 {
-    public class PriceListResponse
+    public class PriceListDTO
     {
         public int Id { get; set; }
         public Guid GlobalId { get; set; }

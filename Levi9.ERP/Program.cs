@@ -1,7 +1,7 @@
 using Levi9.ERP.Domain;
 using Levi9.ERP.Domain.Contracts;
-using Levi9.ERP.Domain.Repository;
-using Levi9.ERP.Domain.Service;
+using Levi9.ERP.Domain.Repositories;
+using Levi9.ERP.Domain.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,7 +20,6 @@ builder.Services.AddScoped<IPriceListRepository, PriceListRepository>();
 builder.Services.AddScoped<IPriceListService, PriceListService>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-//builder.Services.AddAutoMapper(typeof())
 
 var app = builder.Build();
 

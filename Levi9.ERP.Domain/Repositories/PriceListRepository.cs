@@ -1,13 +1,8 @@
 ﻿using Levi9.ERP.Domain.Contracts;
-using Levi9.ERP.Domain.Model;
+using Levi9.ERP.Domain.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Levi9.ERP.Domain.Repository
+namespace Levi9.ERP.Domain.Repositories
 {
     public class PriceListRepository : IPriceListRepository
     {
@@ -18,8 +13,7 @@ namespace Levi9.ERP.Domain.Repository
         }
         public async Task<PriceList> GetByIdAsync(int id)
         {
-            //return await _dataBaseContext.PriceLists.FirstOrDefaultAsync(p => p.Id == id);
-            return await _dataBaseContext.PriceLists.FirstAsync(p => p.Id == id);
+            return await _dataBaseContext.PriceLists.FirstOrDefaultAsync(p => p.Id == id);
         }
     }
 }

@@ -1,10 +1,4 @@
-﻿using Levi9.ERP.Domain.Model;
-using Levi9.ERP.Domain.Model.DTO;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Levi9.ERP.Domain.Models.DTO;
 
 namespace Levi9.ERP.Domain.Contracts
 {

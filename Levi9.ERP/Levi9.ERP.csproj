@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -21,10 +21,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Levi9.ERP.Domain\Levi9.ERP.Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Data\Request\" />
   </ItemGroup>
 
 </Project>
