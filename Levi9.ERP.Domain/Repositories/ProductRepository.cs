@@ -23,5 +23,6 @@ namespace Levi9.ERP.Domain.Repositories
         {
             return await _dataBaseContext.Products.FirstOrDefaultAsync(p => p.Name == name);
         }
+
     }
 }

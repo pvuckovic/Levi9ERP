@@ -4,6 +4,7 @@ using Levi9.ERP.Data.Responses;
 using Levi9.ERP.Domain.Models.DTO;
 using Levi9.ERP.Domain.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace Levi9.ERP.Controllers
 {

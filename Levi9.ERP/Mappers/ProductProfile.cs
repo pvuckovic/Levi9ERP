@@ -11,9 +11,12 @@ namespace Levi9.ERP.Mappers
         public ProductProfile()
         {
             CreateMap<ProductRequest, ProductDTO>();
-            CreateMap<Product, ProductDTO>();
             CreateMap<ProductDTO, ProductResponse>();
 
+            CreateMap<Product, ProductDTO>()
+                .ForMember(dest => dest.PriceList, opt => opt.MapFrom(src => src.Prices));
+            CreateMap<Price, PriceDTO>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.PriceListId));
         }
     }
 }
