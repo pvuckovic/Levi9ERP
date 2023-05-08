@@ -59,7 +59,7 @@ namespace Levi9.ERP.Domain.Migrations
                             Id = 1,
                             Address = "Njegoseva 2",
                             Email = "zlatko123@gmail.com",
-                            GlobalId = new Guid("a63367b5-deca-4a84-8039-33a09f01b822"),
+                            GlobalId = new Guid("93ecff90-b3a3-4763-b5c5-5a85113df90e"),
                             LastUpdate = "634792557112051692",
                             Name = "Zlatko",
                             Phone = "064322222",
@@ -94,7 +94,7 @@ namespace Levi9.ERP.Domain.Migrations
                             Id = 1,
                             ClientId = 1,
                             DocumentType = "INVOICE",
-                            GlobalId = new Guid("e01d5457-2533-41a9-91e8-1bfdc94994e1"),
+                            GlobalId = new Guid("829ead55-2420-40cf-ae6f-d57aea942289"),
                             LastUpdate = "634792557112051692"
                         });
                 });
@@ -126,7 +126,7 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 1,
                             PriceListId = 1,
                             Currency = "USD",
-                            GlobalId = new Guid("0d8fb8d9-51b0-44fc-91d1-694c7fbd2ce8"),
+                            GlobalId = new Guid("b8befe77-35ba-438d-8cfa-4719a5d795a0"),
                             LastUpdate = "634792557112051692",
                             PriceValue = 12f
                         });
@@ -153,7 +153,7 @@ namespace Levi9.ERP.Domain.Migrations
                         new
                         {
                             Id = 1,
-                            GlobalId = new Guid("c54089e4-ab4e-4326-9495-83c6b6e49ce2"),
+                            GlobalId = new Guid("5b9070ab-7db9-4f79-806a-19039492d99d"),
                             LastUpdate = "634792557112051692",
                             Name = "USD Price List"
                         });
@@ -189,7 +189,7 @@ namespace Levi9.ERP.Domain.Migrations
                         {
                             Id = 1,
                             AvailableQuantity = 70,
-                            GlobalId = new Guid("3c239011-7197-4e7d-88e0-3234f4f4150e"),
+                            GlobalId = new Guid("7d4b6cd3-d466-4fef-89fd-152e99a5a6ac"),
                             ImageUrl = "someurl123344444",
                             LastUpdate = "634792557112051692",
                             Name = "Shirt"
