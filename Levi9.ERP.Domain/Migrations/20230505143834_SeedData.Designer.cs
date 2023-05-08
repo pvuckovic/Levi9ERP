@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Levi9.ERP.Domain.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    [Migration("20230505082014_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20230505143834_SeedData")]
+    partial class SeedData
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -71,6 +71,19 @@ namespace Levi9.ERP.Domain.Migrations
                     b.HasIndex("PriceListId");
 
                     b.ToTable("Clients");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Address = "Njegoseva 2",
+                            Email = "zlatko123@gmail.com",
+                            GlobalId = new Guid("93ecff90-b3a3-4763-b5c5-5a85113df90e"),
+                            LastUpdate = "634792557112051692",
+                            Name = "Zlatko",
+                            Phone = "064322222",
+                            PriceListId = 1
+                        });
                 });
 
             modelBuilder.Entity("Levi9.ERP.Domain.Model.Document", b =>
@@ -102,6 +115,16 @@ namespace Levi9.ERP.Domain.Migrations
                     b.HasIndex("ClientId");
 
                     b.ToTable("Documents");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ClientId = 1,
+                            DocumentType = "INVOICE",
+                            GlobalId = new Guid("829ead55-2420-40cf-ae6f-d57aea942289"),
+                            LastUpdate = "634792557112051692"
+                        });
                 });
 
             modelBuilder.Entity("Levi9.ERP.Domain.Model.Price", b =>
@@ -133,6 +156,17 @@ namespace Levi9.ERP.Domain.Migrations
                     b.HasIndex("PriceListId");
 
                     b.ToTable("Prices");
+
+                    b.HasData(
+                        new
+                        {
+                            ProductId = 1,
+                            PriceListId = 1,
+                            Currency = "USD",
+                            GlobalId = new Guid("b8befe77-35ba-438d-8cfa-4719a5d795a0"),
+                            LastUpdate = "634792557112051692",
+                            PriceValue = 12f
+                        });
                 });
 
             modelBuilder.Entity("Levi9.ERP.Domain.Model.PriceList", b =>
@@ -158,6 +192,15 @@ namespace Levi9.ERP.Domain.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("PriceLists");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            GlobalId = new Guid("5b9070ab-7db9-4f79-806a-19039492d99d"),
+                            LastUpdate = "634792557112051692",
+                            Name = "USD Price List"
+                        });
                 });
 
             modelBuilder.Entity("Levi9.ERP.Domain.Model.Product", b =>
@@ -194,6 +237,17 @@ namespace Levi9.ERP.Domain.Migrations
                         .IsUnique();
 
                     b.ToTable("Products");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AvailableQuantity = 70,
+                            GlobalId = new Guid("7d4b6cd3-d466-4fef-89fd-152e99a5a6ac"),
+                            ImageUrl = "someurl123344444",
+                            LastUpdate = "634792557112051692",
+                            Name = "Shirt"
+                        });
                 });
 
             modelBuilder.Entity("Levi9.ERP.Domain.Model.ProductDocument", b =>
@@ -220,6 +274,16 @@ namespace Levi9.ERP.Domain.Migrations
                     b.HasIndex("DocumentId");
 
                     b.ToTable("ProductDocuments");
+
+                    b.HasData(
+                        new
+                        {
+                            ProductId = 1,
+                            DocumentId = 1,
+                            Currency = "USD",
+                            PriceValue = 12f,
+                            Quantity = 11
+                        });
                 });
 
             modelBuilder.Entity("Levi9.ERP.Domain.Model.Client", b =>
