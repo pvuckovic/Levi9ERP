@@ -1,39 +1,38 @@
-﻿using AutoMapper;
+﻿
+using AutoMapper;
 using Levi9.ERP.Controllers;
-using Levi9.ERP.Domain.Model.DTO;
-using Levi9.ERP.Domain.Service;
-using Levi9.ERP.Request;
-using Levi9.ERP.Response;
+using Levi9.ERP.Domain.Mappers;
+using Levi9.ERP.Domain.Models.DTO;
+using Levi9.ERP.Domain.Services;
+using Levi9.ERP.Requests;
+using Levi9.ERP.Responses;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Routing;
-using NUnit.Framework;
-using Moq;
-using Levi9.ERP.Domain.Mappers;
-using System.Net.Http;
 using Microsoft.AspNetCore.Mvc.Routing;
+using Moq;
+using NUnit.Framework;
 
 namespace Levi9.ERP.UnitTests.ControllerTests
 {
     [TestFixture]
     public class ClientControllerTests
     {
-        private Mock<IClientService> mockClientService;
-        private IMapper mapper;
-        private Mock<IUrlHelper> urlHelperMock;
-        private ClientController clientController;
+        private Mock<IClientService> _mockClientService;
+        private IMapper _mapper;
+        private Mock<IUrlHelper> _urlHelperMock;
+        private ClientController _clientController;
 
         [SetUp]
         public void Setup()
         {
-            mockClientService = new Mock<IClientService>();
-            mapper = new MapperConfiguration(cfg =>
+            _mockClientService = new Mock<IClientService>();
+            _mapper = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile(new ClientProfiles());
             }).CreateMapper();
-            urlHelperMock = new Mock<IUrlHelper>();
-            clientController = new ClientController(mockClientService.Object, mapper, urlHelperMock.Object);
-            clientController.ControllerContext.HttpContext = new DefaultHttpContext();
+            _urlHelperMock = new Mock<IUrlHelper>();
+            _clientController = new ClientController(_mockClientService.Object, _mapper, _urlHelperMock.Object);
+            _clientController.ControllerContext.HttpContext = new DefaultHttpContext();
         }
 
         [Test]
@@ -51,15 +50,15 @@ namespace Levi9.ERP.UnitTests.ControllerTests
                 Name = "John",
                 Email = "john@test.com"
             };
-           
-            urlHelperMock.Setup(x => x.Action(It.Is<UrlActionContext>(uac =>
+
+            _urlHelperMock.Setup(x => x.Action(It.Is<UrlActionContext>(uac =>
                                                 uac.Action == "CreateClient" &&
                                                 uac.Controller == "Client" &&
                                                 uac.Protocol == String.Empty)))
                                                 .Returns("callbackUrl");
 
-            mockClientService.Setup(x => x.CreateClient(It.IsAny<ClientDTO>())).Returns(clientDTO);
-            var result = clientController.CreateClient(clientRequest);
+            _mockClientService.Setup(x => x.CreateClient(It.IsAny<ClientDTO>())).Returns(clientDTO);
+            var result = _clientController.CreateClient(clientRequest);
 
             Assert.IsInstanceOf<CreatedResult>(result.Result);
             var createdResult = (CreatedResult)result.Result;
@@ -67,5 +66,6 @@ namespace Levi9.ERP.UnitTests.ControllerTests
             Assert.AreEqual(clientDTO.Name, ((ClientResponse)createdResult.Value).Name);
             Assert.AreEqual(clientDTO.Email, ((ClientResponse)createdResult.Value).Email);
         }
+
     }
 }

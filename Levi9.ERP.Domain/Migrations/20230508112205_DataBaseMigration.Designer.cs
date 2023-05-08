@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Levi9.ERP.Domain.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    [Migration("20230505112243_DataSeed")]
-    partial class DataSeed
+    [Migration("20230508112205_DataBaseMigration")]
+    partial class DataBaseMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -55,6 +55,11 @@ namespace Levi9.ERP.Domain.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
                     b.Property<string>("Phone")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -62,6 +67,11 @@ namespace Levi9.ERP.Domain.Migrations
 
                     b.Property<int>("PriceListId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Salt")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 
@@ -78,11 +88,13 @@ namespace Levi9.ERP.Domain.Migrations
                             Id = 1,
                             Address = "Njegoseva 2",
                             Email = "zlatko123@gmail.com",
-                            GlobalId = new Guid("a63367b5-deca-4a84-8039-33a09f01b822"),
+                            GlobalId = new Guid("30ed6cb4-1522-4917-876f-627c36db195b"),
                             LastUpdate = "634792557112051692",
                             Name = "Zlatko",
+                            Password = "test",
                             Phone = "064322222",
-                            PriceListId = 1
+                            PriceListId = 1,
+                            Salt = "test1"
                         });
                 });
 
@@ -122,7 +134,7 @@ namespace Levi9.ERP.Domain.Migrations
                             Id = 1,
                             ClientId = 1,
                             DocumentType = "INVOICE",
-                            GlobalId = new Guid("e01d5457-2533-41a9-91e8-1bfdc94994e1"),
+                            GlobalId = new Guid("26f934f1-e4b1-44f7-8159-06c33e98a026"),
                             LastUpdate = "634792557112051692"
                         });
                 });
@@ -163,7 +175,7 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 1,
                             PriceListId = 1,
                             Currency = "USD",
-                            GlobalId = new Guid("0d8fb8d9-51b0-44fc-91d1-694c7fbd2ce8"),
+                            GlobalId = new Guid("b63efb6c-49be-454c-9dee-ad560b48e93d"),
                             LastUpdate = "634792557112051692",
                             PriceValue = 12f
                         });
@@ -197,7 +209,7 @@ namespace Levi9.ERP.Domain.Migrations
                         new
                         {
                             Id = 1,
-                            GlobalId = new Guid("c54089e4-ab4e-4326-9495-83c6b6e49ce2"),
+                            GlobalId = new Guid("82817190-734c-47c9-9f15-ec60198e4808"),
                             LastUpdate = "634792557112051692",
                             Name = "USD Price List"
                         });
@@ -243,7 +255,7 @@ namespace Levi9.ERP.Domain.Migrations
                         {
                             Id = 1,
                             AvailableQuantity = 70,
-                            GlobalId = new Guid("3c239011-7197-4e7d-88e0-3234f4f4150e"),
+                            GlobalId = new Guid("61d73aad-41fb-4fe6-a90e-88371ae17641"),
                             ImageUrl = "someurl123344444",
                             LastUpdate = "634792557112051692",
                             Name = "Shirt"

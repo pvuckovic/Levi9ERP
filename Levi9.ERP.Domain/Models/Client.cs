@@ -1,12 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace Levi9.ERP.Domain.Model
+namespace Levi9.ERP.Domain.Models
 {
     public class Client
     {
@@ -18,6 +12,10 @@ namespace Levi9.ERP.Domain.Model
         public string Address { get; set; }
         [Required, StringLength(150)]
         public string Email { get; set; }
+        [Required, StringLength(100)]
+        public string Password { get; set; }
+        [Required, StringLength(100)]
+        public string Salt { get; set; }
         [Required, StringLength(50)]
         public string Phone { get; set; }
         [StringLength(18), MinLength(18)]

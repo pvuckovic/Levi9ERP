@@ -1,13 +1,8 @@
 ﻿using AutoMapper;
-using Levi9.ERP.Domain.Model;
-using Levi9.ERP.Domain.Model.DTO;
-using Levi9.ERP.Request;
-using Levi9.ERP.Response;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Levi9.ERP.Domain.Models;
+using Levi9.ERP.Domain.Models.DTO;
+using Levi9.ERP.Requests;
+using Levi9.ERP.Responses;
 
 namespace Levi9.ERP.Domain.Mappers
 {
@@ -20,6 +15,6 @@ namespace Levi9.ERP.Domain.Mappers
             CreateMap<ClientDTO, Client>();
             CreateMap<Client, ClientDTO>();
         }
-       
+
     }
 }
