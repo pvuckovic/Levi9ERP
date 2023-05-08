@@ -1,12 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Levi9.ERP.Domain.Model
+namespace Levi9.ERP.Domain.Models
 {
     [Index(nameof(Product.Name), IsUnique = true)]
     public class Product
