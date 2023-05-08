@@ -2,7 +2,7 @@
 using Moq;
 using AutoMapper;
 using Levi9.ERP.Controllers;
-using Levi9.ERP.Data.Response;
+using Levi9.ERP.Datas.Responses;
 using Levi9.ERP.Domain.Contracts;
 using Levi9.ERP.Domain.Models.DTO;
 using Microsoft.AspNetCore.Mvc;

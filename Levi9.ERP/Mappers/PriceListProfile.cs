@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Levi9.ERP.Data.Response;
+using Levi9.ERP.Datas.Responses;
 using Levi9.ERP.Domain.Models;
 using Levi9.ERP.Domain.Models.DTO;
 

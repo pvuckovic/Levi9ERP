@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Levi9.ERP.Data.Response;
+using Levi9.ERP.Datas.Responses;
 using Levi9.ERP.Domain.Contracts;
 using Microsoft.AspNetCore.Mvc;
 
