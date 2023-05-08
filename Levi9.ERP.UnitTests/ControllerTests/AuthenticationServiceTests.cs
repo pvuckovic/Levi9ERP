@@ -11,14 +11,14 @@ namespace Levi9.ERP.UnitTests.ControllerTests
     {
         private Mock<IClientRepository> _clientRepositoryMock;
         private Mock<IAuthenticatationService> _authenticationServiceMock;
-        private ClientService clientService;
+        private ClientService _clientService;
 
         [SetUp]
         public void Setup()
         {
             _clientRepositoryMock = new Mock<IClientRepository>();
             _authenticationServiceMock = new Mock<IAuthenticatationService>();
-            clientService = new ClientService(_clientRepositoryMock.Object, _authenticationServiceMock.Object);
+            _clientService = new ClientService(_clientRepositoryMock.Object, _authenticationServiceMock.Object);
         }
 
         [Test]
@@ -42,7 +42,7 @@ namespace Levi9.ERP.UnitTests.ControllerTests
             };
             _clientRepositoryMock.Setup(x => x.AddClient(clientModel)).Returns(createdClient);
 
-            var result = clientService.CreateClient(clientModel);
+            var result = _clientService.CreateClient(clientModel);
 
             Assert.IsNotNull(result);
             Assert.AreEqual(clientModel.Email, result.Email);

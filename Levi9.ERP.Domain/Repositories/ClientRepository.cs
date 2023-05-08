@@ -6,26 +6,26 @@ namespace Levi9.ERP.Domain.Repositories
 {
     public class ClientRepository : IClientRepository
     {
-        private readonly DataBaseContext context;
+        private readonly DataBaseContext _context;
         private readonly IMapper _mapper;
 
-        public ClientRepository(DataBaseContext context, IMapper _mapper)
+        public ClientRepository(DataBaseContext _context, IMapper _mapper)
         {
-            this.context = context;
+            this._context = _context;
             this._mapper = _mapper;
         }
 
         public ClientDTO AddClient(ClientDTO clientModel)
         {
             Client clientMap = _mapper.Map<Client>(clientModel);
-            var createdEntity = context.Clients.Add(clientMap);
+            var createdEntity = _context.Clients.Add(clientMap);
             SaveChanges();
             return _mapper.Map<ClientDTO>(createdEntity.Entity);
         }
 
         public bool SaveChanges()
         {
-            return context.SaveChanges() > 0;
+            return _context.SaveChanges() > 0;
         }
     }
 }

@@ -21,7 +21,7 @@ namespace Levi9.ERP.Domain.Services
             clientModel.Password = _authenticationService.HashPassword(clientModel.Password, salt);
             clientModel.Salt = salt;
             clientModel.LastUpdate = DateTime.Now.ToFileTimeUtc().ToString();
-            ClientDTO clientEntity = _clientRepository.AddClient(clientModel);
+            var clientEntity = _clientRepository.AddClient(clientModel);
             return clientEntity;
 
         }

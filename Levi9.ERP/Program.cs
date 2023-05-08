@@ -11,10 +11,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 // Add services to the container.
 
-builder.Services.AddDbContext<DataBaseContext>(options =>
+builder.Services.AddDbContext<Levi9.ERP.Domain.DataBaseContext>(options =>
                options.UseSqlServer(builder.Configuration.GetConnectionString("ErpDatabase")));
 
-
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -32,6 +32,7 @@ builder.Services.AddScoped<IUrlHelper>(x =>
     var factory = x.GetRequiredService<IUrlHelperFactory>();
     return factory.GetUrlHelper(actionContext);
 });
+
 
 var app = builder.Build();
 
