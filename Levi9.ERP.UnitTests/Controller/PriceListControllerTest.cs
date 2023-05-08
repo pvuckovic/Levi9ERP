@@ -12,7 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Levi9.ERP.UnitTests.Controllers
+namespace Levi9.ERP.UnitTests.Controller
 {
     [TestFixture]
     public class PriceListControllerTest
@@ -20,14 +20,14 @@ namespace Levi9.ERP.UnitTests.Controllers
         
         private Mock<IPriceListService> iPriceListServiceMock;
         private Mock<IMapper> _mapperMock;
-        private PriceListController _priceListController;
+        private PricelistController _priceListController;
         
         [SetUp]
         public void Setup()
         {
             iPriceListServiceMock = new Mock<IPriceListService>();
             _mapperMock = new Mock<IMapper>();
-            _priceListController = new PriceListController(iPriceListServiceMock.Object, _mapperMock.Object);
+            _priceListController = new PricelistController(iPriceListServiceMock.Object, _mapperMock.Object);
         }
 
         [Test]
@@ -55,9 +55,9 @@ namespace Levi9.ERP.UnitTests.Controllers
 
             var result = await _priceListController.Get(id);
 
-            Assert.That(result, Is.InstanceOf<BadRequestObjectResult>());
-            var badRequestResult = (BadRequestObjectResult)result;
-            Assert.That(badRequestResult.Value, Is.EqualTo($"Non existent price list with ID: {id}"));
+            Assert.That(result, Is.InstanceOf<NotFoundObjectResult>());
+            var notFoundRequestResult = (NotFoundObjectResult)result;
+            Assert.That(notFoundRequestResult.Value, Is.EqualTo($"Nonexistent price list with ID: {id}"));
         }
 
         [Test]

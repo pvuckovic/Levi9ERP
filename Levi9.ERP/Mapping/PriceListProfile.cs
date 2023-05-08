@@ -9,11 +9,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Levi9.ERP
+namespace Levi9.ERP.Mapping
 {
     public class PriceListProfile : Profile
     {
-        public PriceListProfile() 
+        public PriceListProfile()
         {
             CreateMap<PriceList, PriceListDTO>()
                 .ForMember(

@@ -21,7 +21,6 @@ namespace Levi9.ERP.Domain
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Price>()
             .HasKey(e => new { e.ProductId, e.PriceListId });

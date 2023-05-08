@@ -11,7 +11,7 @@ using Levi9.ERP.Domain.Service;
 using Levi9.ERP.Domain.Model.DTO;
 using Levi9.ERP.Domain.Model;
 
-namespace Levi9.ERP.UnitTests.Services
+namespace Levi9.ERP.UnitTests.Service
 {
     [TestFixture]
     public class PriceListServiceTest
