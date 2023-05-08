@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Levi9.ERP.Datas.Responses;
-using Levi9.ERP.Domain.Contracts;
+using Levi9.ERP.Domain.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Levi9.ERP.Controllers
@@ -23,12 +23,26 @@ namespace Levi9.ERP.Controllers
             if(id <= 0)
                 return BadRequest($"Invalid number({id}) of ID");
 
-            var priceDTO = await _priceListService.GetByIdAsync(id);
+            var priceListDTO = await _priceListService.GetByIdAsync(id);
 
-            if(priceDTO == null) 
+            if(priceListDTO == null) 
                 return NotFound($"Nonexistent price list with ID: {id}"); 
             
-            var priceListResponse = _mapper.Map<PriceListResponse>(priceDTO);
+            var priceListResponse = _mapper.Map<PriceListResponse>(priceListDTO);
+
+            return Ok(priceListResponse);
+        }
+
+        [HttpGet]
+        [Route("global/{globalId}")]
+        public async Task<IActionResult> GetByGlobalId(Guid globalId)
+        {
+            var priceListDTO = await _priceListService.GetByGlobalIdAsync(globalId);
+
+            if (priceListDTO == null)
+                return NotFound($"Nonexistent price list with global ID: {globalId}");
+
+            var priceListResponse = _mapper.Map<PriceListResponse>(priceListDTO);
 
             return Ok(priceListResponse);
         }

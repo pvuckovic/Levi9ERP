@@ -1,10 +1,10 @@
 ﻿using NUnit.Framework;
 using Moq;
 using AutoMapper;
-using Levi9.ERP.Domain.Contracts;
 using Levi9.ERP.Domain.Models.DTO;
 using Levi9.ERP.Domain.Models;
 using Levi9.ERP.Domain.Services;
+using Levi9.ERP.Domain.Repositories;
 
 namespace Levi9.ERP.UnitTests.Services
 {
@@ -50,6 +50,35 @@ namespace Levi9.ERP.UnitTests.Services
             _priceListRepositoryMock.Setup(x => x.GetByIdAsync(id)).ReturnsAsync((PriceList)null);
 
             var result = await _priceListSrvice.GetByIdAsync(id);
+
+            Assert.That(result, Is.Null);
+        }
+        [Test]
+        public async Task GetByGlobalIdAsync_ReturnsPriceListDto_WhenGlobalIdIsValid()
+        {
+            Guid globalId = Guid.NewGuid();
+            var expectedPriceList = new PriceList { GlobalId = globalId, Name = "Test Price List" };
+            var expectedPriceListDto = new PriceListDTO { GlobalId = globalId, Name = "Test Price List" };
+            _priceListRepositoryMock.Setup(x => x.GetByGlobalIdAsync(globalId)).ReturnsAsync(expectedPriceList);
+            _mapperMock.Setup(x => x.Map<PriceListDTO>(expectedPriceList)).Returns(expectedPriceListDto);
+
+            var result = await _priceListSrvice.GetByGlobalIdAsync(globalId);
+
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result, Is.InstanceOf<PriceListDTO>());
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.GlobalId, Is.EqualTo(expectedPriceListDto.GlobalId));
+                Assert.That(result.Name, Is.EqualTo(expectedPriceListDto.Name));
+            });
+        }
+        [Test]
+        public async Task GetByGlobalIdAsync_ReturnsNull_WhenPriceListNotFound()
+        {
+            Guid globalId = Guid.NewGuid();
+            _priceListRepositoryMock.Setup(x => x.GetByGlobalIdAsync(globalId)).ReturnsAsync((PriceList)null);
+
+            var result = await _priceListSrvice.GetByGlobalIdAsync(globalId);
 
             Assert.That(result, Is.Null);
         }
