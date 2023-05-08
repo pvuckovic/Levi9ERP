@@ -36,5 +36,19 @@ namespace Levi9.ERP.Domain.Services
             var productDto = _mapper.Map<ProductDTO>(product);
             return productDto;
         }
+
+        public async Task<ProductDTO> GetProductById(int productId)
+        {
+            var product = await _productRepository.GetProductById(productId);
+            var productDto = _mapper.Map<ProductDTO>(product);
+            return productDto;
+        }
+
+        public async Task<ProductDTO> GetProductByGlobalId(Guid productId)
+        {
+            var product = await _productRepository.GetProductByGlobalId(productId);
+            var productDto = _mapper.Map<ProductDTO>(product);
+            return productDto;
+        }
     }
 }

@@ -7,5 +7,7 @@ namespace Levi9.ERP.Domain.Repositories
     {
         Task<Product> AddProductAsync(Product product);
         Task<Product> GetProductByName(string name);
+        Task<Product> GetProductById(int productId);
+        Task<Product> GetProductByGlobalId(Guid productId);
     }
 }

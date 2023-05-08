@@ -35,5 +35,27 @@ namespace Levi9.ERP.Controllers
             var productResponse = _mapper.Map<ProductResponse>(createdProduct);
             return Ok(productResponse);
         }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById([Required] int id)
+        {
+            if (id < 0 || id == null) return BadRequest("Id is null or negative number");
+
+            var product = await _productService.GetProductById(id);
+            if (product == null) return BadRequest("A product with the same id doesn't exists.");
+
+            var productResponse = _mapper.Map<ProductResponse>(product);
+            return Ok(productResponse);
+        }
+
+        [HttpGet("/Global/{id}")]
+        public async Task<IActionResult> GetByGlobalId([Required] Guid id)
+        {
+            var product = await _productService.GetProductByGlobalId(id);
+            if (product == null) return BadRequest("A product with that id doesn't exists.");
+
+            var productResponse = _mapper.Map<ProductResponse>(product);
+            return Ok(productResponse);
+        }
     }
 }
