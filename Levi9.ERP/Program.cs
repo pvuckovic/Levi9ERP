@@ -35,6 +35,13 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
+using (var context = builder.Services.BuildServiceProvider().GetService<DataBaseContext>())
+{
+    context.Database.EnsureDeleted();
+    context.Database.Migrate();
+
+}
+
 app.MapControllers();
 
 app.Run();
