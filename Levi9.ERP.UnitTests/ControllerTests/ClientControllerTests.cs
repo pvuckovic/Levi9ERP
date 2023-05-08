@@ -67,24 +67,5 @@ namespace Levi9.ERP.UnitTests.ControllerTests
             Assert.AreEqual(clientDTO.Name, ((ClientResponse)createdResult.Value).Name);
             Assert.AreEqual(clientDTO.Email, ((ClientResponse)createdResult.Value).Email);
         }
-
-        [Test]
-        public void CreateClient_InvalidClient_ReturnsInternalServerError()
-        {
-            var clientRequest = new ClientRequest
-            {
-                Name = "",
-                Email = ""
-            };
-
-            mockClientService.Setup(x => x.CreateClient(It.IsAny<ClientDTO>())).Throws(new Exception("Invalid client"));
-
-            var result = clientController.CreateClient(clientRequest);
-
-            Assert.IsInstanceOf<ObjectResult>(result.Result);
-            var objectResult = (ObjectResult)result.Result;
-            Assert.AreEqual(500, objectResult.StatusCode);
-            Assert.AreEqual("Invalid client", objectResult.Value);
-        }
     }
 }

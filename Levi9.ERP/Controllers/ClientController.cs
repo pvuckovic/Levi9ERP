@@ -32,22 +32,12 @@ namespace Levi9.ERP.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [AllowAnonymous]
         public ActionResult<ClientResponse> CreateClient ([FromBody] ClientRequest client)
-        {
-            try
-            {
+        {   
                 ClientDTO clientMap = mapper.Map<ClientDTO>(client);
                 ClientDTO clientDto = clientService.CreateClient(clientMap);
                 string location = urlHelper.Action("CreateClient", "Client", new { clientId = clientDto.Id }, Request.Scheme);
 
-                return Created(location, mapper.Map<ClientResponse>(clientDto));
-            }
-            catch (Exception e)
-            {
-
-                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
-
-            }
-
+            return Created(location, mapper.Map<ClientResponse>(clientDto));
         }
     }
 }
