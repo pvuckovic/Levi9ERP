@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using Levi9.ERP.Datas.Requests;
 using Levi9.ERP.Datas.Responses;
+using Levi9.ERP.Domain.Models.DTO;
 using Levi9.ERP.Domain.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -57,6 +59,18 @@ namespace Levi9.ERP.Controllers
             var listResponse = list.Select(p => _mapper.Map<PriceListResponse>(p));
             
             return Ok(listResponse);
+        }
+
+        [HttpPost]
+        [Route("product/price")]
+        public async Task<IActionResult> AddProductIntoPriceList([FromBody]PriceRequest priceRequest)
+        {
+            var priceProductDto = _mapper.Map<PriceProductDTO>(priceRequest);
+
+            if (await _priceListService.AddPrice(priceProductDto) == null)
+                return BadRequest();
+
+           return Ok(priceProductDto);
         }
     }
 }

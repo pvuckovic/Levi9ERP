@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Levi9.ERP.Domain.Models;
 using Levi9.ERP.Domain.Models.DTO;
 using Levi9.ERP.Domain.Repositories;
 
@@ -12,6 +13,18 @@ namespace Levi9.ERP.Domain.Services
         {
             _priceListRepository = priceListRepository;
             _mapper = mapper;
+        }
+
+        public async Task<PriceProductDTO> AddPrice(PriceProductDTO priceProductDTO)
+        {
+            var price = _mapper.Map<Price>(priceProductDTO);
+            
+            price.GlobalId = Guid.NewGuid();
+            price.LastUpdate = DateTime.Now.ToFileTimeUtc().ToString();
+            if( await _priceListRepository.AddPrice(price) == null)
+                return null;
+
+            return priceProductDTO;
         }
 
         public async Task<IEnumerable<PriceListDTO>> GetAllPricesLists()
