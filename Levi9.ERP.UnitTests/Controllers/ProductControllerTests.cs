@@ -53,10 +53,8 @@ namespace Levi9.ERP.UnitTests.Controllers
             _productServiceMock.Setup(s => s.CreateProductAsync(It.IsAny<ProductDTO>())).ReturnsAsync(createdProduct);
             _mapperMock.Setup(m => m.Map<ProductDTO>(productRequest)).Returns(createdProduct);
             _mapperMock.Setup(m => m.Map<ProductResponse>(createdProduct)).Returns(expectedProductResponse);
-
             // Act
             IActionResult result = await _productController.CreateProductAsync(productRequest);
-
             // Assert
             Assert.IsInstanceOf<OkObjectResult>(result);
             var okResult = (OkObjectResult)result;
@@ -78,15 +76,120 @@ namespace Levi9.ERP.UnitTests.Controllers
                 LastUpdate = DateTime.Now.ToFileTimeUtc().ToString()
             };
             _productServiceMock.Setup(s => s.GetProductByName(productName)).ReturnsAsync(existingProduct);
-
             // Act
             IActionResult result = await _productController.CreateProductAsync(new ProductRequest { Name = productName });
-
             // Assert
             Assert.IsInstanceOf<BadRequestObjectResult>(result);
             var badRequestResult = (BadRequestObjectResult)result;
             Assert.AreEqual("A product with the same name already exists.", badRequestResult.Value);
         }
 
+        [Test]
+        public async Task GetById_WithValidId_ReturnsOk()
+        {
+            // Arrange
+            var id = 1;
+            var product = new ProductDTO
+            {
+                Id = id,
+                Name = "Product Name",
+                GlobalId = Guid.NewGuid(),
+                ImageUrl = "someurl.png",
+                AvailableQuantity = 15000,
+                LastUpdate = DateTime.Now.ToFileTimeUtc().ToString()
+            };
+            var expectedProductResponse = new ProductResponse
+            {
+                Id = product.Id,
+                Name = product.Name,
+                GlobalId = product.GlobalId,
+                ImageUrl = product.ImageUrl,
+                AvailableQuantity = product.AvailableQuantity,
+                LastUpdate = product.LastUpdate
+            };
+            _productServiceMock.Setup(s => s.GetProductById(id)).ReturnsAsync(product);
+            _mapperMock.Setup(m => m.Map<ProductResponse>(product)).Returns(expectedProductResponse);
+            // Act
+            IActionResult result = await _productController.GetById(id);
+            // Assert
+            Assert.IsInstanceOf<OkObjectResult>(result);
+            var okResult = (OkObjectResult)result;
+            Assert.AreEqual(expectedProductResponse, okResult.Value);
+        }
+
+        [Test]
+        public async Task GetById_WithInvalidId_ReturnsBadRequest()
+        {
+            // Arrange
+            var id = -1;
+            // Act
+            IActionResult result = await _productController.GetById(id);
+            // Assert
+            Assert.IsInstanceOf<BadRequestObjectResult>(result);
+            var badRequestResult = (BadRequestObjectResult)result;
+            Assert.AreEqual("Id is null or negative number", badRequestResult.Value);
+        }
+
+        [Test]
+        public async Task GetByGlobalId_WithValidId_ReturnsOk()
+        {
+            // Arrange
+            var id = Guid.NewGuid();
+            var product = new ProductDTO
+            {
+                Id = 1,
+                Name = "Product Name",
+                GlobalId = id,
+                ImageUrl = "someurl.png",
+                AvailableQuantity = 15000,
+                LastUpdate = DateTime.Now.ToFileTimeUtc().ToString()
+            };
+            var expectedProductResponse = new ProductResponse
+            {
+                Id = product.Id,
+                Name = product.Name,
+                GlobalId = product.GlobalId,
+                ImageUrl = product.ImageUrl,
+                AvailableQuantity = product.AvailableQuantity,
+                LastUpdate = product.LastUpdate
+            };
+            _productServiceMock.Setup(s => s.GetProductByGlobalId(id)).ReturnsAsync(product);
+            _mapperMock.Setup(m => m.Map<ProductResponse>(product)).Returns(expectedProductResponse);
+            // Act
+            IActionResult result = await _productController.GetByGlobalId(id);
+            // Assert
+            Assert.IsInstanceOf<OkObjectResult>(result);
+            var okResult = (OkObjectResult)result;
+            Assert.AreEqual(expectedProductResponse, okResult.Value);
+        }
+
+        [Test]
+        public async Task GetByGlobalId_WithNonexistentId_ReturnsNotFound()
+        {
+            // Arrange
+            var nonexistentId = Guid.NewGuid();
+            _productServiceMock.Setup(s => s.GetProductByGlobalId(nonexistentId)).ReturnsAsync((ProductDTO)null);
+            // Act
+            IActionResult result = await _productController.GetByGlobalId(nonexistentId);
+            // Assert
+            Assert.IsInstanceOf<NotFoundObjectResult>(result);
+            var badRequestResult = (NotFoundObjectResult)result;
+            Assert.AreEqual("A product with that id doesn't exists.", badRequestResult.Value);
+        }
+
+        [Test]
+        public async Task GetById_WithNonExistingId_ReturnsNotFound()
+        {
+            // Arrange
+            var nonExistingId = 1;
+            _productServiceMock.Setup(s => s.GetProductById(nonExistingId)).ReturnsAsync((ProductDTO)null);
+            // Act
+            var result = await _productController.GetById(nonExistingId);
+            // Assert
+            Assert.IsInstanceOf<NotFoundObjectResult>(result);
+            var notFoundResult = (NotFoundObjectResult)result;
+            Assert.AreEqual("A product with the same id doesn't exists.", notFoundResult.Value);
+        }
+
+        }
     }
-}

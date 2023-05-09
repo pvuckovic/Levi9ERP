@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Levi9.ERP.Domain.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    [Migration("20230505143834_SeedData")]
-    partial class SeedData
+    [Migration("20230509111419_DataSeed")]
+    partial class DataSeed
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -24,7 +24,7 @@ namespace Levi9.ERP.Domain.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("Levi9.ERP.Domain.Model.Client", b =>
+            modelBuilder.Entity("Levi9.ERP.Domain.Models.Client", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -55,6 +55,11 @@ namespace Levi9.ERP.Domain.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
                     b.Property<string>("Phone")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -62,6 +67,11 @@ namespace Levi9.ERP.Domain.Migrations
 
                     b.Property<int>("PriceListId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Salt")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 
@@ -78,15 +88,17 @@ namespace Levi9.ERP.Domain.Migrations
                             Id = 1,
                             Address = "Njegoseva 2",
                             Email = "zlatko123@gmail.com",
-                            GlobalId = new Guid("93ecff90-b3a3-4763-b5c5-5a85113df90e"),
+                            GlobalId = new Guid("77b57406-b58f-457c-9d98-b929818ae4d9"),
                             LastUpdate = "634792557112051692",
                             Name = "Zlatko",
+                            Password = "test",
                             Phone = "064322222",
-                            PriceListId = 1
+                            PriceListId = 1,
+                            Salt = "test1"
                         });
                 });
 
-            modelBuilder.Entity("Levi9.ERP.Domain.Model.Document", b =>
+            modelBuilder.Entity("Levi9.ERP.Domain.Models.Document", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -122,12 +134,12 @@ namespace Levi9.ERP.Domain.Migrations
                             Id = 1,
                             ClientId = 1,
                             DocumentType = "INVOICE",
-                            GlobalId = new Guid("829ead55-2420-40cf-ae6f-d57aea942289"),
+                            GlobalId = new Guid("7b9a4a5a-f375-42a2-9978-37c20955876b"),
                             LastUpdate = "634792557112051692"
                         });
                 });
 
-            modelBuilder.Entity("Levi9.ERP.Domain.Model.Price", b =>
+            modelBuilder.Entity("Levi9.ERP.Domain.Models.Price", b =>
                 {
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
@@ -163,13 +175,40 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 1,
                             PriceListId = 1,
                             Currency = "USD",
-                            GlobalId = new Guid("b8befe77-35ba-438d-8cfa-4719a5d795a0"),
+                            GlobalId = new Guid("33246dbc-c70b-45fb-bdf4-f9fb95943ab4"),
                             LastUpdate = "634792557112051692",
                             PriceValue = 12f
+                        },
+                        new
+                        {
+                            ProductId = 2,
+                            PriceListId = 2,
+                            Currency = "EUR",
+                            GlobalId = new Guid("5ea9e226-4989-465e-9898-914f9e3269fc"),
+                            LastUpdate = "634792557112051693",
+                            PriceValue = 30f
+                        },
+                        new
+                        {
+                            ProductId = 3,
+                            PriceListId = 3,
+                            Currency = "RSD",
+                            GlobalId = new Guid("ca30c82e-85cd-4aa5-ad36-945112d77187"),
+                            LastUpdate = "634792557112051694",
+                            PriceValue = 1500f
+                        },
+                        new
+                        {
+                            ProductId = 4,
+                            PriceListId = 3,
+                            Currency = "RSD",
+                            GlobalId = new Guid("621e8d61-1f26-441c-bc9f-992d3043c7f1"),
+                            LastUpdate = "634792557112051695",
+                            PriceValue = 1700f
                         });
                 });
 
-            modelBuilder.Entity("Levi9.ERP.Domain.Model.PriceList", b =>
+            modelBuilder.Entity("Levi9.ERP.Domain.Models.PriceList", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -197,13 +236,27 @@ namespace Levi9.ERP.Domain.Migrations
                         new
                         {
                             Id = 1,
-                            GlobalId = new Guid("5b9070ab-7db9-4f79-806a-19039492d99d"),
+                            GlobalId = new Guid("494ad824-8ee2-47c3-938f-2de7a43db415"),
                             LastUpdate = "634792557112051692",
                             Name = "USD Price List"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            GlobalId = new Guid("99ee6d21-9481-4462-b0bc-9f61c1761eae"),
+                            LastUpdate = "634792557112051693",
+                            Name = "EUR Price List"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            GlobalId = new Guid("9e1865fd-081e-45f3-9b46-2a7a3e24b858"),
+                            LastUpdate = "634792557112051694",
+                            Name = "RSD Price List"
                         });
                 });
 
-            modelBuilder.Entity("Levi9.ERP.Domain.Model.Product", b =>
+            modelBuilder.Entity("Levi9.ERP.Domain.Models.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -243,14 +296,41 @@ namespace Levi9.ERP.Domain.Migrations
                         {
                             Id = 1,
                             AvailableQuantity = 70,
-                            GlobalId = new Guid("7d4b6cd3-d466-4fef-89fd-152e99a5a6ac"),
+                            GlobalId = new Guid("80be8105-ac8b-4ae3-9a7f-d5d0c243cdae"),
                             ImageUrl = "someurl123344444",
                             LastUpdate = "634792557112051692",
                             Name = "Shirt"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AvailableQuantity = 140,
+                            GlobalId = new Guid("a0f00594-2706-4c91-83c9-542137c3149a"),
+                            ImageUrl = "slika.png",
+                            LastUpdate = "634792557112051693",
+                            Name = "A T-Shirt"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            AvailableQuantity = 150,
+                            GlobalId = new Guid("86cb027d-1d5c-4d7d-a157-6d46bc4a9749"),
+                            ImageUrl = "slika2.png",
+                            LastUpdate = "634792557112051694",
+                            Name = "Z T-Shirt"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            AvailableQuantity = 550,
+                            GlobalId = new Guid("ce3f669a-59ac-4105-a295-9b6059e58845"),
+                            ImageUrl = "slika3.png",
+                            LastUpdate = "634792557112051695",
+                            Name = "B T-Shirt"
                         });
                 });
 
-            modelBuilder.Entity("Levi9.ERP.Domain.Model.ProductDocument", b =>
+            modelBuilder.Entity("Levi9.ERP.Domain.Models.ProductDocument", b =>
                 {
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
@@ -286,9 +366,9 @@ namespace Levi9.ERP.Domain.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Levi9.ERP.Domain.Model.Client", b =>
+            modelBuilder.Entity("Levi9.ERP.Domain.Models.Client", b =>
                 {
-                    b.HasOne("Levi9.ERP.Domain.Model.PriceList", "PriceList")
+                    b.HasOne("Levi9.ERP.Domain.Models.PriceList", "PriceList")
                         .WithMany()
                         .HasForeignKey("PriceListId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -297,9 +377,9 @@ namespace Levi9.ERP.Domain.Migrations
                     b.Navigation("PriceList");
                 });
 
-            modelBuilder.Entity("Levi9.ERP.Domain.Model.Document", b =>
+            modelBuilder.Entity("Levi9.ERP.Domain.Models.Document", b =>
                 {
-                    b.HasOne("Levi9.ERP.Domain.Model.Client", "Client")
+                    b.HasOne("Levi9.ERP.Domain.Models.Client", "Client")
                         .WithMany()
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -308,15 +388,15 @@ namespace Levi9.ERP.Domain.Migrations
                     b.Navigation("Client");
                 });
 
-            modelBuilder.Entity("Levi9.ERP.Domain.Model.Price", b =>
+            modelBuilder.Entity("Levi9.ERP.Domain.Models.Price", b =>
                 {
-                    b.HasOne("Levi9.ERP.Domain.Model.PriceList", "PriceList")
+                    b.HasOne("Levi9.ERP.Domain.Models.PriceList", "PriceList")
                         .WithMany("Prices")
                         .HasForeignKey("PriceListId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Levi9.ERP.Domain.Model.Product", "Product")
+                    b.HasOne("Levi9.ERP.Domain.Models.Product", "Product")
                         .WithMany("Prices")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -327,15 +407,15 @@ namespace Levi9.ERP.Domain.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("Levi9.ERP.Domain.Model.ProductDocument", b =>
+            modelBuilder.Entity("Levi9.ERP.Domain.Models.ProductDocument", b =>
                 {
-                    b.HasOne("Levi9.ERP.Domain.Model.Document", "Document")
+                    b.HasOne("Levi9.ERP.Domain.Models.Document", "Document")
                         .WithMany("ProductDocuments")
                         .HasForeignKey("DocumentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Levi9.ERP.Domain.Model.Product", "Product")
+                    b.HasOne("Levi9.ERP.Domain.Models.Product", "Product")
                         .WithMany("ProductDocuments")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -346,17 +426,17 @@ namespace Levi9.ERP.Domain.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("Levi9.ERP.Domain.Model.Document", b =>
+            modelBuilder.Entity("Levi9.ERP.Domain.Models.Document", b =>
                 {
                     b.Navigation("ProductDocuments");
                 });
 
-            modelBuilder.Entity("Levi9.ERP.Domain.Model.PriceList", b =>
+            modelBuilder.Entity("Levi9.ERP.Domain.Models.PriceList", b =>
                 {
                     b.Navigation("Prices");
                 });
 
-            modelBuilder.Entity("Levi9.ERP.Domain.Model.Product", b =>
+            modelBuilder.Entity("Levi9.ERP.Domain.Models.Product", b =>
                 {
                     b.Navigation("Prices");
 

@@ -67,6 +67,8 @@ namespace Levi9.ERP.Domain
                      Name = "Zlatko",
                      Address = "Njegoseva 2",
                      Email = "zlatko123@gmail.com",
+                     Password = "test",
+                     Salt = "test1",
                      Phone = "064322222",
                      LastUpdate = "634792557112051692",
                      PriceListId = 1
@@ -102,6 +104,96 @@ namespace Levi9.ERP.Domain
                     LastUpdate = "634792557112051692",
                     ProductId = 1,
                     PriceListId = 1,
+                }
+                );
+
+            modelBuilder.Entity<PriceList>().HasData(
+                new PriceList
+                {
+                    Id = 2,
+                    GlobalId = Guid.NewGuid(),
+                    Name = "EUR Price List",
+                    LastUpdate = "634792557112051693"
+                }
+                );
+
+            modelBuilder.Entity<Product>().HasData(
+                new Product
+                {
+                    Id = 2,
+                    GlobalId = Guid.NewGuid(),
+                    Name = "A T-Shirt",
+                    ImageUrl = "slika.png",
+                    AvailableQuantity = 140,
+                    LastUpdate = "634792557112051693",
+                }
+                );
+            modelBuilder.Entity<Price>().HasData(
+                new Price
+                {
+                    GlobalId = Guid.NewGuid(),
+                    PriceValue = 30,
+                    Currency = "EUR",
+                    LastUpdate = "634792557112051693",
+                    ProductId = 2,
+                    PriceListId = 2,
+                }
+               );
+
+            modelBuilder.Entity<PriceList>().HasData(
+                new PriceList
+                {
+                    Id = 3,
+                    GlobalId = Guid.NewGuid(),
+                    Name = "RSD Price List",
+                    LastUpdate = "634792557112051694"
+                }
+                );
+
+            modelBuilder.Entity<Product>().HasData(
+                new Product
+                {
+                    Id = 3,
+                    GlobalId = Guid.NewGuid(),
+                    Name = "Z T-Shirt",
+                    ImageUrl = "slika2.png",
+                    AvailableQuantity = 150,
+                    LastUpdate = "634792557112051694",
+                }
+                );
+            modelBuilder.Entity<Price>().HasData(
+                new Price
+                {
+                    GlobalId = Guid.NewGuid(),
+                    PriceValue = 1500,
+                    Currency = "RSD",
+                    LastUpdate = "634792557112051694",
+                    ProductId = 3,
+                    PriceListId = 3,
+                }
+               );
+
+
+            modelBuilder.Entity<Product>().HasData(
+                new Product
+                {
+                    Id = 4,
+                    GlobalId = Guid.NewGuid(),
+                    Name = "B T-Shirt",
+                    ImageUrl = "slika3.png",
+                    AvailableQuantity = 550,
+                    LastUpdate = "634792557112051695",
+                }
+                );
+            modelBuilder.Entity<Price>().HasData(
+                new Price
+                {
+                    GlobalId = Guid.NewGuid(),
+                    PriceValue = 1700,
+                    Currency = "RSD",
+                    LastUpdate = "634792557112051695",
+                    ProductId = 4,
+                    PriceListId = 3,
                 }
                );
             modelBuilder.Entity<ProductDocument>().HasData(
