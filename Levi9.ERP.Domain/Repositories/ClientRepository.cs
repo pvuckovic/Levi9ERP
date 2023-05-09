@@ -9,10 +9,10 @@ namespace Levi9.ERP.Domain.Repositories
         private readonly DataBaseContext _context;
         private readonly IMapper _mapper;
 
-        public ClientRepository(DataBaseContext _context, IMapper _mapper)
+        public ClientRepository(DataBaseContext context, IMapper mapper)
         {
-            this._context = _context;
-            this._mapper = _mapper;
+            _context = context;
+            _mapper = mapper;
         }
 
         public ClientDTO AddClient(ClientDTO clientModel)

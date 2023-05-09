@@ -8,10 +8,10 @@ namespace Levi9.ERP.Domain.Services
         private readonly IClientRepository _clientRepository;
         private readonly IAuthenticatationService _authenticationService;
 
-        public ClientService(IClientRepository _clientRepository, IAuthenticatationService _authenticationService)
+        public ClientService(IClientRepository clientRepository, IAuthenticatationService authenticationService)
         {
-            this._clientRepository = _clientRepository;
-            this._authenticationService = _authenticationService;
+           _clientRepository = clientRepository;
+           _authenticationService = authenticationService;
         }
 
         public ClientDTO CreateClient(ClientDTO clientModel)

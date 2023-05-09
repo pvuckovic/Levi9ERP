@@ -17,11 +17,11 @@ namespace Levi9.ERP.Controllers
         private readonly IMapper _mapper;
         private readonly IUrlHelper _urlHelper;
 
-        public ClientController(IClientService _clientService, IMapper _mapper, IUrlHelper _urlHelper)
+        public ClientController(IClientService clientService, IMapper mapper, IUrlHelper urlHelper)
         {
-            this._clientService = _clientService;
-            this._mapper = _mapper;
-            this._urlHelper = _urlHelper;
+            _clientService = clientService;
+            _mapper = mapper;
+            _urlHelper = urlHelper;
         }
 
         [HttpPost]
