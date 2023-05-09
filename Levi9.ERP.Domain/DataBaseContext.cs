@@ -67,6 +67,8 @@ namespace Levi9.ERP.Domain
                      Name = "Zlatko",
                      Address = "Njegoseva 2",
                      Email = "zlatko123@gmail.com",
+                     Password = "test",
+                     Salt = "test1",
                      Phone = "064322222",
                      LastUpdate = "634792557112051692",
                      PriceListId = 1
