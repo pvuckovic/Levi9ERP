@@ -14,6 +14,15 @@ namespace Levi9.ERP.Domain.Services
             _mapper = mapper;
         }
 
+        public async Task<IEnumerable<PriceListDTO>> GetAllPricesLists()
+        {
+            var list = await _priceListRepository.GetAllPricesLists();
+
+            if(!list.Any()) 
+                return new List<PriceListDTO>();
+
+            return list.Select(p => _mapper.Map<PriceListDTO>(p));
+        }
         public async Task<PriceListDTO> GetByGlobalIdAsync(Guid globalId)
         {
             var priceList = await _priceListRepository.GetByGlobalIdAsync(globalId);

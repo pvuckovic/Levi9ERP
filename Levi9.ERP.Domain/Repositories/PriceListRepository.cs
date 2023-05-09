@@ -11,6 +11,10 @@ namespace Levi9.ERP.Domain.Repositories
             _dataBaseContext = dataBaseContext;
         }
 
+        public async Task<IEnumerable<PriceList>> GetAllPricesLists()
+        {
+            return await _dataBaseContext.PriceLists.ToListAsync();
+        }
         public async Task<PriceList> GetByGlobalIdAsync(Guid globalId)
         {
             return await _dataBaseContext.PriceLists.FirstOrDefaultAsync(p => p.GlobalId == globalId);

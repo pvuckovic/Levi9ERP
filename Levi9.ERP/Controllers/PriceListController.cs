@@ -46,5 +46,17 @@ namespace Levi9.ERP.Controllers
 
             return Ok(priceListResponse);
         }
+        [HttpGet]
+        public async Task<IActionResult> GetAllPricesLists()
+        {
+            var list = await _priceListService.GetAllPricesLists();
+
+            if (!list.Any())
+                return Ok("There is no prices lists in database :( ");
+
+            var listResponse = list.Select(p => _mapper.Map<PriceListResponse>(p));
+            
+            return Ok(listResponse);
+        }
     }
 }

@@ -69,6 +69,40 @@ namespace Levi9.ERP.UnitTests.Controllers
         }
 
         [Test]
+        public async Task GetAllPricesLists_ReturnsOkWithMappedList_WhenServiceReturnsNonEmptyList()
+        {
+            var priceListDTO1 = new PriceListDTO { Id = 1, Name = "Price List 1" };
+            var priceListDTO2 = new PriceListDTO { Id = 2, Name = "Price List 2" };
+            var priceListDTOs = new List<PriceListDTO> { priceListDTO1, priceListDTO2 };
+            var expectedResponse1 = new PriceListResponse { Id = 1, Name = "Price List 1" };
+            var expectedResponse2 = new PriceListResponse { Id = 2, Name = "Price List 2" };
+            var expectedResponses = new List<PriceListResponse> { expectedResponse1, expectedResponse2 };
+
+            _priceListServiceMock.Setup(x => x.GetAllPricesLists()).ReturnsAsync(priceListDTOs);
+            _mapperMock.Setup(x => x.Map<PriceListResponse>(priceListDTO1)).Returns(expectedResponse1);
+            _mapperMock.Setup(x => x.Map<PriceListResponse>(priceListDTO2)).Returns(expectedResponse2);
+
+            var result = await _priceListController.GetAllPricesLists();
+
+            var okResult = result as OkObjectResult;
+            Assert.That(okResult, Is.Not.Null);
+            var responseList = okResult.Value as IEnumerable<PriceListResponse>;
+            Assert.That(responseList, Is.Not.Null);
+            CollectionAssert.AreEqual(expectedResponses, responseList);
+        }
+
+        [Test]
+        public async Task GetAllPricesLists_ReturnsOkWithEmptyMessage_WhenServiceReturnsEmptyList()
+        {
+            var emptyList = Enumerable.Empty<PriceListDTO>();
+            _priceListServiceMock.Setup(x => x.GetAllPricesLists()).ReturnsAsync(emptyList);
+
+            var result = await _priceListController.GetAllPricesLists();
+
+            var okResult = result as OkObjectResult;
+            Assert.That(okResult, Is.Not.Null);
+            Assert.That(okResult.Value, Is.EqualTo("There is no prices lists in database :( "));
+        }
         public async Task GetByGlobalId_ReturnsOkResult_WhenPriceListExists()
         {
             Guid globalId = Guid.NewGuid();
