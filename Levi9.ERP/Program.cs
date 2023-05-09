@@ -1,5 +1,4 @@
 using Levi9.ERP.Domain;
-using Levi9.ERP.Domain.Contracts;
 using Levi9.ERP.Domain.Repositories;
 using Levi9.ERP.Domain.Services;
 using Microsoft.AspNetCore.Mvc;

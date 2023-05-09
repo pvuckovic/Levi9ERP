@@ -1,5 +1,4 @@
-﻿using Levi9.ERP.Domain.Contracts;
-using Levi9.ERP.Domain.Models;
+﻿using Levi9.ERP.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Levi9.ERP.Domain.Repositories
@@ -11,6 +10,12 @@ namespace Levi9.ERP.Domain.Repositories
         {
             _dataBaseContext = dataBaseContext;
         }
+
+        public async Task<PriceList> GetByGlobalIdAsync(Guid globalId)
+        {
+            return await _dataBaseContext.PriceLists.FirstOrDefaultAsync(p => p.GlobalId == globalId);
+        }
+
         public async Task<PriceList> GetByIdAsync(int id)
         {
             return await _dataBaseContext.PriceLists.FirstOrDefaultAsync(p => p.Id == id);
