@@ -84,6 +84,7 @@ namespace Levi9.ERP.UnitTests.Services
 
             var result = await _priceListSrvice.GetAllPricesLists();
 
+
             Assert.That(result, Is.Not.Null);
             Assert.That(result, Is.InstanceOf<IEnumerable<PriceListDTO>>());
             Assert.That(result.Any(), Is.False);
