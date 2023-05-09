@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Levi9.ERP.Domain", "Levi9.E
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Levi9.ERP.Data.Migrations", "Levi9.ERP.Data.Migrations\Levi9.ERP.Data.Migrations.csproj", "{0E6C440E-4AF8-4015-8332-584159355AEF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Levi9.ERP.UnitTests", "Levi9.ERP.UnitTests\Levi9.ERP.UnitTests.csproj", "{3405CF9E-78B2-4B55-B6C2-756EC8960528}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Levi9.ERP.UnitTests", "Levi9.ERP.UnitTests\Levi9.ERP.UnitTests.csproj", "{06C28CAD-31CD-4BE3-A8D5-506B413967B5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,10 +33,10 @@ Global
 		{0E6C440E-4AF8-4015-8332-584159355AEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E6C440E-4AF8-4015-8332-584159355AEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E6C440E-4AF8-4015-8332-584159355AEF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3405CF9E-78B2-4B55-B6C2-756EC8960528}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3405CF9E-78B2-4B55-B6C2-756EC8960528}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3405CF9E-78B2-4B55-B6C2-756EC8960528}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3405CF9E-78B2-4B55-B6C2-756EC8960528}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06C28CAD-31CD-4BE3-A8D5-506B413967B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06C28CAD-31CD-4BE3-A8D5-506B413967B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06C28CAD-31CD-4BE3-A8D5-506B413967B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06C28CAD-31CD-4BE3-A8D5-506B413967B5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

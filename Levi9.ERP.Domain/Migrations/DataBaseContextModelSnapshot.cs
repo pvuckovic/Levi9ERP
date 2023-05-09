@@ -53,6 +53,11 @@ namespace Levi9.ERP.Domain.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
                     b.Property<string>("Phone")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -60,6 +65,11 @@ namespace Levi9.ERP.Domain.Migrations
 
                     b.Property<int>("PriceListId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Salt")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 
@@ -76,11 +86,13 @@ namespace Levi9.ERP.Domain.Migrations
                             Id = 1,
                             Address = "Njegoseva 2",
                             Email = "zlatko123@gmail.com",
-                            GlobalId = new Guid("cec1a21c-e8c5-4579-80d0-c6aaa3d8ef8b"),
+                            GlobalId = new Guid("77b57406-b58f-457c-9d98-b929818ae4d9"),
                             LastUpdate = "634792557112051692",
                             Name = "Zlatko",
+                            Password = "test",
                             Phone = "064322222",
-                            PriceListId = 1
+                            PriceListId = 1,
+                            Salt = "test1"
                         });
                 });
 
@@ -120,7 +132,7 @@ namespace Levi9.ERP.Domain.Migrations
                             Id = 1,
                             ClientId = 1,
                             DocumentType = "INVOICE",
-                            GlobalId = new Guid("ea6dca9e-b279-4a37-a8f7-30bbeb0c7529"),
+                            GlobalId = new Guid("7b9a4a5a-f375-42a2-9978-37c20955876b"),
                             LastUpdate = "634792557112051692"
                         });
                 });
@@ -161,7 +173,7 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 1,
                             PriceListId = 1,
                             Currency = "USD",
-                            GlobalId = new Guid("5b148410-72b2-40fb-bd0e-e9bbb843c0e6"),
+                            GlobalId = new Guid("33246dbc-c70b-45fb-bdf4-f9fb95943ab4"),
                             LastUpdate = "634792557112051692",
                             PriceValue = 12f
                         },
@@ -170,7 +182,7 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 2,
                             PriceListId = 2,
                             Currency = "EUR",
-                            GlobalId = new Guid("f50c5412-49e8-461c-8322-a5734d538f9f"),
+                            GlobalId = new Guid("5ea9e226-4989-465e-9898-914f9e3269fc"),
                             LastUpdate = "634792557112051693",
                             PriceValue = 30f
                         },
@@ -179,7 +191,7 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 3,
                             PriceListId = 3,
                             Currency = "RSD",
-                            GlobalId = new Guid("a1e47326-9d3a-454e-9c3e-b3b8b4c648db"),
+                            GlobalId = new Guid("ca30c82e-85cd-4aa5-ad36-945112d77187"),
                             LastUpdate = "634792557112051694",
                             PriceValue = 1500f
                         },
@@ -188,7 +200,7 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 4,
                             PriceListId = 3,
                             Currency = "RSD",
-                            GlobalId = new Guid("1794f9cc-5790-427c-b00c-c6d660eada51"),
+                            GlobalId = new Guid("621e8d61-1f26-441c-bc9f-992d3043c7f1"),
                             LastUpdate = "634792557112051695",
                             PriceValue = 1700f
                         });
@@ -222,21 +234,21 @@ namespace Levi9.ERP.Domain.Migrations
                         new
                         {
                             Id = 1,
-                            GlobalId = new Guid("8664a890-ae23-478b-a0d6-062cb605faa5"),
+                            GlobalId = new Guid("494ad824-8ee2-47c3-938f-2de7a43db415"),
                             LastUpdate = "634792557112051692",
                             Name = "USD Price List"
                         },
                         new
                         {
                             Id = 2,
-                            GlobalId = new Guid("a30d7989-498f-42b5-b269-8f1174a003d9"),
+                            GlobalId = new Guid("99ee6d21-9481-4462-b0bc-9f61c1761eae"),
                             LastUpdate = "634792557112051693",
                             Name = "EUR Price List"
                         },
                         new
                         {
                             Id = 3,
-                            GlobalId = new Guid("dccff2b3-ff87-41b9-aae8-270c2f255c70"),
+                            GlobalId = new Guid("9e1865fd-081e-45f3-9b46-2a7a3e24b858"),
                             LastUpdate = "634792557112051694",
                             Name = "RSD Price List"
                         });
@@ -282,7 +294,7 @@ namespace Levi9.ERP.Domain.Migrations
                         {
                             Id = 1,
                             AvailableQuantity = 70,
-                            GlobalId = new Guid("43d019b8-70d6-426c-8acf-590d82067dcc"),
+                            GlobalId = new Guid("80be8105-ac8b-4ae3-9a7f-d5d0c243cdae"),
                             ImageUrl = "someurl123344444",
                             LastUpdate = "634792557112051692",
                             Name = "Shirt"
@@ -291,7 +303,7 @@ namespace Levi9.ERP.Domain.Migrations
                         {
                             Id = 2,
                             AvailableQuantity = 140,
-                            GlobalId = new Guid("3ab7697b-13c4-47f8-a4be-7d13150129ea"),
+                            GlobalId = new Guid("a0f00594-2706-4c91-83c9-542137c3149a"),
                             ImageUrl = "slika.png",
                             LastUpdate = "634792557112051693",
                             Name = "A T-Shirt"
@@ -300,7 +312,7 @@ namespace Levi9.ERP.Domain.Migrations
                         {
                             Id = 3,
                             AvailableQuantity = 150,
-                            GlobalId = new Guid("d43436b9-dade-4469-950e-9b577cd691e2"),
+                            GlobalId = new Guid("86cb027d-1d5c-4d7d-a157-6d46bc4a9749"),
                             ImageUrl = "slika2.png",
                             LastUpdate = "634792557112051694",
                             Name = "Z T-Shirt"
@@ -309,7 +321,7 @@ namespace Levi9.ERP.Domain.Migrations
                         {
                             Id = 4,
                             AvailableQuantity = 550,
-                            GlobalId = new Guid("734ca172-b580-441d-9113-20cb79850424"),
+                            GlobalId = new Guid("ce3f669a-59ac-4105-a295-9b6059e58845"),
                             ImageUrl = "slika3.png",
                             LastUpdate = "634792557112051695",
                             Name = "B T-Shirt"

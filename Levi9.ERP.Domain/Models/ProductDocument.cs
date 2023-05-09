@@ -1,4 +1,7 @@
+
 using System.ComponentModel.DataAnnotations;
+
+
 
 namespace Levi9.ERP.Domain.Models
 {
