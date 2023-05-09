@@ -1,17 +1,17 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace Levi9.ERP.Domain.Services
+namespace Levi9.ERP.Domain.Helpers
 {
-    public class AuthenticationService : IAuthenticatationService
+    public static class AuthenticationHelper
     {
-        public string GenerateRandomSalt(int length = 10)
+        public  static string GenerateRandomSalt(int length = 10)
         {
             string randomString = Convert.ToBase64String(RandomNumberGenerator.GetBytes(length));
             return new string(randomString);
         }
 
-        public string HashPassword(string password, string salt)
+        public static string HashPassword(string password, string salt)
         {
             var bytes = Encoding.UTF8.GetBytes(password + salt);
             using (var sha256 = SHA256.Create())

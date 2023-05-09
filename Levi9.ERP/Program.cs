@@ -1,4 +1,5 @@
 using Levi9.ERP.Domain;
+using Levi9.ERP.Domain.Contracts;
 using Levi9.ERP.Domain.Repositories;
 using Levi9.ERP.Domain.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -14,6 +15,9 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddDbContext<Levi9.ERP.Domain.DataBaseContext>(options =>
                options.UseSqlServer(builder.Configuration.GetConnectionString("ErpDatabase")));
 
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IProductService, ProductService>();
+
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddControllers();
@@ -23,7 +27,6 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IClientRepository, ClientRepository>();
 builder.Services.AddScoped<IClientService, ClientService>();
-builder.Services.AddScoped<IAuthenticatationService, AuthenticationService>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
 builder.Services.AddScoped<IUrlHelper>(x =>
@@ -33,6 +36,10 @@ builder.Services.AddScoped<IUrlHelper>(x =>
     return factory.GetUrlHelper(actionContext);
 });
 
+builder.Services.AddScoped<IPriceListRepository, PriceListRepository>();
+builder.Services.AddScoped<IPriceListService, PriceListService>();
+
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 var app = builder.Build();
 

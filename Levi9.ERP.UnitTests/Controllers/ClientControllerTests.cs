@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc.Routing;
 using Moq;
 using NUnit.Framework;
 
-namespace Levi9.ERP.UnitTests.ControllerTests
+namespace Levi9.ERP.UnitTests.Controllers
 {
     [TestFixture]
     public class ClientControllerTests
@@ -54,7 +54,7 @@ namespace Levi9.ERP.UnitTests.ControllerTests
             _urlHelperMock.Setup(x => x.Action(It.Is<UrlActionContext>(uac =>
                                                 uac.Action == "CreateClient" &&
                                                 uac.Controller == "Client" &&
-                                                uac.Protocol == String.Empty)))
+                                                uac.Protocol == string.Empty)))
                                                 .Returns("callbackUrl");
 
             _mockClientService.Setup(x => x.CreateClient(It.IsAny<ClientDTO>())).Returns(clientDTO);

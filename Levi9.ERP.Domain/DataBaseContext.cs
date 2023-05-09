@@ -14,11 +14,8 @@ namespace Levi9.ERP.Domain
 
         public DataBaseContext(DbContextOptions options) : base(options)
         {
-
             Database.EnsureCreated();
-
         }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -119,8 +116,6 @@ namespace Levi9.ERP.Domain
                    DocumentId = 1,
                }
               );
-
-
         }
     }
 }
