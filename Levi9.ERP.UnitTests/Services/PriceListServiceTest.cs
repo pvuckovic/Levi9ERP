@@ -47,7 +47,7 @@ namespace Levi9.ERP.UnitTests.Services
         public async Task GetByIdAsync_ReturnsNull_WhenPriceListNotFound()
         {
             int id = 1;
-            _priceListRepositoryMock.Setup(x => x.GetByIdAsync(id)).ReturnsAsync((PriceList)null);
+            _priceListRepositoryMock.Setup(x => x.GetByIdAsync(id)).ReturnsAsync(null as PriceList);
 
             var result = await _priceListSrvice.GetByIdAsync(id);
 
@@ -76,7 +76,7 @@ namespace Levi9.ERP.UnitTests.Services
         public async Task GetByGlobalIdAsync_ReturnsNull_WhenPriceListNotFound()
         {
             Guid globalId = Guid.NewGuid();
-            _priceListRepositoryMock.Setup(x => x.GetByGlobalIdAsync(globalId)).ReturnsAsync((PriceList)null);
+            _priceListRepositoryMock.Setup(x => x.GetByGlobalIdAsync(globalId)).ReturnsAsync(null as PriceList);
 
             var result = await _priceListSrvice.GetByGlobalIdAsync(globalId);
 

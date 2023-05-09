@@ -67,5 +67,34 @@ namespace Levi9.ERP.UnitTests.Controllers
             var badRequestResult = result as BadRequestObjectResult;
             Assert.That(badRequestResult.Value, Is.EqualTo($"Invalid number({id}) of ID"));
         }
+
+        [Test]
+        public async Task GetByGlobalId_ReturnsOkResult_WhenPriceListExists()
+        {
+            Guid globalId = Guid.NewGuid();
+            var priceListDto = new PriceListDTO { GlobalId = globalId, Name = "Test Price List" };
+            var priceListResponse = new PriceListResponse { GlobalId = globalId, Name = "Test Price List" };
+            _priceListServiceMock.Setup(x => x.GetByGlobalIdAsync(globalId)).ReturnsAsync(priceListDto);
+            _mapperMock.Setup(x => x.Map<PriceListResponse>(priceListDto)).Returns(priceListResponse);
+
+            var result = await _priceListController.GetByGlobalId(globalId);
+
+            Assert.That(result, Is.InstanceOf<OkObjectResult>());
+            var okResult = (OkObjectResult)result;
+            Assert.That(okResult.Value, Is.EqualTo(priceListResponse));
+        }
+
+        [Test]
+        public async Task GetByGlobalId_ReturnsNotFound_WhenPriceListDoesNotExist()
+        {
+            Guid globalId = Guid.NewGuid();
+            _priceListServiceMock.Setup(x => x.GetByGlobalIdAsync(globalId)).ReturnsAsync(null as PriceListDTO);
+
+            var result = await _priceListController.GetByGlobalId(globalId);
+
+            Assert.That(result, Is.InstanceOf<NotFoundObjectResult>());
+            var notFoundResult = (NotFoundObjectResult)result;
+            Assert.That(notFoundResult.Value, Is.EqualTo($"Nonexistent price list with global ID: {globalId}"));
+        }
     }
 }
