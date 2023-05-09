@@ -148,27 +148,44 @@ namespace Levi9.ERP.Domain.Migrations
             migrationBuilder.InsertData(
                 table: "PriceLists",
                 columns: new[] { "Id", "GlobalId", "LastUpdate", "Name" },
-                values: new object[] { 1, new Guid("cb785bfa-6062-4732-b984-035cd9adbddf"), "634792557112051692", "USD Price List" });
+                values: new object[,]
+                {
+                    { 1, new Guid("494ad824-8ee2-47c3-938f-2de7a43db415"), "634792557112051692", "USD Price List" },
+                    { 2, new Guid("99ee6d21-9481-4462-b0bc-9f61c1761eae"), "634792557112051693", "EUR Price List" },
+                    { 3, new Guid("9e1865fd-081e-45f3-9b46-2a7a3e24b858"), "634792557112051694", "RSD Price List" }
+                });
 
             migrationBuilder.InsertData(
                 table: "Products",
                 columns: new[] { "Id", "AvailableQuantity", "GlobalId", "ImageUrl", "LastUpdate", "Name" },
-                values: new object[] { 1, 70, new Guid("a8b69219-656d-4b7e-b811-09652627abeb"), "someurl123344444", "634792557112051692", "Shirt" });
+                values: new object[,]
+                {
+                    { 1, 70, new Guid("80be8105-ac8b-4ae3-9a7f-d5d0c243cdae"), "someurl123344444", "634792557112051692", "Shirt" },
+                    { 2, 140, new Guid("a0f00594-2706-4c91-83c9-542137c3149a"), "slika.png", "634792557112051693", "A T-Shirt" },
+                    { 3, 150, new Guid("86cb027d-1d5c-4d7d-a157-6d46bc4a9749"), "slika2.png", "634792557112051694", "Z T-Shirt" },
+                    { 4, 550, new Guid("ce3f669a-59ac-4105-a295-9b6059e58845"), "slika3.png", "634792557112051695", "B T-Shirt" }
+                });
 
             migrationBuilder.InsertData(
                 table: "Clients",
                 columns: new[] { "Id", "Address", "Email", "GlobalId", "LastUpdate", "Name", "Password", "Phone", "PriceListId", "Salt" },
-                values: new object[] { 1, "Njegoseva 2", "zlatko123@gmail.com", new Guid("b03b37ef-8cbd-412d-876c-1ccc696c4428"), "634792557112051692", "Zlatko", "test", "064322222", 1, "test1" });
+                values: new object[] { 1, "Njegoseva 2", "zlatko123@gmail.com", new Guid("77b57406-b58f-457c-9d98-b929818ae4d9"), "634792557112051692", "Zlatko", "test", "064322222", 1, "test1" });
 
             migrationBuilder.InsertData(
                 table: "Prices",
                 columns: new[] { "PriceListId", "ProductId", "Currency", "GlobalId", "LastUpdate", "PriceValue" },
-                values: new object[] { 1, 1, "USD", new Guid("2221d317-6c60-4db4-a63c-7f5771cdf45f"), "634792557112051692", 12f });
+                values: new object[,]
+                {
+                    { 1, 1, "USD", new Guid("33246dbc-c70b-45fb-bdf4-f9fb95943ab4"), "634792557112051692", 12f },
+                    { 2, 2, "EUR", new Guid("5ea9e226-4989-465e-9898-914f9e3269fc"), "634792557112051693", 30f },
+                    { 3, 3, "RSD", new Guid("ca30c82e-85cd-4aa5-ad36-945112d77187"), "634792557112051694", 1500f },
+                    { 3, 4, "RSD", new Guid("621e8d61-1f26-441c-bc9f-992d3043c7f1"), "634792557112051695", 1700f }
+                });
 
             migrationBuilder.InsertData(
                 table: "Documents",
                 columns: new[] { "Id", "ClientId", "DocumentType", "GlobalId", "LastUpdate" },
-                values: new object[] { 1, 1, "INVOICE", new Guid("11cc5d84-cecf-4194-98e3-cdf53d0ffa54"), "634792557112051692" });
+                values: new object[] { 1, 1, "INVOICE", new Guid("7b9a4a5a-f375-42a2-9978-37c20955876b"), "634792557112051692" });
 
             migrationBuilder.InsertData(
                 table: "ProductDocuments",

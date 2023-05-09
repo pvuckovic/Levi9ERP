@@ -52,7 +52,7 @@ namespace Levi9.ERP.UnitTests.Services
             Assert.AreEqual(productDTO.ImageUrl, result.ImageUrl);
             Assert.AreEqual(productDTO.PriceList, result.PriceList);
 
-            
+
         }
 
         [Test]
@@ -81,5 +81,61 @@ namespace Levi9.ERP.UnitTests.Services
             // Assert
             Assert.Null(result);
         }
+
+        [Test]
+        public async Task GetProductByGlobalId_WhenProductExists_ReturnsProduct()
+        {
+            // Arrange
+            Guid productId = Guid.NewGuid();
+            Product product = new Product { GlobalId = productId };
+            ProductDTO expectedProductDto = new ProductDTO { GlobalId = productId };
+            _productRepositoryMock.Setup(repo => repo.GetProductByGlobalId(productId)).ReturnsAsync(product);
+            _mapperMock.Setup(mock => mock.Map<ProductDTO>(product)).Returns(expectedProductDto);
+            // Act
+            ProductDTO actualProductDto = await _productService.GetProductByGlobalId(productId);
+            // Assert
+            Assert.AreEqual(expectedProductDto.GlobalId, actualProductDto.GlobalId);
+        }
+
+        [Test]
+        public async Task GetProductByGlobalId_WhenProductDoesNotExist_ReturnsNull()
+        {
+            // Arrange
+            Guid productId = Guid.NewGuid();
+            _productRepositoryMock.Setup(repo => repo.GetProductByGlobalId(productId)).ReturnsAsync((Product)null);
+            // Act
+            var result = await _productService.GetProductByGlobalId(productId);
+            // Assert
+            Assert.Null(result);
+        }
+
+        [Test]
+        public async Task GetProductById_WhenProductExists_ReturnsProduct()
+        {
+            // Arrange
+            int productId = 1;
+            Product product = new Product { Id = productId };
+            ProductDTO expectedProductDto = new ProductDTO { Id = productId };
+            _productRepositoryMock.Setup(repo => repo.GetProductById(productId)).ReturnsAsync(product);
+            _mapperMock.Setup(mock => mock.Map<ProductDTO>(product)).Returns(expectedProductDto);
+            // Act
+            ProductDTO actualProductDto = await _productService.GetProductById(productId);
+            // Assert
+            Assert.AreEqual(expectedProductDto.Id, actualProductDto.Id);
+        }
+
+        [Test]
+        public async Task GetProductById_WhenProductDoesNotExist_ReturnsNull()
+        {
+            // Arrange
+            int productId = 1;
+            _productRepositoryMock.Setup(repo => repo.GetProductById(productId)).ReturnsAsync((Product)null);
+            // Act
+            var result = await _productService.GetProductById(productId);
+            // Assert
+            Assert.Null(result);
+        }
+
+
     }
 }
