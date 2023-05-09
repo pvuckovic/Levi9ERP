@@ -13,7 +13,7 @@ namespace Levi9.ERP.Domain.Repositories
 
         public async Task<IEnumerable<PriceList>> GetAllPricesLists()
         {
-            return await _dataBaseContext.PriceLists.Select(p => p).ToListAsync();
+            return await _dataBaseContext.PriceLists.ToListAsync();
         }
 
         public async Task<PriceList> GetByIdAsync(int id)
