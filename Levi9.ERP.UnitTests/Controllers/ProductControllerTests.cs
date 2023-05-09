@@ -164,7 +164,7 @@ namespace Levi9.ERP.UnitTests.Controllers
         }
 
         [Test]
-        public async Task GetByGlobalId_WithNonexistentId_ReturnsBadRequest()
+        public async Task GetByGlobalId_WithNonexistentId_ReturnsNotFound()
         {
             // Arrange
             var nonexistentId = Guid.NewGuid();
@@ -172,8 +172,8 @@ namespace Levi9.ERP.UnitTests.Controllers
             // Act
             IActionResult result = await _productController.GetByGlobalId(nonexistentId);
             // Assert
-            Assert.IsInstanceOf<BadRequestObjectResult>(result);
-            var badRequestResult = (BadRequestObjectResult)result;
+            Assert.IsInstanceOf<NotFoundObjectResult>(result);
+            var badRequestResult = (NotFoundObjectResult)result;
             Assert.AreEqual("A product with that id doesn't exists.", badRequestResult.Value);
         }
 

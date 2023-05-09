@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Levi9.ERP.Data.Requests;
 using Levi9.ERP.Data.Responses;
+using Levi9.ERP.Datas.Requests;
 using Levi9.ERP.Domain.Models.DTO;
 using Levi9.ERP.Domain.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -37,22 +38,22 @@ namespace Levi9.ERP.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById([Required] int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            if (id < 0 || id == null) return BadRequest("Id is null or negative number");
+            if (id <= 0) return BadRequest("Id is null or negative number");
 
             var product = await _productService.GetProductById(id);
-            if (product == null) return BadRequest("A product with the same id doesn't exists.");
+            if (product == null) return NotFound("A product with the same id doesn't exists.");
 
             var productResponse = _mapper.Map<ProductResponse>(product);
             return Ok(productResponse);
         }
 
         [HttpGet("/Global/{id}")]
-        public async Task<IActionResult> GetByGlobalId([Required] Guid id)
+        public async Task<IActionResult> GetByGlobalId(Guid id)
         {
             var product = await _productService.GetProductByGlobalId(id);
-            if (product == null) return BadRequest("A product with that id doesn't exists.");
+            if (product == null) return NotFound("A product with that id doesn't exists.");
 
             var productResponse = _mapper.Map<ProductResponse>(product);
             return Ok(productResponse);

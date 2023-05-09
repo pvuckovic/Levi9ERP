@@ -1,5 +1,6 @@
 ﻿using Levi9.ERP.Domain.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace Levi9.ERP.Domain.Repositories
 {
