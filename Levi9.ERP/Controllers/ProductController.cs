@@ -2,15 +2,15 @@
 using Levi9.ERP.Data.Requests;
 using Levi9.ERP.Data.Responses;
 using Levi9.ERP.Datas.Requests;
+using Levi9.ERP.Datas.Responses;
 using Levi9.ERP.Domain.Models.DTO;
 using Levi9.ERP.Domain.Services;
 using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel.DataAnnotations;
 
 namespace Levi9.ERP.Controllers
 {
 
-    [Route("api/[controller]")]
+    [Route("v1/[controller]")]
     [ApiController]
     public class ProductController : ControllerBase
     {
@@ -57,6 +57,23 @@ namespace Levi9.ERP.Controllers
 
             var productResponse = _mapper.Map<ProductResponse>(product);
             return Ok(productResponse);
+        }
+
+        [HttpGet("/Product")]
+        public async Task<IActionResult> SearchProducts([FromQuery] SearchProductRequest searchParams)
+        {
+            if (searchParams.Page <= 0) return BadRequest("Page must be greater than 0.");
+            var mappedParams = _mapper.Map<SearchProductDTO>(searchParams);
+
+            var products = await _productService.GetProductsByParameters(mappedParams);
+            if (products == null || !products.Any()) return NotFound("No products were found that match the search parameters.");
+
+            var responseProducts = new SearchProductResponse
+            {
+                Items = _mapper.Map<IEnumerable<ProductResponse>>(products),
+                Page = searchParams.Page
+            };
+            return Ok(responseProducts);
         }
     }
 }

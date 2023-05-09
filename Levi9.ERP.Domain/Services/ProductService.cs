@@ -51,5 +51,12 @@ namespace Levi9.ERP.Domain.Services
             return productDto;
         }
 
+        public async Task<IEnumerable<ProductDTO>> GetProductsByParameters(SearchProductDTO searchParams)
+        {
+            var products = await _productRepository.GetProductsByParameters(searchParams.Name, searchParams.Page, searchParams.OrderBy, searchParams.Direction);
+            var mappedProducts = products.Select(p => _mapper.Map<ProductDTO>(p));
+            return mappedProducts;
+        }
+
     }
 }
