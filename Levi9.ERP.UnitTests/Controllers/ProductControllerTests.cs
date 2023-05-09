@@ -177,5 +177,19 @@ namespace Levi9.ERP.UnitTests.Controllers
             Assert.AreEqual("A product with that id doesn't exists.", badRequestResult.Value);
         }
 
+        [Test]
+        public async Task GetById_WithNonExistingId_ReturnsNotFound()
+        {
+            // Arrange
+            var nonExistingId = 1;
+            _productServiceMock.Setup(s => s.GetProductById(nonExistingId)).ReturnsAsync((ProductDTO)null);
+            // Act
+            var result = await _productController.GetById(nonExistingId);
+            // Assert
+            Assert.IsInstanceOf<NotFoundObjectResult>(result);
+            var notFoundResult = (NotFoundObjectResult)result;
+            Assert.AreEqual("A product with the same id doesn't exists.", notFoundResult.Value);
+        }
+
+        }
     }
-}
