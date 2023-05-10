@@ -21,10 +21,11 @@ namespace Levi9.ERP.Domain.Services
             
             price.GlobalId = Guid.NewGuid();
             price.LastUpdate = DateTime.Now.ToFileTimeUtc().ToString();
-            if( await _priceListRepository.AddPrice(price) == null)
-                return null;
 
-            return priceProductDTO;
+            price = await _priceListRepository.AddPrice(price);
+            var newPriceProductDTO = _mapper.Map<PriceProductDTO>(price);
+
+            return newPriceProductDTO;
         }
 
         public async Task<IEnumerable<PriceListDTO>> GetAllPricesLists()

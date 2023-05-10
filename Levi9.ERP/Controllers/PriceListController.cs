@@ -67,10 +67,12 @@ namespace Levi9.ERP.Controllers
         {
             var priceProductDto = _mapper.Map<PriceProductDTO>(priceRequest);
 
-            if (await _priceListService.AddPrice(priceProductDto) == null)
+            var newPriceProductDto = await _priceListService.AddPrice(priceProductDto);
+            if (newPriceProductDto == null)
                 return BadRequest();
 
-           return Ok(priceProductDto);
+            var priceResponse = _mapper.Map<PriceResponse>(newPriceProductDto);
+            return Ok(priceResponse);
         }
     }
 }

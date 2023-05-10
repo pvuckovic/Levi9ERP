@@ -16,6 +16,10 @@ namespace Levi9.ERP.Mappers
             CreateMap<PriceProductDTO, Price>()
                 .ForMember(dest => dest.PriceValue, 
                             from => from.MapFrom(src => src.Price));
+            CreateMap<Price, PriceProductDTO>()
+                .ForMember(dest => dest.Price,
+                            from => from.MapFrom(src => src.PriceValue));
+            CreateMap<PriceProductDTO, PriceResponse>();
         }
     }
 }

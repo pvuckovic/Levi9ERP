@@ -17,13 +17,11 @@ namespace Levi9.ERP.Domain.Repositories
             {
                 if (!PriceExists(price.PriceListId,price.ProductId))
                 {
-                    _dataBaseContext.Prices.Add(price);
+                    await _dataBaseContext.Prices.AddAsync(price);
                     await _dataBaseContext.SaveChangesAsync();
-
                     return price;
                 }
             }
-
             return null;
         }
 
