@@ -42,5 +42,34 @@ namespace Levi9.ERP.Domain.Repositories
                 .FirstOrDefaultAsync(p => p.GlobalId == productId);
             return product;
         }
+
+        public async Task<IEnumerable<Product>> GetProductsByParameters(string name, int page, string orderBy, string direction)
+        {
+            var query = _dataBaseContext.Products.AsQueryable();
+            if (!string.IsNullOrEmpty(name)) query = query.Where(p => p.Name.Contains(name));
+
+            var orderByMap = new Dictionary<string, Expression<Func<Product, object>>>
+            {
+                { "name", p => p.Name },
+                { "id", p => p.Prices.First().ProductId },
+                { "globalId", p => p.Prices.First().GlobalId },
+                { "availableQuantity", p => p.AvailableQuantity }
+            };
+
+            var orderByExpression = orderByMap.GetValueOrDefault(orderBy, p => p.Name);
+            var sortedQuery = (direction == "asc")
+                ? query.OrderBy(orderByExpression)
+                : query.OrderByDescending(orderByExpression);
+
+            var pageSize = 10;
+            var skip = (page - 1) * pageSize;
+
+            var products = await sortedQuery
+                .Include(p => p.Prices)
+                .Skip(skip)
+                .Take(pageSize)
+                .ToListAsync();
+            return products;
+        }
     }
 }
