@@ -1,10 +1,6 @@
-﻿using AutoMapper;
-using Levi9.ERP.Controllers;
-using Levi9.ERP.Domain.Helpers;
-using Levi9.ERP.Domain.Models.DTO;
+﻿using Levi9.ERP.Domain.Models.DTO;
 using Levi9.ERP.Domain.Repositories;
 using Levi9.ERP.Domain.Services;
-using Levi9.ERP.Responses;
 using Moq;
 using NUnit.Framework;
 
