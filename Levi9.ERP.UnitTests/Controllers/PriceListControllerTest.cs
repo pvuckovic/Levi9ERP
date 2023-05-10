@@ -6,6 +6,7 @@ using Levi9.ERP.Datas.Responses;
 using Levi9.ERP.Domain.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Levi9.ERP.Domain.Services;
+using Levi9.ERP.Datas.Requests;
 
 namespace Levi9.ERP.UnitTests.Controllers
 {
@@ -129,6 +130,74 @@ namespace Levi9.ERP.UnitTests.Controllers
             Assert.That(result, Is.InstanceOf<NotFoundObjectResult>());
             var notFoundResult = (NotFoundObjectResult)result;
             Assert.That(notFoundResult.Value, Is.EqualTo($"Nonexistent price list with global ID: {globalId}"));
+        }
+        [Test]
+        public async Task AddProductIntoPriceList_ReturnsOkWithPriceResponse_WhenServiceReturnsValidPriceDto()
+        {
+            var priceRequest = new PriceRequest
+            {
+                PriceListId = 1,
+                ProductId = 1,
+                Price = 9.99f,
+                Currency = "USD"
+            };
+            var priceProductDto = new PriceProductDTO
+            {
+                PriceListId = priceRequest.PriceListId,
+                ProductId = priceRequest.ProductId,
+                Price = priceRequest.Price,
+                Currency = priceRequest.Currency
+            };
+            var newPriceProductDto = new PriceProductDTO
+            {
+                PriceListId = 1,
+                ProductId = 1,
+                Price = 9.99f,
+                Currency = "USD"
+            };
+            var priceResponse = new PriceResponse
+            {
+                PriceListId = priceRequest.PriceListId,
+                ProductId = priceRequest.ProductId,
+                Price = priceRequest.Price,
+                Currency = priceRequest.Currency
+            };
+
+            _mapperMock.Setup(x => x.Map<PriceProductDTO>(priceRequest)).Returns(priceProductDto);
+            _priceListServiceMock.Setup(x => x.AddPrice(priceProductDto)).ReturnsAsync(newPriceProductDto);
+            _mapperMock.Setup(x => x.Map<PriceResponse>(newPriceProductDto)).Returns(priceResponse);
+
+            var result = await _priceListController.AddProductIntoPriceList(priceRequest);
+
+            var okResult = result as OkObjectResult;
+            Assert.That(okResult, Is.Not.Null);
+            Assert.That(okResult.Value, Is.EqualTo(priceResponse));
+        }
+
+        [Test]
+        public async Task AddProductIntoPriceList_ReturnsBadRequest_WhenServiceReturnsNullPriceDto()
+        {
+            var priceRequest = new PriceRequest
+            {
+                PriceListId = 1,
+                ProductId = 1,
+                Price = 9.99f,
+                Currency = "USD"
+            };
+            var priceProductDto = new PriceProductDTO
+            {
+                PriceListId = priceRequest.PriceListId,
+                ProductId = priceRequest.ProductId,
+                Price = priceRequest.Price,
+                Currency = priceRequest.Currency
+            };
+
+            _mapperMock.Setup(x => x.Map<PriceProductDTO>(priceRequest)).Returns(priceProductDto);
+            _priceListServiceMock.Setup(x => x.AddPrice(priceProductDto)).ReturnsAsync(null as PriceProductDTO);
+
+            var result = await _priceListController.AddProductIntoPriceList(priceRequest);
+
+            Assert.That(result, Is.InstanceOf<BadRequestResult>());
         }
     }
 }

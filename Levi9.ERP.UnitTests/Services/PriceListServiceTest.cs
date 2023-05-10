@@ -5,13 +5,16 @@ using Levi9.ERP.Domain.Models.DTO;
 using Levi9.ERP.Domain.Models;
 using Levi9.ERP.Domain.Services;
 using Levi9.ERP.Domain.Repositories;
+using Levi9.ERP.Datas.Requests;
+using Levi9.ERP.Datas.Responses;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Levi9.ERP.UnitTests.Services
 {
     [TestFixture]
     public class PriceListServiceTests
     {
-        private PriceListService _priceListSrvice;
+        private PriceListService _priceListService;
         private Mock<IPriceListRepository> _priceListRepositoryMock;
         private Mock<IMapper> _mapperMock;
 
@@ -20,7 +23,7 @@ namespace Levi9.ERP.UnitTests.Services
         {
             _priceListRepositoryMock = new Mock<IPriceListRepository>();
             _mapperMock = new Mock<IMapper>();
-            _priceListSrvice = new PriceListService(_priceListRepositoryMock.Object, _mapperMock.Object);
+            _priceListService = new PriceListService(_priceListRepositoryMock.Object, _mapperMock.Object);
         }
 
         [Test]
@@ -32,7 +35,7 @@ namespace Levi9.ERP.UnitTests.Services
             _priceListRepositoryMock.Setup(x => x.GetByIdAsync(id)).ReturnsAsync(expectedPriceList);
             _mapperMock.Setup(x => x.Map<PriceListDTO>(expectedPriceList)).Returns(expectedPriceListDto);
 
-            var result = await _priceListSrvice.GetByIdAsync(id);
+            var result = await _priceListService.GetByIdAsync(id);
 
             Assert.That(result, Is.Not.Null);
             Assert.That(result, Is.InstanceOf<PriceListDTO>());
@@ -49,7 +52,7 @@ namespace Levi9.ERP.UnitTests.Services
             int id = 1;
             _priceListRepositoryMock.Setup(x => x.GetByIdAsync(id)).ReturnsAsync(null as PriceList);
 
-            var result = await _priceListSrvice.GetByIdAsync(id);
+            var result = await _priceListService.GetByIdAsync(id);
 
             Assert.That(result, Is.Null);
         }
@@ -68,7 +71,7 @@ namespace Levi9.ERP.UnitTests.Services
             _mapperMock.Setup(x => x.Map<PriceListDTO>(priceList1)).Returns(expectedDTO1);
             _mapperMock.Setup(x => x.Map<PriceListDTO>(priceList2)).Returns(expectedDTO2);
 
-            var result = await _priceListSrvice.GetAllPricesLists();
+            var result = await _priceListService.GetAllPricesLists();
 
             Assert.That(result, Is.Not.Null);
             Assert.That(result, Is.InstanceOf<IEnumerable<PriceListDTO>>());
@@ -82,7 +85,7 @@ namespace Levi9.ERP.UnitTests.Services
             var emptyList = new List<PriceList>();
             _priceListRepositoryMock.Setup(x => x.GetAllPricesLists()).ReturnsAsync(emptyList);
 
-            var result = await _priceListSrvice.GetAllPricesLists();
+            var result = await _priceListService.GetAllPricesLists();
 
 
             Assert.That(result, Is.Not.Null);
@@ -98,7 +101,7 @@ namespace Levi9.ERP.UnitTests.Services
             _priceListRepositoryMock.Setup(x => x.GetByGlobalIdAsync(globalId)).ReturnsAsync(expectedPriceList);
             _mapperMock.Setup(x => x.Map<PriceListDTO>(expectedPriceList)).Returns(expectedPriceListDto);
 
-            var result = await _priceListSrvice.GetByGlobalIdAsync(globalId);
+            var result = await _priceListService.GetByGlobalIdAsync(globalId);
 
             Assert.That(result, Is.Not.Null);
             Assert.That(result, Is.InstanceOf<PriceListDTO>());
@@ -114,9 +117,52 @@ namespace Levi9.ERP.UnitTests.Services
             Guid globalId = Guid.NewGuid();
             _priceListRepositoryMock.Setup(x => x.GetByGlobalIdAsync(globalId)).ReturnsAsync(null as PriceList);
 
-            var result = await _priceListSrvice.GetByGlobalIdAsync(globalId);
+            var result = await _priceListService.GetByGlobalIdAsync(globalId);
 
             Assert.That(result, Is.Null);
+        }
+
+        [Test]
+        public async Task AddPrice_ReturnsNewPriceProductDto_WhenRepositoryAddsPrice()
+        {
+            var priceProductDto = new PriceProductDTO
+            {
+                PriceListId = 1,
+                ProductId = 1,
+                Price = 9.99f,
+                Currency = "USD"
+            };
+            var price = new Price
+            {
+                PriceListId = 1,
+                ProductId = 1,
+                PriceValue = 9.99f,
+                Currency = "USD"
+            };
+
+            var newPrice = new Price
+            {
+                PriceListId = 1,
+                ProductId = 1,
+                PriceValue = 9.99f,
+                Currency = "USD"
+            };
+
+            var newPriceProductDto = new PriceProductDTO
+            {
+                PriceListId = 1,
+                ProductId = 1,
+                Price = 9.99f,
+                Currency = "USD"
+            };
+
+            _mapperMock.Setup(x => x.Map<Price>(priceProductDto)).Returns(price);
+            _priceListRepositoryMock.Setup(x => x.AddPrice(price)).ReturnsAsync(newPrice);
+            _mapperMock.Setup(x => x.Map<PriceProductDTO>(newPrice)).Returns(newPriceProductDto);
+
+            var result = await _priceListService.AddPrice(priceProductDto);
+
+            Assert.That(result, Is.EqualTo(newPriceProductDto));
         }
     }
 }
