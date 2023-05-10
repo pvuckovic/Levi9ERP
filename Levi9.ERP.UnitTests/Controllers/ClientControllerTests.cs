@@ -1,5 +1,4 @@
-﻿
-using AutoMapper;
+﻿using AutoMapper;
 using Levi9.ERP.Controllers;
 using Levi9.ERP.Domain.Mappers;
 using Levi9.ERP.Domain.Models.DTO;

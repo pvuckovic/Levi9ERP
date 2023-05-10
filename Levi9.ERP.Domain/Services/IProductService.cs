@@ -8,5 +8,6 @@ namespace Levi9.ERP.Domain.Services
         Task<ProductDTO> GetProductByName(string name);
         Task<ProductDTO> GetProductById(int productId);
         Task<ProductDTO> GetProductByGlobalId(Guid productId);
+        Task<IEnumerable<ProductDTO>> GetProductsByParameters(SearchProductDTO searchParams);
     }
 }

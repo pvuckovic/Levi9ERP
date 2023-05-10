@@ -2,6 +2,8 @@
 using Levi9.ERP.Controllers;
 using Levi9.ERP.Data.Requests;
 using Levi9.ERP.Data.Responses;
+using Levi9.ERP.Datas.Requests;
+using Levi9.ERP.Domain.Models;
 using Levi9.ERP.Domain.Models.DTO;
 using Levi9.ERP.Domain.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -191,5 +193,107 @@ namespace Levi9.ERP.UnitTests.Controllers
             Assert.AreEqual("A product with the same id doesn't exists.", notFoundResult.Value);
         }
 
+        [Test]
+        public async Task SearchProducts_ValidSearchParams_ReturnsOkResult()
+        {
+            // Arrange
+            var searchParams = new SearchProductRequest { Page = 1, Name = "name" };
+            var products = new List<ProductDTO>
+            {
+                new ProductDTO {
+                    Id = 1,
+                    GlobalId = Guid.NewGuid(),
+                    Name = "Product 1",
+                    ImageUrl = "https://example.com/product1.jpg",
+                    AvailableQuantity = 10,
+                    LastUpdate = "133277539861042364",
+                    PriceList = new List<PriceDTO>
+                    {
+                        new PriceDTO
+                        {
+                            Id = 1,
+                            GlobalId = Guid.NewGuid(),
+                            PriceValue = 9.99f,
+                            Currency = "USD",
+                            LastUpdate = "133277539861042364"
+                        },
+                        new PriceDTO
+                        {
+                            Id = 2,
+                            GlobalId = Guid.NewGuid(),
+                            PriceValue = 8.99f,
+                            Currency = "EUR",
+                            LastUpdate = "133277539861042364"
+                        }
+                    }
+                },
+                new ProductDTO {
+                    Id = 2,
+                    GlobalId = Guid.NewGuid(),
+                    Name = "Product 2",
+                    ImageUrl = "https://example.com/product2.jpg",
+                    AvailableQuantity = 5,
+                    LastUpdate = "133277539861042364",
+                    PriceList = new List<PriceDTO>
+                    {
+                        new PriceDTO
+                        {
+                            Id = 3,
+                            GlobalId = Guid.NewGuid(),
+                            PriceValue = 19.99f,
+                            Currency = "USD",
+                            LastUpdate = "133277539861042364"
+                        },
+                        new PriceDTO
+                        {
+                            Id = 4,
+                            GlobalId = Guid.NewGuid(),
+                            PriceValue = 17.99f,
+                            Currency = "EUR",
+                            LastUpdate = "133277539861042364"
+                        }
+                    }
+
+                }
+            };
+            _productServiceMock.Setup(s => s.GetProductsByParameters(It.IsAny<SearchProductDTO>()))
+                .ReturnsAsync(products);
+            _mapperMock.Setup(m => m.Map<IEnumerable<ProductResponse>>(It.IsAny<IEnumerable<Product>>()))
+                .Returns(new List<ProductResponse>());
+            // Act
+            var result = await _productController.SearchProducts(searchParams);
+            // Assert
+            Assert.IsInstanceOf<OkObjectResult>(result);
         }
+
+        [Test]
+        public async Task SearchProducts_InvalidPage_ReturnsBadRequest()
+        {
+            // Arrange
+            var searchParams = new SearchProductRequest { Page = 0, Name = "test" };
+            // Act
+            var result = await _productController.SearchProducts(searchParams);
+            // Assert
+            Assert.IsInstanceOf<BadRequestObjectResult>(result);
+            var badRequestResult = (BadRequestObjectResult)result;
+            Assert.AreEqual("Page must be greater than 0.", badRequestResult.Value);
+        }
+
+        [Test]
+        public async Task SearchProducts_NoProductsFound_ReturnsNotFound()
+        {
+            // Arrange
+            var searchParams = new SearchProductRequest { Page = 1, Name = "test" };
+            _productServiceMock.Setup(s => s.GetProductsByParameters(It.IsAny<SearchProductDTO>()))
+                .ReturnsAsync((List<ProductDTO>)null);
+            // Act
+            var result = await _productController.SearchProducts(searchParams);
+            // Assert
+            Assert.IsInstanceOf<NotFoundObjectResult>(result);
+            var notFoundResult = (NotFoundObjectResult)result;
+            Assert.AreEqual("No products were found that match the search parameters.", notFoundResult.Value);
+        }
+
     }
+
+}

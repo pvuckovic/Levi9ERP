@@ -136,6 +136,120 @@ namespace Levi9.ERP.UnitTests.Services
             Assert.Null(result);
         }
 
+        [Test]
+        public async Task GetProductsByParameters_ReturnsExpectedResult()
+        {
+            // Arrange
+            var searchParams = new SearchProductDTO
+            {
+                Name = "product name",
+                Page = 1,
+                OrderBy = "name",
+                Direction = "ASC"
+            };
+            var products = new List<Product>
+        {
+            new Product
+            {
+                Id = 1,
+                GlobalId = Guid.NewGuid(),
+                Name = "product name",
+                ImageUrl = "http://example.com/image.jpg",
+                AvailableQuantity = 10,
+                LastUpdate = "123454327639523856",
+                Prices = new List<Price>
+                {
+                    new Price
+                    {
+                        ProductId = 1,
+                        PriceListId = 1,
+                        GlobalId =  Guid.NewGuid(),
+                        PriceValue = 9.99f,
+                        Currency = "USD",
+                        LastUpdate = "123454327639523856",
+                        PriceList = new PriceList
+                        {
+                            Id = 1,
+                            GlobalId = Guid.NewGuid(),
+                            Name = "USD Price List"
+                        }
+                    }
+                }
+            }
+        };
+
+            ProductDTO retProductDto = new ProductDTO
+            {
+                Id = products[0].Id,
+                GlobalId = products[0].GlobalId,
+                Name = products[0].Name,
+                ImageUrl = products[0].ImageUrl,
+                AvailableQuantity = products[0].AvailableQuantity,
+                LastUpdate = products[0].LastUpdate,
+                PriceList = new List<PriceDTO>
+                {
+                    new PriceDTO
+                    {
+                        Id = 1,
+                        GlobalId = Guid.NewGuid(),
+                        PriceValue = products[0].Prices[0].PriceValue,
+                        Currency = products[0].Prices[0].Currency,
+                        LastUpdate = products[0].LastUpdate
+                    }
+                }
+            };
+
+            _productRepositoryMock.Setup(x => x.GetProductsByParameters(
+                searchParams.Name, searchParams.Page, searchParams.OrderBy, searchParams.Direction))
+                .ReturnsAsync(products);
+
+            _mapperMock.Setup(mock => mock.Map<ProductDTO>(It.IsAny<Product>()))
+                .Returns(retProductDto);
+
+            // Act
+            var result = await _productService.GetProductsByParameters(searchParams);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(1, result.Count());
+            var productDTO = result.First();
+            Assert.AreEqual(products.First().Id, productDTO.Id);
+            Assert.AreEqual(products.First().Name, productDTO.Name);
+            Assert.AreEqual(products.First().ImageUrl, productDTO.ImageUrl);
+            Assert.AreEqual(products.First().AvailableQuantity, productDTO.AvailableQuantity);
+            Assert.AreEqual(products.First().LastUpdate, productDTO.LastUpdate);
+            Assert.IsNotNull(productDTO.PriceList);
+            Assert.AreEqual(1, productDTO.PriceList.Count);
+            var priceDTO = productDTO.PriceList.First();
+            Assert.AreEqual(products.First().Prices.First().PriceValue, priceDTO.PriceValue);
+            Assert.AreEqual(products.First().Prices.First().Currency, priceDTO.Currency);
+            Assert.AreEqual(products.First().Prices.First().LastUpdate, priceDTO.LastUpdate);
+        }
+
+        [Test]
+        public async Task GetProductsByParameters_ProductsNotFound()
+        {
+            // Arrange
+            var requestDTO = new SearchProductDTO
+            {
+                Page = 1,
+                Name = "non-existing-product",
+                OrderBy = "price",
+                Direction = "asc"
+            };
+
+            var products = new List<Product>();
+
+            _productRepositoryMock.Setup(x => x.GetProductsByParameters(requestDTO.Name, requestDTO.Page, requestDTO.OrderBy, requestDTO.Direction))
+                .ReturnsAsync(products);
+
+            // Act
+            var result = await _productService.GetProductsByParameters(requestDTO);
+
+            // Assert
+            Assert.That(result, Is.InstanceOf<IEnumerable<ProductDTO>>());
+            Assert.That(result.Any(), Is.False);
+        }
 
     }
 }
