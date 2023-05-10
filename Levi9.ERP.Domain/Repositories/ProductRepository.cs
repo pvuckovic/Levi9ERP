@@ -51,8 +51,8 @@ namespace Levi9.ERP.Domain.Repositories
             var orderByMap = new Dictionary<string, Expression<Func<Product, object>>>
             {
                 { "name", p => p.Name },
-                { "id", p => p.Prices.Min(p => p.ProductId) },
-                { "globalId", p => p.Prices.Min(p => p.GlobalId) },
+                { "id", p => p.Prices.First().ProductId },
+                { "globalId", p => p.Prices.First().GlobalId },
                 { "availableQuantity", p => p.AvailableQuantity }
             };
 
