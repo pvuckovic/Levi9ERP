@@ -22,20 +22,38 @@ namespace Levi9.ERP.Controllers
             _clientService = clientService;
             _mapper = mapper;
             _urlHelper = urlHelper;
+
         }
 
         [HttpPost]
         [Consumes("application/json")]
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [AllowAnonymous]
         public ActionResult<ClientResponse> CreateClient([FromBody] ClientRequest client)
         {
             ClientDTO clientMap = _mapper.Map<ClientDTO>(client);
+
+            if (_clientService.GetClientByEmail(client.Email) != null)
+            {
+                return BadRequest("Email already exists");
+            }
+
             ClientDTO clientDto = _clientService.CreateClient(clientMap);
             string location = _urlHelper.Action("CreateClient", "Client", new { clientId = clientDto.Id }, Request.Scheme);
 
             return Created(location, _mapper.Map<ClientResponse>(clientDto));
+        }
+
+        [Authorize]
+        [HttpGet("{id}")]
+        public ActionResult<ClientResponse> GetClientById(int id)
+        {
+            var clientDTO = _clientService.GetClientById(id);
+            if (clientDTO == null)
+            {
+               return NotFound("User not found");
+            }
+            var clientResponse = _mapper.Map<ClientResponse>(clientDTO);
+            return Ok(clientResponse);
         }
     }
 }

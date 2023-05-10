@@ -39,5 +39,32 @@ namespace Levi9.ERP.UnitTests.Services
             Assert.IsNotNull(result);
             Assert.AreEqual(clientModel.Email, result.Email);
         }
+        [Test]
+        public void GetByIdClient_ReturnsDTO()
+        {
+            var clientId = 1;
+            var clientEntity = new ClientDTO
+            {
+                Id = clientId,
+                Name = "John",
+                Email = "john@example.com"
+            };
+            var expectedClientDTO = new ClientDTO
+            {
+                Id = clientId,
+                Name = "John",
+                Email = "john@example.com"
+            };
+
+            _clientRepositoryMock.Setup(x => x.GetClientById(clientId)).Returns(clientEntity);
+
+            var result = _clientService.GetClientById(clientId);
+
+            Assert.IsInstanceOf<ClientDTO>(result);
+            var actualClientDTO = result;
+            Assert.AreEqual(expectedClientDTO.Id, actualClientDTO.Id);
+            Assert.AreEqual(expectedClientDTO.Name, actualClientDTO.Name);
+            Assert.AreEqual(expectedClientDTO.Email, actualClientDTO.Email);
+        }
     }
 }
