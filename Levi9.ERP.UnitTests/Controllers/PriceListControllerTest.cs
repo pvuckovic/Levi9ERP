@@ -7,6 +7,7 @@ using Levi9.ERP.Domain.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Levi9.ERP.Domain.Services;
 using Levi9.ERP.Datas.Requests;
+using Levi9.ERP.Domain.Models;
 
 namespace Levi9.ERP.UnitTests.Controllers
 {
@@ -139,28 +140,28 @@ namespace Levi9.ERP.UnitTests.Controllers
                 PriceListId = 1,
                 ProductId = 1,
                 Price = 9.99f,
-                Currency = "USD"
+                Currency = Currency.USD
             };
             var priceProductDto = new PriceProductDTO
             {
                 PriceListId = priceRequest.PriceListId,
                 ProductId = priceRequest.ProductId,
                 Price = priceRequest.Price,
-                Currency = priceRequest.Currency
+                Currency = (CurrencyType)priceRequest.Currency
             };
             var newPriceProductDto = new PriceProductDTO
             {
                 PriceListId = 1,
                 ProductId = 1,
                 Price = 9.99f,
-                Currency = "USD"
+                Currency = CurrencyType.USD
             };
             var priceResponse = new PriceResponse
             {
-                PriceListId = priceRequest.PriceListId,
-                ProductId = priceRequest.ProductId,
-                Price = priceRequest.Price,
-                Currency = priceRequest.Currency
+                PriceListId = newPriceProductDto.PriceListId,
+                ProductId = newPriceProductDto.ProductId,
+                Price = newPriceProductDto.Price,
+                Currency = (Currency)newPriceProductDto.Currency
             };
 
             _mapperMock.Setup(x => x.Map<PriceProductDTO>(priceRequest)).Returns(priceProductDto);
@@ -182,14 +183,14 @@ namespace Levi9.ERP.UnitTests.Controllers
                 PriceListId = 1,
                 ProductId = 1,
                 Price = 9.99f,
-                Currency = "USD"
+                Currency = Currency.USD
             };
             var priceProductDto = new PriceProductDTO
             {
                 PriceListId = priceRequest.PriceListId,
                 ProductId = priceRequest.ProductId,
                 Price = priceRequest.Price,
-                Currency = priceRequest.Currency
+                Currency = (CurrencyType)priceRequest.Currency
             };
 
             _mapperMock.Setup(x => x.Map<PriceProductDTO>(priceRequest)).Returns(priceProductDto);
@@ -207,28 +208,28 @@ namespace Levi9.ERP.UnitTests.Controllers
                 PriceListId = 1,
                 ProductId = 1,
                 Price = 9.99f,
-                Currency = "USD"
+                Currency = Currency.USD
             };
             var priceProductDto = new PriceProductDTO
             {
                 PriceListId = priceRequest.PriceListId,
                 ProductId = priceRequest.ProductId,
                 Price = priceRequest.Price,
-                Currency = priceRequest.Currency
+                Currency = (CurrencyType)priceRequest.Currency
             };
             var newPriceProductDto = new PriceProductDTO
             {
                 PriceListId = 1,
                 ProductId = 1,
                 Price = 9.99f,
-                Currency = "USD"
+                Currency = CurrencyType.USD
             };
             var priceResponse = new PriceResponse
             {
-                PriceListId = priceRequest.PriceListId,
-                ProductId = priceRequest.ProductId,
-                Price = priceRequest.Price,
-                Currency = priceRequest.Currency
+                PriceListId = newPriceProductDto.PriceListId,
+                ProductId = newPriceProductDto.ProductId,
+                Price = newPriceProductDto.Price,
+                Currency = (Currency)newPriceProductDto.Currency
             };
 
             _mapperMock.Setup(x => x.Map<PriceProductDTO>(priceRequest)).Returns(priceProductDto);
@@ -249,14 +250,14 @@ namespace Levi9.ERP.UnitTests.Controllers
                 PriceListId = 1,
                 ProductId = 1,
                 Price = 9.99f,
-                Currency = "USD"
+                Currency = Currency.USD
             };
             var priceProductDto = new PriceProductDTO
             {
                 PriceListId = priceRequest.PriceListId,
                 ProductId = priceRequest.ProductId,
                 Price = priceRequest.Price,
-                Currency = priceRequest.Currency
+                Currency = (CurrencyType)priceRequest.Currency
             };
 
             _mapperMock.Setup(x => x.Map<PriceProductDTO>(priceRequest)).Returns(priceProductDto);

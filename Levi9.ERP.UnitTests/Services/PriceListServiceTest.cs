@@ -130,14 +130,14 @@ namespace Levi9.ERP.UnitTests.Services
                 PriceListId = 1,
                 ProductId = 1,
                 Price = 9.99f,
-                Currency = "USD"
+                Currency = CurrencyType.USD
             };
             var price = new Price
             {
-                PriceListId = 1,
-                ProductId = 1,
-                PriceValue = 9.99f,
-                Currency = "USD"
+                PriceListId = priceProductDto.PriceListId,
+                ProductId = priceProductDto.ProductId,
+                PriceValue = priceProductDto.Price,
+                Currency = priceProductDto.Currency.ToString()
             };
 
             var newPrice = new Price
@@ -150,11 +150,12 @@ namespace Levi9.ERP.UnitTests.Services
 
             var newPriceProductDto = new PriceProductDTO
             {
-                PriceListId = 1,
-                ProductId = 1,
-                Price = 9.99f,
-                Currency = "USD"
+                PriceListId = newPrice.PriceListId,
+                ProductId = newPrice.ProductId,
+                Price = newPrice.PriceValue,
             };
+            Enum.TryParse(typeof(CurrencyType), price.Currency, out object currency);
+            newPriceProductDto.Currency = (CurrencyType)currency;
 
             _mapperMock.Setup(x => x.Map<Price>(priceProductDto)).Returns(price);
             _priceListRepositoryMock.Setup(x => x.AddPrice(price)).ReturnsAsync(newPrice);
@@ -163,6 +164,49 @@ namespace Levi9.ERP.UnitTests.Services
             var result = await _priceListService.AddPrice(priceProductDto);
 
             Assert.That(result, Is.EqualTo(newPriceProductDto));
+        }
+        [Test]
+        public async Task UpdatePrice_ReturnsNewPriceProductDto_WhenRepositoryUpdatePrice()
+        {
+            var priceProductDto = new PriceProductDTO
+            {
+                PriceListId = 1,
+                ProductId = 1,
+                Price = 9.99f,
+                Currency = CurrencyType.USD
+            };
+            var price = new Price
+            {
+                PriceListId = priceProductDto.PriceListId,
+                ProductId = priceProductDto.ProductId,
+                PriceValue = priceProductDto.Price,
+                Currency = priceProductDto.Currency.ToString()
+            };
+
+            var newPrice = new Price
+            {
+                PriceListId = 1,
+                ProductId = 1,
+                PriceValue = 9.99f,
+                Currency = "USD"
+            };
+
+            var updatedPriceProductDto = new PriceProductDTO
+            {
+                PriceListId = newPrice.PriceListId,
+                ProductId = newPrice.ProductId,
+                Price = newPrice.PriceValue,
+            };
+            Enum.TryParse(typeof(CurrencyType), price.Currency, out object currency);
+            updatedPriceProductDto.Currency = (CurrencyType)currency;
+
+            _mapperMock.Setup(x => x.Map<Price>(priceProductDto)).Returns(price);
+            _priceListRepositoryMock.Setup(x => x.UpdatePrice(price)).ReturnsAsync(newPrice);
+            _mapperMock.Setup(x => x.Map<PriceProductDTO>(newPrice)).Returns(updatedPriceProductDto);
+
+            var result = await _priceListService.UpdatePrice(priceProductDto);
+
+            Assert.That(result, Is.EqualTo(updatedPriceProductDto));
         }
     }
 }
