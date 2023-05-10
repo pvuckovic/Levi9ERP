@@ -2,7 +2,6 @@
 using Levi9.ERP.Domain.Helpers;
 using Levi9.ERP.Domain.Models.DTO;
 using Levi9.ERP.Domain.Services;
-using Levi9.ERP.Exceptions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -25,20 +24,18 @@ namespace Levi9.ERP.Controllers
 
         [HttpPost]
         [Consumes("application/json")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [AllowAnonymous]
         public IActionResult ClientAuthentication([FromBody] AuthenticationRequest authenticationRequest)
         {
             ClientDTO authenticationDTO = _clientService.GetClientByEmail(authenticationRequest.Email);
             if (authenticationDTO == null)
             {
-                throw new BadRequestException("Bad request - email not valid");
+               return  BadRequest("Email not valid");
             }
             bool validateUser = AuthenticationHelper.ValidateUser(authenticationDTO.Password, authenticationDTO.Salt, authenticationRequest.Password);
             if (!validateUser)
             {
-                throw new BadRequestException("Bad Request - wrong password");
+                return BadRequest("Bad Request - wrong password");
             }
             var token = AuthenticationHelper.GenerateJwt(_config);
             return Ok(token);

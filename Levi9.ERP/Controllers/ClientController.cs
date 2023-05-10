@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Levi9.ERP.Domain.Models.DTO;
 using Levi9.ERP.Domain.Services;
-using Levi9.ERP.Exceptions;
 using Levi9.ERP.Requests;
 using Levi9.ERP.Responses;
 using Microsoft.AspNetCore.Authorization;
@@ -28,8 +27,6 @@ namespace Levi9.ERP.Controllers
 
         [HttpPost]
         [Consumes("application/json")]
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [AllowAnonymous]
         public ActionResult<ClientResponse> CreateClient([FromBody] ClientRequest client)
         {
@@ -37,7 +34,7 @@ namespace Levi9.ERP.Controllers
 
             if (_clientService.GetClientByEmail(client.Email) != null)
             {
-                throw new AlreadyExistException("Email already exists");
+                return BadRequest("Email already exists");
             }
 
             ClientDTO clientDto = _clientService.CreateClient(clientMap);
@@ -46,8 +43,6 @@ namespace Levi9.ERP.Controllers
             return Created(location, _mapper.Map<ClientResponse>(clientDto));
         }
 
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status200OK)]
         [Authorize]
         [HttpGet("{id}")]
         public ActionResult<ClientResponse> GetClientById(int id)
@@ -55,9 +50,10 @@ namespace Levi9.ERP.Controllers
             var clientDTO = _clientService.GetClientById(id);
             if (clientDTO == null)
             {
-                throw new NotFoundException("User not found");
+               return NotFound("User not found");
             }
-            return _mapper.Map<ClientResponse>(clientDTO);
+            var clientResponse = _mapper.Map<ClientResponse>(clientDTO);
+            return Ok(clientResponse);
         }
     }
 }

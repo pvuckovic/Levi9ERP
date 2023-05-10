@@ -2,7 +2,6 @@
 using Levi9.ERP.Domain.Helpers;
 using Levi9.ERP.Domain.Repositories;
 using Levi9.ERP.Domain.Services;
-using Levi9.ERP.Middleware;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
@@ -88,7 +87,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseHttpsRedirection();
 

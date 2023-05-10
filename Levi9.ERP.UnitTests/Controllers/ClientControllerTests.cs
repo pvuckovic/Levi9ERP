@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using Levi9.ERP.Controllers;
+using Levi9.ERP.Data.Requests;
+using Levi9.ERP.Data.Responses;
 using Levi9.ERP.Domain.Mappers;
 using Levi9.ERP.Domain.Models.DTO;
 using Levi9.ERP.Domain.Services;
@@ -57,6 +59,7 @@ namespace Levi9.ERP.UnitTests.Controllers
                                                 .Returns("callbackUrl");
 
             _mockClientService.Setup(x => x.CreateClient(It.IsAny<ClientDTO>())).Returns(clientDTO);
+
             var result = _clientController.CreateClient(clientRequest);
 
             Assert.IsInstanceOf<CreatedResult>(result.Result);
@@ -66,5 +69,59 @@ namespace Levi9.ERP.UnitTests.Controllers
             Assert.AreEqual(clientDTO.Email, ((ClientResponse)createdResult.Value).Email);
         }
 
+        [Test]
+        public void CreateClient_Email_Already_Exists_ReturnsBadRequest()
+        {
+            var clientRequest = new ClientRequest
+            {
+                Name = "John",
+                Email = "john@test.com"
+            };
+
+            var clientDTO = new ClientDTO
+            {
+                Id = 1,
+                Name = "John",
+                Email = "john@test.com"
+            };
+
+            _mockClientService.Setup(s => s.GetClientByEmail(clientRequest.Email)).Returns(clientDTO);
+
+            var result = _clientController.CreateClient(clientRequest);
+
+            Assert.IsInstanceOf<BadRequestObjectResult>(result.Result);
+            var badRequestResult = (BadRequestObjectResult)result.Result;
+            Assert.AreEqual("Email already exists", badRequestResult.Value);
+
+        }
+        [Test]
+        public void GetClientById_With_Valid_Id_ReturnsOk()
+        {
+            int clientId = 1;
+            var clientDTO = new ClientDTO { Id = clientId, Name = "John Doe" };
+            var clientResponse = new ClientResponse { Id = clientId, Name = "John Doe" };
+            _mockClientService.Setup(service => service.GetClientById(clientId)).Returns(clientDTO);
+
+            var result = _clientController.GetClientById(clientId);
+
+            Assert.IsInstanceOf<ActionResult<ClientResponse>>(result);
+            var createdResult = (OkObjectResult)result.Result;
+            Assert.AreEqual(200, createdResult.StatusCode);
+
+        }
+
+        [Test]
+        public void GetClientById_With_Invalid_Id_ReturnsNotFound()
+        {
+            int clientId = 5;
+            _mockClientService.Setup(service => service.GetClientById(clientId)).Returns((ClientDTO)null);
+
+            var result = _clientController.GetClientById(clientId);
+
+            Assert.IsInstanceOf<NotFoundObjectResult>(result.Result);
+            var notFoundResult = result.Result as NotFoundObjectResult;
+            Assert.AreEqual("User not found", notFoundResult.Value);
+
+        }
     }
 }

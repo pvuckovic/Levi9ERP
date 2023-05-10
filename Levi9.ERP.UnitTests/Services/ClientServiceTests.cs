@@ -61,7 +61,7 @@ namespace Levi9.ERP.UnitTests.Services
             var result = _clientService.GetClientById(clientId);
 
             Assert.IsInstanceOf<ClientDTO>(result);
-            var actualClientDTO = result as ClientDTO;
+            var actualClientDTO = result;
             Assert.AreEqual(expectedClientDTO.Id, actualClientDTO.Id);
             Assert.AreEqual(expectedClientDTO.Name, actualClientDTO.Name);
             Assert.AreEqual(expectedClientDTO.Email, actualClientDTO.Email);
