@@ -199,5 +199,72 @@ namespace Levi9.ERP.UnitTests.Controllers
 
             Assert.That(result, Is.InstanceOf<BadRequestResult>());
         }
+        [Test]
+        public async Task UpdatePrice_ReturnsNewPriceProductDto_WhenServiceUpdatesPrice()
+        {
+            var priceRequest = new PriceRequest
+            {
+                PriceListId = 1,
+                ProductId = 1,
+                Price = 9.99f,
+                Currency = "USD"
+            };
+            var priceProductDto = new PriceProductDTO
+            {
+                PriceListId = priceRequest.PriceListId,
+                ProductId = priceRequest.ProductId,
+                Price = priceRequest.Price,
+                Currency = priceRequest.Currency
+            };
+            var newPriceProductDto = new PriceProductDTO
+            {
+                PriceListId = 1,
+                ProductId = 1,
+                Price = 9.99f,
+                Currency = "USD"
+            };
+            var priceResponse = new PriceResponse
+            {
+                PriceListId = priceRequest.PriceListId,
+                ProductId = priceRequest.ProductId,
+                Price = priceRequest.Price,
+                Currency = priceRequest.Currency
+            };
+
+            _mapperMock.Setup(x => x.Map<PriceProductDTO>(priceRequest)).Returns(priceProductDto);
+            _priceListServiceMock.Setup(x => x.UpdatePrice(priceProductDto)).ReturnsAsync(newPriceProductDto);
+            _mapperMock.Setup(x => x.Map<PriceResponse>(newPriceProductDto)).Returns(priceResponse);
+
+            var result = await _priceListController.UpdatePrice(priceRequest);
+
+            var okResult = result as OkObjectResult;
+            Assert.That(okResult, Is.Not.Null);
+            Assert.That(okResult.Value, Is.EqualTo(priceResponse));
+        }
+        [Test]
+        public async Task UpdatePrice_ReturnsBadRequest_WhenServiceReturnsNullPriceDto()
+        {
+            var priceRequest = new PriceRequest
+            {
+                PriceListId = 1,
+                ProductId = 1,
+                Price = 9.99f,
+                Currency = "USD"
+            };
+            var priceProductDto = new PriceProductDTO
+            {
+                PriceListId = priceRequest.PriceListId,
+                ProductId = priceRequest.ProductId,
+                Price = priceRequest.Price,
+                Currency = priceRequest.Currency
+            };
+
+            _mapperMock.Setup(x => x.Map<PriceProductDTO>(priceRequest)).Returns(priceProductDto);
+            _priceListServiceMock.Setup(x => x.UpdatePrice(priceProductDto)).ReturnsAsync(null as PriceProductDTO);
+
+            var result = await _priceListController.UpdatePrice(priceRequest);
+
+            Assert.That(result, Is.InstanceOf<BadRequestResult>());
+        }
     }
 }

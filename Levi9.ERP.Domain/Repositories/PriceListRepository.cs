@@ -51,5 +51,22 @@ namespace Levi9.ERP.Domain.Repositories
         {
             return _dataBaseContext.Prices.Any(p => p.PriceListId == priceListId && p.ProductId == productId);
         }
+
+        public async Task<Price> UpdatePrice(Price price)
+        {
+            if (PriceListExists(price.PriceListId) && ProductExists(price.ProductId))
+            {
+                if (PriceExists(price.PriceListId, price.ProductId))
+                {
+                    _dataBaseContext.Attach(price);
+                    _dataBaseContext.Entry(price).Property(x=> x.PriceValue).IsModified = true;
+                    _dataBaseContext.Entry(price).Property(x => x.Currency).IsModified = true;
+                    _dataBaseContext.Entry(price).Property(x => x.LastUpdate).IsModified = true;
+                    await _dataBaseContext.SaveChangesAsync();
+                    return price;
+                }
+            }
+            return null;
+        }
     }
 }

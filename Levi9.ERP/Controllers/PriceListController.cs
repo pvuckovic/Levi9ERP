@@ -74,5 +74,18 @@ namespace Levi9.ERP.Controllers
             var priceResponse = _mapper.Map<PriceResponse>(newPriceProductDto);
             return Ok(priceResponse);
         }
+        [HttpPut]
+        [Route("product/price")]
+        public async Task<IActionResult> UpdatePrice([FromBody] PriceRequest priceRequest)
+        {
+            var priceProductDto = _mapper.Map<PriceProductDTO>(priceRequest);
+
+            var newPriceProductDto = await _priceListService.UpdatePrice(priceProductDto);
+            if (newPriceProductDto == null)
+                return BadRequest();
+
+            var priceResponse = _mapper.Map<PriceResponse>(newPriceProductDto);
+            return Ok(priceResponse);
+        }
     }
 }
