@@ -7,7 +7,6 @@ namespace Levi9.ERP.Domain
     {
         public DataBaseContext(DbContextOptions<DataBaseContext> options) : base(options)
         {
-            Database.EnsureCreated();
         }
 
         public DataBaseContext()
