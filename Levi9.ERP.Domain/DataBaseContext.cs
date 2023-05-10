@@ -5,17 +5,21 @@ namespace Levi9.ERP.Domain
 {
     public class DataBaseContext : DbContext
     {
-        public DbSet<Product> Products { get; set; }
+        public DataBaseContext(DbContextOptions<DataBaseContext> options) : base(options)
+        {
+            Database.EnsureCreated();
+        }
+
+        public DataBaseContext()
+        {
+        }
+
+        public virtual DbSet<Product> Products { get; set; }
         public DbSet<PriceList> PriceLists { get; set; }
         public DbSet<Price> Prices { get; set; }
         public DbSet<Client> Clients { get; set; }
         public DbSet<Document> Documents { get; set; }
         public DbSet<ProductDocument> ProductDocuments { get; set; }
-
-        public DataBaseContext(DbContextOptions options) : base(options)
-        {
-            Database.EnsureCreated();
-        }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
