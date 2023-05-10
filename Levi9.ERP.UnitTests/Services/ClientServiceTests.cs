@@ -1,7 +1,10 @@
-﻿using Levi9.ERP.Domain.Helpers;
+﻿using AutoMapper;
+using Levi9.ERP.Controllers;
+using Levi9.ERP.Domain.Helpers;
 using Levi9.ERP.Domain.Models.DTO;
 using Levi9.ERP.Domain.Repositories;
 using Levi9.ERP.Domain.Services;
+using Levi9.ERP.Responses;
 using Moq;
 using NUnit.Framework;
 
@@ -39,6 +42,33 @@ namespace Levi9.ERP.UnitTests.Services
 
             Assert.IsNotNull(result);
             Assert.AreEqual(clientModel.Email, result.Email);
+        }
+        [Test]
+        public void GetByIdClient_ReturnsDTO()
+        {
+            var clientId = 1;
+            var clientEntity = new ClientDTO
+            {
+                Id = clientId,
+                Name = "John",
+                Email = "john@example.com"
+            };
+            var expectedClientDTO = new ClientDTO
+            {
+                Id = clientId,
+                Name = "John",
+                Email = "john@example.com"
+            };
+
+            _clientRepositoryMock.Setup(x => x.GetClientById(clientId)).Returns(clientEntity);
+
+            var result = _clientService.GetClientById(clientId);
+
+            Assert.IsInstanceOf<ClientDTO>(result);
+            var actualClientDTO = result as ClientDTO;
+            Assert.AreEqual(expectedClientDTO.Id, actualClientDTO.Id);
+            Assert.AreEqual(expectedClientDTO.Name, actualClientDTO.Name);
+            Assert.AreEqual(expectedClientDTO.Email, actualClientDTO.Email);
         }
     }
 }
