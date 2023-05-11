@@ -31,6 +31,9 @@ builder.Services.AddDbContext<DataBaseContext>(options =>
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IProductService, ProductService>();
 
+builder.Services.AddScoped<IDocumentRepository, DocumentRepository>();
+builder.Services.AddScoped<IDocumentService, DocumentService>();
+
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 
