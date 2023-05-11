@@ -6,7 +6,6 @@ using NUnit.Framework;
 using Microsoft.EntityFrameworkCore;
 using Bogus;
 using FluentAssertions;
-using System.Net.Sockets;
 
 namespace Levi9.ERP.UnitTests.Repositories
 {
@@ -17,31 +16,28 @@ namespace Levi9.ERP.UnitTests.Repositories
         private IProductRepository _repository;
         private Mock<DataBaseContext> _mockProductDbContext;
         private Mock<DbSet<Product>> _mockProductSet;
-        private Mock<DbSet<Price>> _mockPriceSet;
-        private Mock<DbSet<PriceList>> _mockPriceListSet;
 
         [SetUp]
         public void Setup()
         {
             _stub = GenerateData(1);
             var data = _stub.AsQueryable();
-            _mockProductDbContext = new Mock<DataBaseContext>();
+
             _mockProductSet = new Mock<DbSet<Product>>();
             _mockProductSet.As<IQueryable<Product>>().Setup(m => m.Provider).Returns(data.Provider);
             _mockProductSet.As<IQueryable<Product>>().Setup(m => m.Expression).Returns(data.Expression);
             _mockProductSet.As<IQueryable<Product>>().Setup(m => m.ElementType).Returns(data.ElementType);
             _mockProductSet.As<IQueryable<Product>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
 
-            
-            //_mockPriceSet = new Mock<DbSet<Price>>();
-            //_mockPriceSet.As<IQueryable<Price>>().Setup(m => m.Provider).Returns(data.Provider);
-            //_mockPriceSet.As<IQueryable<Price>>().Setup(m => m.Expression).Returns(data.Expression);
-            //_mockPriceSet.As<IQueryable<Price>>().Setup(m => m.ElementType).Returns(data.ElementType);
-            //_mockPriceSet.As<IQueryable<Price>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
-
-
+            _mockProductDbContext = new Mock<DataBaseContext>();
             _mockProductDbContext.Setup(x => x.Products).Returns(_mockProductSet.Object);
-            _mockProductDbContext.Setup(x => x.FindAsync(It.IsAny<Type>())).ReturnsAsync(new Product[] { });
+            //_mockProductSet.Setup(m => m.Include(It.IsAny<Expression<Func<Product, object>>>()))
+            //    .Returns((Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<Product, object>)_mockProductSet.Object);
+            //_mockProductSet.Setup(m => m.Include(It.IsAny<Expression<Func<Product, ICollection<Price>>>>()))
+                //.Returns((Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<Product, ICollection<Price>>)_mockProductSet.Object);
+            //_mockProductSet.Setup(m => m.FirstOrDefaultAsync(It.IsAny<Expression<Func<Product, bool>>>()))
+            //  .ReturnsAsync(It.IsAny<Product>);
+
 
             _repository = new ProductRepository(_mockProductDbContext.Object);
         }
@@ -60,23 +56,23 @@ namespace Levi9.ERP.UnitTests.Repositories
 
         }
 
-        //[Test]
-        //public async Task get_product_by_id_should_return_correct_product()
-        //{
-        //    // Arrange
-        //    var productId = 1;
-        //    var product = _stub.FirstOrDefault();
-        //    // Act
-        //    var response = await _repository.GetProductById(productId);
-        //    // Assert
-        //    response.Should().NotBeNull();
-        //    response.Id.Should().Be(productId);
-        //    response.Name.Should().Be(product.Name);
-        //    response.GlobalId.Should().Be(product.GlobalId);
-        //    response.ImageUrl.Should().Be(product.ImageUrl);
-        //    response.AvailableQuantity.Should().Be(product.AvailableQuantity);
-        //    response.LastUpdate.Should().Be(product.LastUpdate);
-        //}
+        [Test]
+        public async Task get_product_by_id_should_return_correct_product()
+        {
+            // Arrange
+            var productId = 1;
+            var product = _stub.FirstOrDefault();
+            // Act
+            var response = await _repository.GetProductById(It.IsAny<int>());
+            // Assert
+            response.Should().NotBeNull();
+            response.Id.Should().Be(productId);
+            response.Name.Should().Be(product.Name);
+            response.GlobalId.Should().Be(product.GlobalId);
+            response.ImageUrl.Should().Be(product.ImageUrl);
+            response.AvailableQuantity.Should().Be(product.AvailableQuantity);
+            response.LastUpdate.Should().Be(product.LastUpdate);
+        }
 
 
 
@@ -101,20 +97,21 @@ namespace Levi9.ERP.UnitTests.Repositories
                 .RuleFor(c => c.ProductId, 1)
                 .RuleFor(c => c.LastUpdate, DateTime.Now.ToFileTimeUtc().ToString())
                 .RuleFor(c => c.PriceValue, 1.99f)
-                .RuleFor(c => c.PriceListId, 1);
+                .RuleFor(c => c.PriceListId, 1)
+                .RuleFor(c => c.PriceList, GeneratePriceList());
 
             return priceFaker.Generate(count);
         }
 
-        private List<PriceList> GeneratePriceList(int count)
+        private PriceList GeneratePriceList()
         {
-            var priceFaker = new Faker<PriceList>()
+            var priceListFaker = new Faker<PriceList>()
                 .RuleFor(c => c.Name, "EUR PriceList")
                 .RuleFor(c => c.GlobalId, Guid.NewGuid())
                 .RuleFor(c => c.LastUpdate, DateTime.Now.ToFileTimeUtc().ToString())
                 .RuleFor(c => c.Id, 1);
 
-            return priceFaker.Generate(count);
+            return priceListFaker.Generate();
         }
 
         private List<Product> GenerateDataAll(int count)
