@@ -140,14 +140,14 @@ namespace Levi9.ERP.UnitTests.Controllers
                 PriceListId = 1,
                 ProductId = 1,
                 Price = 9.99f,
-                Currency = Currency.USD
+                Currency = CurrencyType.USD
             };
             var priceProductDto = new PriceProductDTO
             {
                 PriceListId = priceRequest.PriceListId,
                 ProductId = priceRequest.ProductId,
                 Price = priceRequest.Price,
-                Currency = (CurrencyType)priceRequest.Currency
+                Currency = priceRequest.Currency
             };
             var newPriceProductDto = new PriceProductDTO
             {
@@ -161,7 +161,7 @@ namespace Levi9.ERP.UnitTests.Controllers
                 PriceListId = newPriceProductDto.PriceListId,
                 ProductId = newPriceProductDto.ProductId,
                 Price = newPriceProductDto.Price,
-                Currency = (Currency)newPriceProductDto.Currency
+                Currency = newPriceProductDto.Currency
             };
 
             _mapperMock.Setup(x => x.Map<PriceProductDTO>(priceRequest)).Returns(priceProductDto);
@@ -183,14 +183,14 @@ namespace Levi9.ERP.UnitTests.Controllers
                 PriceListId = 1,
                 ProductId = 1,
                 Price = 9.99f,
-                Currency = Currency.USD
+                Currency = CurrencyType.USD
             };
             var priceProductDto = new PriceProductDTO
             {
                 PriceListId = priceRequest.PriceListId,
                 ProductId = priceRequest.ProductId,
                 Price = priceRequest.Price,
-                Currency = (CurrencyType)priceRequest.Currency
+                Currency = priceRequest.Currency
             };
 
             _mapperMock.Setup(x => x.Map<PriceProductDTO>(priceRequest)).Returns(priceProductDto);
@@ -208,14 +208,14 @@ namespace Levi9.ERP.UnitTests.Controllers
                 PriceListId = 1,
                 ProductId = 1,
                 Price = 9.99f,
-                Currency = Currency.USD
+                Currency = CurrencyType.USD
             };
             var priceProductDto = new PriceProductDTO
             {
                 PriceListId = priceRequest.PriceListId,
                 ProductId = priceRequest.ProductId,
                 Price = priceRequest.Price,
-                Currency = (CurrencyType)priceRequest.Currency
+                Currency = priceRequest.Currency
             };
             var newPriceProductDto = new PriceProductDTO
             {
@@ -229,7 +229,7 @@ namespace Levi9.ERP.UnitTests.Controllers
                 PriceListId = newPriceProductDto.PriceListId,
                 ProductId = newPriceProductDto.ProductId,
                 Price = newPriceProductDto.Price,
-                Currency = (Currency)newPriceProductDto.Currency
+                Currency = newPriceProductDto.Currency
             };
 
             _mapperMock.Setup(x => x.Map<PriceProductDTO>(priceRequest)).Returns(priceProductDto);
@@ -250,14 +250,14 @@ namespace Levi9.ERP.UnitTests.Controllers
                 PriceListId = 1,
                 ProductId = 1,
                 Price = 9.99f,
-                Currency = Currency.USD
+                Currency = CurrencyType.USD
             };
             var priceProductDto = new PriceProductDTO
             {
                 PriceListId = priceRequest.PriceListId,
                 ProductId = priceRequest.ProductId,
                 Price = priceRequest.Price,
-                Currency = (CurrencyType)priceRequest.Currency
+                Currency = priceRequest.Currency
             };
 
             _mapperMock.Setup(x => x.Map<PriceProductDTO>(priceRequest)).Returns(priceProductDto);

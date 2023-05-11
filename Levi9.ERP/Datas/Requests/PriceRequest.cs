@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Levi9.ERP.Domain.Models;
+using System.ComponentModel.DataAnnotations;
 namespace Levi9.ERP.Datas.Requests
 {
     public class PriceRequest
@@ -13,6 +14,6 @@ namespace Levi9.ERP.Datas.Requests
         [Range(0, float.MaxValue, ErrorMessage = "Please enter a positive value")]
         public float Price { get; set; }
         [Required]
-        public Currency Currency { get; set; }
+        public CurrencyType Currency { get; set; }
     }
 }

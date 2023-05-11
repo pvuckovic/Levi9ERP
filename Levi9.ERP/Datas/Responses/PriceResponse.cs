@@ -1,4 +1,4 @@
-﻿using Levi9.ERP.Datas.Requests;
+﻿using Levi9.ERP.Domain.Models;
 
 namespace Levi9.ERP.Datas.Responses
 {
@@ -7,6 +7,6 @@ namespace Levi9.ERP.Datas.Responses
         public int PriceListId { get; set; }
         public int ProductId { get; set; }
         public float Price { get; set; }
-        public Currency Currency { get; set; }
+        public CurrencyType Currency { get; set; }
     }
 }
