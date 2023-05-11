@@ -1,14 +1,28 @@
-using Levi9.ERP.Domain;
+﻿using Levi9.ERP.Domain;
+using Levi9.ERP.Domain.Helpers;
 using Levi9.ERP.Domain.Repositories;
 using Levi9.ERP.Domain.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Host.ConfigureAppConfiguration(config =>
+{
+    config.AddJsonFile("appsettings.json");
+});
+
+var jwtOptions = builder.Configuration
+    .GetSection("JwtOptions")
+    .Get<JwtOptions>();
+
+builder.Services.AddSingleton(jwtOptions);
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 // Add services to the container.
 
@@ -40,8 +54,31 @@ builder.Services.AddScoped<IUrlHelper>(x =>
 
 builder.Services.AddScoped<IPriceListRepository, PriceListRepository>();
 builder.Services.AddScoped<IPriceListService, PriceListService>();
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+    .AddJwtBearer(opts =>
+    {
+        //convert the string signing key to byte array
+        byte[] signingKeyBytes = Encoding.UTF8
+            .GetBytes(jwtOptions.SigningKey);
 
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+        opts.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = jwtOptions.Issuer,
+            ValidAudience = jwtOptions.Audience,
+            IssuerSigningKey = new SymmetricSecurityKey(signingKeyBytes)
+        };
+    });
+
+//👇 Configuring the Authorization Service
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
@@ -53,7 +90,10 @@ if (app.Environment.IsDevelopment())
    
 }
 
+
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

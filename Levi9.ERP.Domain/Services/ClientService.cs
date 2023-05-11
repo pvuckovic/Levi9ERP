@@ -10,7 +10,7 @@ namespace Levi9.ERP.Domain.Services
 
         public ClientService(IClientRepository clientRepository)
         {
-           _clientRepository = clientRepository;
+            _clientRepository = clientRepository;
         }
 
         public ClientDTO CreateClient(ClientDTO clientModel)
@@ -23,6 +23,17 @@ namespace Levi9.ERP.Domain.Services
             var clientEntity = _clientRepository.AddClient(clientModel);
             return clientEntity;
 
+        }
+        public ClientDTO GetClientByEmail(string email)
+        {
+            var clientEntity = _clientRepository.GetClientByEmail(email);
+            return clientEntity;
+        }
+
+        public ClientDTO GetClientById(int id)
+        {
+            var clientEntity = _clientRepository.GetClientById(id);
+            return clientEntity;
         }
     }
 }
