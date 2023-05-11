@@ -9,5 +9,6 @@ namespace Levi9.ERP.Domain.Repositories
         Task<IEnumerable<PriceList>> GetAllPricesLists();
         Task<PriceList> GetByGlobalIdAsync(Guid globalId);
         Task<Price> AddPrice(Price price);
+        Task<Price> UpdatePrice(Price price);
     }
 }
