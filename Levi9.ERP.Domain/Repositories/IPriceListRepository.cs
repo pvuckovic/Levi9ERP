@@ -10,5 +10,6 @@ namespace Levi9.ERP.Domain.Repositories
         Task<PriceList> GetByGlobalIdAsync(Guid globalId);
         Task<Price> AddPrice(Price price);
         Task<Price> UpdatePrice(Price price);
+        Task<List<KeyValuePair<string,IEnumerable<ArticleDTO>>>> SearchArticle(string name, OrderByArticleType orderBy, string direction);
     }
 }

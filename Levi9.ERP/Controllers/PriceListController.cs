@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Levi9.ERP.Datas.Requests;
 using Levi9.ERP.Datas.Responses;
+using Levi9.ERP.Domain.Models;
 using Levi9.ERP.Domain.Models.DTO;
 using Levi9.ERP.Domain.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -86,6 +87,30 @@ namespace Levi9.ERP.Controllers
 
             var priceResponse = _mapper.Map<PriceResponse>(newPriceProductDto);
             return Ok(priceResponse);
+        }
+        [HttpGet]
+        [Route("prices")]
+        public async Task<IActionResult> SearchArticles([FromQuery] SearchArticleRequest searchArticleRequest)
+        {
+            var searchArticleDTO = _mapper.Map<SearchArticleDTO>(searchArticleRequest);
+
+            if (searchArticleDTO.OrderBy != null && searchArticleDTO.Direction == null)
+                return BadRequest("Direction is required, becuse OrderBy is selected");
+
+            if(searchArticleDTO.SearchString == null)
+            {
+                if(searchArticleDTO.OrderBy == null)
+                {
+                    //TO DO: return all price lists orderBY= productName DESCENDING
+                    searchArticleDTO.Direction = DirectionType.DESC;
+                    return Ok();
+                }
+                //TO DO: return all price lists 
+               
+            }
+
+            return Ok();
+
         }
     }
 }
