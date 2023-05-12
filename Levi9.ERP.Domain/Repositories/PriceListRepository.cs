@@ -55,8 +55,11 @@ namespace Levi9.ERP.Domain.Repositories
             }
             return null;
         }
-        public async Task<IEnumerable<PriceListArticleDTO>> SearchArticle(string name, OrderByArticleType? orderBy, DirectionType? direction)
+        public async Task<IEnumerable<PriceListArticleDTO>> SearchArticle(int page,string name, OrderByArticleType? orderBy, DirectionType? direction)
         {
+            var pageSize = 1;
+            var skip = (page - 1) * pageSize;
+
             var list = await GetAllPricesLists();
 
             if (!string.IsNullOrEmpty(name))
@@ -67,7 +70,7 @@ namespace Levi9.ERP.Domain.Repositories
             if (orderBy == null)
             {
                 priceListArticleDTOs.ForEach(p => p.Articles = (direction == DirectionType.ASC) ? p.Articles.OrderBy(a => a.Name).ToList() : p.Articles.OrderByDescending(a => a.Name).ToList());
-                return priceListArticleDTOs;
+                return priceListArticleDTOs.Skip(skip).Take(pageSize);
             } 
 
             var propertySelectors = 
@@ -80,7 +83,7 @@ namespace Levi9.ERP.Domain.Repositories
 
             priceListArticleDTOs.ForEach(p => p.Articles = propertySelectors[orderBy](p.Articles).ToList());
             
-            return priceListArticleDTOs;
+            return priceListArticleDTOs.Skip(skip).Take(pageSize);
         }
         private bool ProductExists(int id)
         {

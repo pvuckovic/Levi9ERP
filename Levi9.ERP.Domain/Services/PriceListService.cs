@@ -65,7 +65,7 @@ namespace Levi9.ERP.Domain.Services
         }
         public async Task<IEnumerable<PriceListArticleDTO>> SearchArticle(SearchArticleDTO searchArticleDTO)
         {
-            return await _priceListRepository.SearchArticle(searchArticleDTO.SearchString, searchArticleDTO.OrderBy, searchArticleDTO.Direction);
+            return await _priceListRepository.SearchArticle(searchArticleDTO.PageId, searchArticleDTO.SearchString, searchArticleDTO.OrderBy, searchArticleDTO.Direction);
         }
     }
 }

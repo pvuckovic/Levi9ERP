@@ -100,10 +100,16 @@ namespace Levi9.ERP.Controllers
             if(searchArticleDTO.OrderBy == null && searchArticleDTO.Direction == null)
                 searchArticleDTO.Direction = DirectionType.DESC;
 
-            var searchArticleResponse = await _priceListService.SearchArticle(searchArticleDTO);
+            var priceListArticleDTOs = await _priceListService.SearchArticle(searchArticleDTO);
 
-            if (!searchArticleResponse.Any())
+            if (!priceListArticleDTOs.Any())
                 return Ok("There is no articles found that match the search parameters :( ");
+
+            var searchArticleResponse = new SearchArticleResponse
+            {
+                PricelistArticles = _mapper.Map<List<PriceListArticleResponse>>(priceListArticleDTOs),
+                Page = searchArticleRequest.PageId
+            };   
 
             return Ok(searchArticleResponse);
         }
