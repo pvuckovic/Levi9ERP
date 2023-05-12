@@ -96,21 +96,16 @@ namespace Levi9.ERP.Controllers
 
             if (searchArticleDTO.OrderBy != null && searchArticleDTO.Direction == null)
                 return BadRequest("Direction is required, becuse OrderBy is selected");
+            
+            if(searchArticleDTO.OrderBy == null && searchArticleDTO.Direction == null)
+                searchArticleDTO.Direction = DirectionType.DESC;
 
-            if(searchArticleDTO.SearchString == null)
-            {
-                if(searchArticleDTO.OrderBy == null)
-                {
-                    //TO DO: return all price lists orderBY= productName DESCENDING
-                    searchArticleDTO.Direction = DirectionType.DESC;
-                    return Ok();
-                }
-                //TO DO: return all price lists 
-               
-            }
+            var searchArticleResponse = await _priceListService.SearchArticle(searchArticleDTO);
 
-            return Ok();
+            if (!searchArticleResponse.Any())
+                return Ok("There is no articles found that match the search parameters :( ");
 
+            return Ok(searchArticleResponse);
         }
     }
 }

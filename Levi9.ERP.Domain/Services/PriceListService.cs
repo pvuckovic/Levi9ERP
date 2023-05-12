@@ -52,7 +52,6 @@ namespace Levi9.ERP.Domain.Services
 
             return priceListDto;
         }
-
         public async Task<PriceProductDTO> UpdatePrice(PriceProductDTO priceProductDTO)
         {
             var price = _mapper.Map<Price>(priceProductDTO);
@@ -63,6 +62,10 @@ namespace Levi9.ERP.Domain.Services
             var newPriceProductDTO = _mapper.Map<PriceProductDTO>(price);
 
             return newPriceProductDTO;
+        }
+        public async Task<IEnumerable<PriceListArticleDTO>> SearchArticle(SearchArticleDTO searchArticleDTO)
+        {
+            return await _priceListRepository.SearchArticle(searchArticleDTO.SearchString, searchArticleDTO.OrderBy, searchArticleDTO.Direction);
         }
     }
 }

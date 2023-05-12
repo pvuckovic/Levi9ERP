@@ -14,34 +14,18 @@ namespace Levi9.ERP.Domain.Repositories
             _dataBaseContext = dataBaseContext;
             _mapper = mapper;
         }
-
         public async Task<IEnumerable<PriceList>> GetAllPricesLists()
         {
-            return await _dataBaseContext.PriceLists.ToListAsync();
+            return await _dataBaseContext.PriceLists.Include(p => p.Prices).ThenInclude(p => p.Product).ToListAsync();
         }
         public async Task<PriceList> GetByGlobalIdAsync(Guid globalId)
         {
-            return await _dataBaseContext.PriceLists.FirstOrDefaultAsync(p => p.GlobalId == globalId);
+            return await _dataBaseContext.PriceLists.Include(p => p.Prices).ThenInclude(p => p.Product).FirstOrDefaultAsync(p => p.GlobalId == globalId);
         }
-
         public async Task<PriceList> GetByIdAsync(int id)
         {
             return await _dataBaseContext.PriceLists.Include(p => p.Prices).ThenInclude(p => p.Product).FirstOrDefaultAsync(p => p.Id == id);
         }
-
-        private bool ProductExists(int id)
-        {
-            return _dataBaseContext.Products.Any(p => p.Id == id);
-        }
-        private bool PriceListExists(int id)
-        {
-            return _dataBaseContext.PriceLists.Any(p => p.Id == id);
-        }
-        private bool PriceExists(int priceListId, int productId)
-        {
-            return _dataBaseContext.Prices.Any(p => p.PriceListId == priceListId && p.ProductId == productId);
-        }
-
         public async Task<Price> UpdatePrice(Price price)
         {
             if (PriceListExists(price.PriceListId) && ProductExists(price.ProductId))
@@ -71,29 +55,44 @@ namespace Levi9.ERP.Domain.Repositories
             }
             return null;
         }
-
-        public async Task<List<KeyValuePair<string, IEnumerable<ArticleDTO>>>> SearchArticle(string name, OrderByArticleType orderBy, string direction)
+        public async Task<IEnumerable<PriceListArticleDTO>> SearchArticle(string name, OrderByArticleType? orderBy, DirectionType? direction)
         {
-            var list = await _dataBaseContext.PriceLists.Include(p => p.Prices).ThenInclude(p => p.Product).ToListAsync();
+            var list = await GetAllPricesLists();
 
             if (!string.IsNullOrEmpty(name))
-                list = list.Where(p => p.Name.Contains(name)).ToList();
+                list = list.Where(p => p.Name.ToLower().Contains(name)).ToList();
+            
+            var priceListArticleDTOs = list.Select(p => _mapper.Map<PriceListArticleDTO>(p)).ToList();
 
-            List<KeyValuePair<string, IEnumerable<ArticleDTO>>> listArticle = new List<KeyValuePair<string, IEnumerable<ArticleDTO>>>();
-
-            foreach (var priceList in list)
+            if (orderBy == null)
             {
-                var tempListArticle = new List<ArticleDTO>();
+                priceListArticleDTOs.ForEach(p => p.Articles = (direction == DirectionType.ASC) ? p.Articles.OrderBy(a => a.Name).ToList() : p.Articles.OrderByDescending(a => a.Name).ToList());
+                return priceListArticleDTOs;
+            } 
 
-                foreach (var article in priceList.Prices)
+            var propertySelectors = 
+                new Dictionary<OrderByArticleType?, Func<IEnumerable<ArticleDTO>, IOrderedEnumerable<ArticleDTO>>>
                 {
-                    tempListArticle.Add(_mapper.Map<ArticleDTO>(article));
-                }
-                listArticle.Add(new KeyValuePair<string, IEnumerable<ArticleDTO>>(priceList.Name, tempListArticle));
-            }
+                    { OrderByArticleType.ProductId, articles => direction == DirectionType.ASC ? articles.OrderBy(a => a.Id) : articles.OrderByDescending(a => a.Id) },
+                    { OrderByArticleType.ProductGloballId, articles => direction == DirectionType.ASC ? articles.OrderBy(a => a.GlobalId) : articles.OrderByDescending(a => a.GlobalId) },
+                    { OrderByArticleType.ProductPrice, articles => direction == DirectionType.ASC ? articles.OrderBy(a => a.Price) : articles.OrderByDescending(a => a.Price) }
+                };
 
-            //TO DO: logic for OrderBy and Direction
-            return listArticle;
+            priceListArticleDTOs.ForEach(p => p.Articles = propertySelectors[orderBy](p.Articles).ToList());
+            
+            return priceListArticleDTOs;
+        }
+        private bool ProductExists(int id)
+        {
+            return _dataBaseContext.Products.Any(p => p.Id == id);
+        }
+        private bool PriceListExists(int id)
+        {
+            return _dataBaseContext.PriceLists.Any(p => p.Id == id);
+        }
+        private bool PriceExists(int priceListId, int productId)
+        {
+            return _dataBaseContext.Prices.Any(p => p.PriceListId == priceListId && p.ProductId == productId);
         }
     }
 }

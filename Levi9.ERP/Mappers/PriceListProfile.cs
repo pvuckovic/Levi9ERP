@@ -23,6 +23,9 @@ namespace Levi9.ERP.Mappers
             CreateMap<SearchArticleRequest, SearchArticleDTO>()
                 .ForMember(dest => dest.SearchString,
                             from => from.MapFrom(src => src.SearchString.ToLower()));
+            CreateMap<PriceList, PriceListArticleDTO>()
+                .ForMember(dest => dest.Articles,
+                            from => from.MapFrom(src => src.Prices));
             CreateMap<Price, ArticleDTO>()
                 .ForMember(dest => dest.Id,
                             from => from.MapFrom(src => src.Product.Id))
