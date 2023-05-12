@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Levi9.ERP.Controllers
 {
-    [Route("api/client")]
+    [Route("v1/[controller]")]
     [ApiController]
     [Produces("application/json", "application/xml")]
     public class ClientController : ControllerBase
@@ -28,16 +28,16 @@ namespace Levi9.ERP.Controllers
         [HttpPost]
         [Consumes("application/json")]
         [AllowAnonymous]
-        public ActionResult<ClientResponse> CreateClient([FromBody] ClientRequest client)
+        public async Task<IActionResult> CreateClient([FromBody] ClientRequest client)
         {
             ClientDTO clientMap = _mapper.Map<ClientDTO>(client);
 
-            if (_clientService.GetClientByEmail(client.Email) != null)
+            if ( await _clientService.GetClientByEmail(client.Email) != null)
             {
                 return BadRequest("Email already exists");
             }
 
-            ClientDTO clientDto = _clientService.CreateClient(clientMap);
+            ClientDTO clientDto = await _clientService.CreateClient(clientMap);
             string location = _urlHelper.Action("CreateClient", "Client", new { clientId = clientDto.Id }, Request.Scheme);
 
             return Created(location, _mapper.Map<ClientResponse>(clientDto));
@@ -45,9 +45,9 @@ namespace Levi9.ERP.Controllers
 
         [Authorize]
         [HttpGet("{id}")]
-        public ActionResult<ClientResponse> GetClientById(int id)
+        public async Task<IActionResult> GetClientById(int id)
         {
-            var clientDTO = _clientService.GetClientById(id);
+            var clientDTO = await _clientService.GetClientById(id);
             if (clientDTO == null)
             {
                return NotFound("User not found");

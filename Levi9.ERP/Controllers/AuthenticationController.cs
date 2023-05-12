@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Levi9.ERP.Controllers
 {
-    [Route("api/authentication")]
+    [Route("v1/[controller]")]
     [ApiController]
     [Produces("application/json", "application/xml")]
     public class AuthenticationController : ControllerBase
@@ -25,9 +25,9 @@ namespace Levi9.ERP.Controllers
         [HttpPost]
         [Consumes("application/json")]
         [AllowAnonymous]
-        public IActionResult ClientAuthentication([FromBody] AuthenticationRequest authenticationRequest)
+        public async Task<IActionResult> ClientAuthentication([FromBody] AuthenticationRequest authenticationRequest)
         {
-            ClientDTO authenticationDTO = _clientService.GetClientByEmail(authenticationRequest.Email);
+            ClientDTO authenticationDTO = await _clientService.GetClientByEmail(authenticationRequest.Email);
             if (authenticationDTO == null)
             {
                return  BadRequest("Email not valid");

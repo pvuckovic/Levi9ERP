@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Levi9.ERP.Domain.Models;
 using Levi9.ERP.Domain.Models.DTO;
+using Microsoft.EntityFrameworkCore;
 
 namespace Levi9.ERP.Domain.Repositories
 {
@@ -15,29 +16,29 @@ namespace Levi9.ERP.Domain.Repositories
             _mapper = mapper;
         }
 
-        public ClientDTO AddClient(ClientDTO clientModel)
+        public async Task<ClientDTO> AddClient(ClientDTO clientModel)
         {
             Client clientMap = _mapper.Map<Client>(clientModel);
             var createdEntity = _context.Clients.Add(clientMap);
-            SaveChanges();
+            await SaveChanges();
             return _mapper.Map<ClientDTO>(createdEntity.Entity);
         }
 
-        public ClientDTO GetClientByEmail(string email)
+        public async Task<ClientDTO> GetClientByEmail(string email)
         {
-            var clientByEmail = _context.Clients.FirstOrDefault(e => e.Email == email);
+            var clientByEmail = await _context.Clients.FirstOrDefaultAsync(e => e.Email == email);
             return _mapper.Map<ClientDTO>(clientByEmail);
         }
 
-        public ClientDTO GetClientById(int id)
+        public async Task<ClientDTO> GetClientById(int id)
         {
-            var clientById = _context.Clients.FirstOrDefault(e => e.Id == id);
+            var clientById = await _context.Clients.FirstOrDefaultAsync(e => e.Id == id);
             return _mapper.Map<ClientDTO>(clientById);
         }
 
-        public bool SaveChanges()
+        public async Task<bool> SaveChanges()
         {
-            return _context.SaveChanges() > 0;
+            return await _context.SaveChangesAsync() > 0;
         }
     }
 }
