@@ -13,6 +13,5 @@ namespace Levi9.ERP.Domain.Models.DTO
         public string? Name { get; set; }
         public string? LastUpdate { get; set; }
         public List<ArticleDTO> Articles { get; set; }
-        
     }
 }
