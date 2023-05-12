@@ -208,5 +208,57 @@ namespace Levi9.ERP.UnitTests.Services
 
             Assert.That(result, Is.EqualTo(updatedPriceProductDto));
         }
+        [Test]
+        public async Task SearchArticle_ReturnsSearchResults()
+        {
+            var searchArticleDTO = new SearchArticleDTO
+            {
+                PageId = 1,
+                SearchString = "price",
+                OrderBy = OrderByArticleType.ProductId,
+                Direction = DirectionType.ASC
+            };
+
+            var priceListArticleDTOs = new List<PriceListArticleDTO>
+            {
+                new PriceListArticleDTO
+                {
+                    Id = 1,
+                    GlobalId = Guid.NewGuid(),
+                    Name = "Price list 1",
+                    Articles = new List<ArticleDTO>
+                    {
+                       new ArticleDTO(){ Id= 1, GlobalId = Guid.NewGuid(), Name = "Article1", Price = 100, Currency = CurrencyType.RSD },
+                       new ArticleDTO(){ Id= 2, GlobalId = Guid.NewGuid(), Name = "Article2", Price = 200, Currency = CurrencyType.RSD }
+                    },
+                    LastUpdate = "12341241521512512",
+                },
+                new PriceListArticleDTO
+                {
+                    Id = 2,
+                    GlobalId = Guid.NewGuid(),
+                    Name = "Price list 2",
+                    Articles = new List<ArticleDTO>
+                    {
+                       new ArticleDTO(){ Id= 1, GlobalId = Guid.NewGuid(), Name = "Article1", Price = 123, Currency = CurrencyType.RSD },
+                       new ArticleDTO(){ Id= 2, GlobalId = Guid.NewGuid(), Name = "Article2", Price = 5125, Currency = CurrencyType.RSD }
+                    },
+                    LastUpdate = "123412415215125123",
+                },
+            };
+
+            _priceListRepositoryMock.Setup(x => x.SearchArticle(
+                searchArticleDTO.PageId,
+                searchArticleDTO.SearchString,
+                searchArticleDTO.OrderBy,
+                searchArticleDTO.Direction))
+                .ReturnsAsync(priceListArticleDTOs);
+
+            var result = await _priceListService.SearchArticle(searchArticleDTO);
+
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result, Is.InstanceOf<IEnumerable<PriceListArticleDTO>>());
+            Assert.That(result.Count(), Is.EqualTo(priceListArticleDTOs.Count));
+        }
     }
 }
