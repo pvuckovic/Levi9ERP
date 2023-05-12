@@ -95,7 +95,7 @@ namespace Levi9.ERP.Controllers
             var searchArticleDTO = _mapper.Map<SearchArticleDTO>(searchArticleRequest);
 
             if (searchArticleDTO.OrderBy != null && searchArticleDTO.Direction == null)
-                return BadRequest("Direction is required, becuse OrderBy is selected");
+                return BadRequest("Direction is required, because OrderBy is selected");
             
             if(searchArticleDTO.OrderBy == null && searchArticleDTO.Direction == null)
                 searchArticleDTO.Direction = DirectionType.DESC;
