@@ -38,7 +38,7 @@ namespace Levi9.ERP.Domain.Repositories
             var query = _context.Documents
                    .Include(d => d.Client)
                    .Include(d => d.ProductDocuments).ThenInclude(pd => pd.Product).AsQueryable();
-           
+
             if (!string.IsNullOrEmpty(name))
             {
                 query = query.Where(d => d.Client.Name.Contains(name) ||
@@ -52,7 +52,8 @@ namespace Levi9.ERP.Domain.Repositories
                 { "documentType", p => p.DocumentType }
             };
 
-            var orderByExpression = orderByMap.GetValueOrDefault(orderBy, p => p.GlobalId);
+            var orderByExpression = (orderBy == null) ? orderByMap.GetValueOrDefault("globalId", p => p.GlobalId) :
+            orderByMap.GetValueOrDefault(orderBy, p => p.GlobalId);
             var sortedQuery = (direction == "asc") ? query.OrderBy(orderByExpression) : query.OrderByDescending(orderByExpression);
             var pageSize = 5;
             var skip = (page - 1) * pageSize;

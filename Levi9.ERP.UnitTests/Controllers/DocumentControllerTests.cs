@@ -274,7 +274,7 @@ namespace Levi9.ERP.UnitTests.Controllers
                 }
             };
             _mockDocumentService.Setup(s => s.GetDocumentsByParameters(It.IsAny<SearchDocumentDTO>()))
-               .ReturnsAsync(documents = null);
+               .ReturnsAsync(new List<DocumentDTO>{ });
 
             var result = await _documentController.SearchDocuments(searchParams);
             Assert.IsInstanceOf<NotFoundObjectResult>(result);

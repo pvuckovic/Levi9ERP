@@ -10,8 +10,8 @@ namespace Levi9.ERP.Datas.Requests
         [Required(ErrorMessage = "Name property is required.")]
         public string Name { get; set; }
         [RegularExpression("^(id|globalId|documentType)$", ErrorMessage = "Order by parameter must be id, globalId, documentType.")]
-        public string OrderBy { get; set; }
+        public string? OrderBy { get; set; }
         [RegularExpression("^(asc|dsc)$", ErrorMessage = "The direction must be asc or dsc")]
-        public string Direction { get; set; }
+        public string? Direction { get; set; }
     }
 }
