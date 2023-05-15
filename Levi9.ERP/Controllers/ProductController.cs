@@ -12,6 +12,7 @@ namespace Levi9.ERP.Controllers
 
     [Route("v1/[controller]")]
     [ApiController]
+    //[Authorize]
     public class ProductController : ControllerBase
     {
         private readonly IProductService _productService;
@@ -49,7 +50,7 @@ namespace Levi9.ERP.Controllers
             return Ok(productResponse);
         }
 
-        [HttpGet("/Global/{id}")]
+        [HttpGet("Global/{id}")]
         public async Task<IActionResult> GetByGlobalId(Guid id)
         {
             var product = await _productService.GetProductByGlobalId(id);
@@ -59,7 +60,7 @@ namespace Levi9.ERP.Controllers
             return Ok(productResponse);
         }
 
-        [HttpGet("/Product")]
+        [HttpGet("/Search")]
         public async Task<IActionResult> SearchProducts([FromQuery] SearchProductRequest searchParams)
         {
             if (searchParams.Page <= 0) return BadRequest("Page must be greater than 0.");

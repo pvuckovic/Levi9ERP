@@ -3,11 +3,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Levi9.ERP.IntegrationTests
 {
@@ -18,7 +13,9 @@ namespace Levi9.ERP.IntegrationTests
         {
             builder.ConfigureServices(services =>
             {
-                // Replace the database context registration with an in-memory database
+                //services.AddScoped<IProductRepository, ProductRepository>();
+                //services.AddScoped<IProductService, ProductService>();
+
                 var descriptor = services.SingleOrDefault(
                     d => d.ServiceType == typeof(DbContextOptions<DataBaseContext>));
 
@@ -32,10 +29,8 @@ namespace Levi9.ERP.IntegrationTests
                     options.UseInMemoryDatabase("TestDatabase");
                 });
 
-                // Build the service provider to resolve and initialize the database context
                 var serviceProvider = services.BuildServiceProvider();
 
-                // Create a new instance of the database context
                 _dataBaseContext = serviceProvider.GetRequiredService<DataBaseContext>();
                 _dataBaseContext.Database.EnsureCreated();
             });
