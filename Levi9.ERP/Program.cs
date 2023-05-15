@@ -97,11 +97,20 @@ app.UseAuthentication();
 
 app.UseAuthorization();
 
-using (var context = builder.Services.BuildServiceProvider().GetService<DataBaseContext>())
+using (var scope = app.Services.CreateScope())
 {
-    context.Database.EnsureDeleted();
-    context.Database.Migrate();
+    var services = scope.ServiceProvider;
 
+    try
+    {
+        var dbContext = services.GetRequiredService<DataBaseContext>();
+        dbContext.Database.Migrate();
+    }
+    catch (Exception ex)
+    {
+        //var logger = services.GetRequiredService<ILogger<Program>>();
+        //logger.LogError(ex, "An error occurred while migrating the database.");
+    }
 }
 
 app.MapControllers();
