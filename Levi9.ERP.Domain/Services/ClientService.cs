@@ -13,26 +13,26 @@ namespace Levi9.ERP.Domain.Services
             _clientRepository = clientRepository;
         }
 
-        public ClientDTO CreateClient(ClientDTO clientModel)
+        public async Task<ClientDTO> CreateClient(ClientDTO clientModel)
         {
             clientModel.GlobalId = Guid.NewGuid();
             string salt = AuthenticationHelper.GenerateRandomSalt();
             clientModel.Password = AuthenticationHelper.HashPassword(clientModel.Password, salt);
             clientModel.Salt = salt;
             clientModel.LastUpdate = DateTime.Now.ToFileTimeUtc().ToString();
-            var clientEntity = _clientRepository.AddClient(clientModel);
+            var clientEntity = await _clientRepository.AddClient(clientModel);
             return clientEntity;
 
         }
-        public ClientDTO GetClientByEmail(string email)
+        public async Task<ClientDTO> GetClientByEmail(string email)
         {
-            var clientEntity = _clientRepository.GetClientByEmail(email);
+            var clientEntity = await _clientRepository.GetClientByEmail(email);
             return clientEntity;
         }
 
-        public ClientDTO GetClientById(int id)
+        public async Task<ClientDTO> GetClientById(int id)
         {
-            var clientEntity = _clientRepository.GetClientById(id);
+            var clientEntity = await _clientRepository.GetClientById(id);
             return clientEntity;
         }
     }
