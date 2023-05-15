@@ -3,6 +3,7 @@ using Levi9.ERP.Controllers;
 using Levi9.ERP.Datas.Requests;
 using Levi9.ERP.Datas.Responses;
 using Levi9.ERP.Domain.Mappers;
+using Levi9.ERP.Domain.Models;
 using Levi9.ERP.Domain.Models.DTO;
 using Levi9.ERP.Domain.Services;
 using Levi9.ERP.Mappers;
@@ -47,7 +48,7 @@ namespace Levi9.ERP.UnitTests.Controllers
             var documentRequest = new DocumentRequest
             {
                 ClientId = 1,
-                DocumentType = "INVOICE",
+                DocumentType = DocumentType.INVOICE,
                 Items = new List<DocumentItemDTO>()
                 {
                     new DocumentItemDTO
@@ -74,7 +75,7 @@ namespace Levi9.ERP.UnitTests.Controllers
             {
                 Id = 2,
                 ClientId = 1,
-                DocumentType = EnumDocumentType.INVOICE,
+                DocumentType = DocumentType.INVOICE,
                 Items = new List<DocumentItemDTO>()
                 {
                     new DocumentItemDTO
@@ -108,7 +109,7 @@ namespace Levi9.ERP.UnitTests.Controllers
             var documentRequest = new DocumentRequest
             {
                 ClientId = 7,
-                DocumentType = "INVOICE",
+                DocumentType = DocumentType.INVOICE,
                 Items = new List<DocumentItemDTO>()
                 {
                     new DocumentItemDTO
@@ -134,7 +135,7 @@ namespace Levi9.ERP.UnitTests.Controllers
             var documentDto = new DocumentDTO
             {
                 Id = 2,
-                DocumentType = EnumDocumentType.INVOICE,
+                DocumentType = DocumentType.INVOICE,
                 Items = new List<DocumentItemDTO>()
                 {
                     new DocumentItemDTO
@@ -205,7 +206,7 @@ namespace Levi9.ERP.UnitTests.Controllers
                 {
                     Id = 2,
                     ClientId = 1,
-                    DocumentType = EnumDocumentType.INVOICE,
+                    DocumentType = DocumentType.INVOICE,
                     Items = new List<DocumentItemDTO>()
                     {
                         new DocumentItemDTO
@@ -219,7 +220,7 @@ namespace Levi9.ERP.UnitTests.Controllers
                 {
                     Id = 3,
                     ClientId = 1,
-                    DocumentType = EnumDocumentType.INVOICE,
+                    DocumentType = DocumentType.INVOICE,
                     Items = new List<DocumentItemDTO>()
                     {
                         new DocumentItemDTO
@@ -248,7 +249,7 @@ namespace Levi9.ERP.UnitTests.Controllers
                 {
                     Id = 2,
                     ClientId = 1,
-                    DocumentType = EnumDocumentType.INVOICE,
+                    DocumentType = DocumentType.INVOICE,
                     Items = new List<DocumentItemDTO>()
                     {
                         new DocumentItemDTO
@@ -262,7 +263,7 @@ namespace Levi9.ERP.UnitTests.Controllers
                 {
                     Id = 3,
                     ClientId = 1,
-                    DocumentType = EnumDocumentType.INVOICE,
+                    DocumentType = DocumentType.INVOICE,
                     Items = new List<DocumentItemDTO>()
                     {
                         new DocumentItemDTO

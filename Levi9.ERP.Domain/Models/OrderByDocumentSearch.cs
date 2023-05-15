@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Levi9.ERP.Domain.Models.DTO
+namespace Levi9.ERP.Domain.Models
 {
-    public enum EnumDocumentType
+    public enum OrderByDocumentSearch
     {
-        INVOICE,
-        RECEIPTS,
-        PURCHASE
+        id = 0,
+        globalId = 1,
+        documentType = 2
     }
 }

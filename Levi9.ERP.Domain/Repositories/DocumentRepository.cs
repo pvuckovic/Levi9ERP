@@ -54,7 +54,7 @@ namespace Levi9.ERP.Domain.Repositories
 
             var orderByExpression = (orderBy == null) ? orderByMap.GetValueOrDefault("globalId", p => p.GlobalId) :
             orderByMap.GetValueOrDefault(orderBy, p => p.GlobalId);
-            var sortedQuery = (direction == "asc") ? query.OrderBy(orderByExpression) : query.OrderByDescending(orderByExpression);
+            var sortedQuery = (direction == "ASC") ? query.OrderBy(orderByExpression) : query.OrderByDescending(orderByExpression);
             var pageSize = 5;
             var skip = (page - 1) * pageSize;
             var documents = await sortedQuery

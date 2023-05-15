@@ -10,7 +10,7 @@ namespace Levi9.ERP.Domain.Models.DTO
     {
         public int Page { get; set; }
         public string Name { get; set; }
-        public string OrderBy { get; set; }
-        public string Direction { get; set; }
+        public OrderByDocumentSearch OrderBy { get; set; }
+        public DirectionType Direction { get; set; }
     }
 }

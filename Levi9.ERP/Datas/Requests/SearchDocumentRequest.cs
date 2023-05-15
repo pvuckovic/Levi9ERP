@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Levi9.ERP.Domain.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace Levi9.ERP.Datas.Requests
 {
@@ -10,8 +11,8 @@ namespace Levi9.ERP.Datas.Requests
         [Required(ErrorMessage = "Name property is required.")]
         public string Name { get; set; }
         [RegularExpression("^(id|globalId|documentType)$", ErrorMessage = "Order by parameter must be id, globalId, documentType.")]
-        public string? OrderBy { get; set; }
-        [RegularExpression("^(asc|dsc)$", ErrorMessage = "The direction must be asc or dsc")]
-        public string? Direction { get; set; }
+        public OrderByDocumentSearch? OrderBy { get; set; }
+        [RegularExpression("^(ASC|DSC)$", ErrorMessage = "The direction must be asc or dsc")]
+        public DirectionType? Direction { get; set; }
     }
 }

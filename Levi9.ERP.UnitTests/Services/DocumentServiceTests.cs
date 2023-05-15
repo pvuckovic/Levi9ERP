@@ -29,7 +29,7 @@ namespace Levi9.ERP.UnitTests.Services
             var documentDTO = new DocumentDTO
             {
                 ClientId = 1,
-                DocumentType = EnumDocumentType.INVOICE,
+                DocumentType = DocumentType.INVOICE,
                 Items = new List<DocumentItemDTO>()
                 {
                     new DocumentItemDTO
@@ -53,7 +53,7 @@ namespace Levi9.ERP.UnitTests.Services
             {
                 Id = 2,
                 ClientId = 1,
-                DocumentType = EnumDocumentType.INVOICE,
+                DocumentType = DocumentType.INVOICE,
                 Items = new List<DocumentItemDTO>()
                 {
                     new DocumentItemDTO
@@ -77,7 +77,7 @@ namespace Levi9.ERP.UnitTests.Services
             var documentDTO = new DocumentDTO
             {
                 ClientId = 55,
-                DocumentType = EnumDocumentType.INVOICE,
+                DocumentType = DocumentType.INVOICE,
                 Items = new List<DocumentItemDTO>()
                 {
                     new DocumentItemDTO
@@ -136,13 +136,13 @@ namespace Levi9.ERP.UnitTests.Services
             {
                 Name = "Shirt",
                 Page = 1,
-                OrderBy = "documentType",
-                Direction = "asc"
+                OrderBy = OrderByDocumentSearch.documentType,
+                Direction = DirectionType.ASC
             };
             var documentDTO = new DocumentDTO
             {
                 ClientId = 1,
-                DocumentType = EnumDocumentType.INVOICE,
+                DocumentType = DocumentType.INVOICE,
                 Items = new List<DocumentItemDTO>()
                 {
                     new DocumentItemDTO
@@ -161,7 +161,7 @@ namespace Levi9.ERP.UnitTests.Services
                 Id = 1,
             };
             _documentMockRepository.Setup(x => x.GetDocumentsByParameters(
-                searchParams.Name, searchParams.Page, searchParams.OrderBy, searchParams.Direction))
+                searchParams.Name, searchParams.Page, searchParams.OrderBy.ToString(), searchParams.Direction.ToString()))
                 .ReturnsAsync(new List<DocumentDTO> { documentDTO });
 
             var result = await _documentService.GetDocumentsByParameters(searchParams);
@@ -178,13 +178,13 @@ namespace Levi9.ERP.UnitTests.Services
             {
                 Name = "fffffffffff",
                 Page = 1,
-                OrderBy = "documentType",
-                Direction = "asc"
+                OrderBy = OrderByDocumentSearch.documentType,
+                Direction = DirectionType.ASC
             };
             var documentDTO = new DocumentDTO
             {
                 ClientId = 1,
-                DocumentType = EnumDocumentType.INVOICE,
+                DocumentType = DocumentType.INVOICE,
                 Items = new List<DocumentItemDTO>()
                 {
                     new DocumentItemDTO
@@ -203,7 +203,7 @@ namespace Levi9.ERP.UnitTests.Services
                 Id = 1,
             };
             _documentMockRepository.Setup(x => x.GetDocumentsByParameters(
-                searchParams.Name, searchParams.Page, searchParams.OrderBy, searchParams.Direction))
+                searchParams.Name, searchParams.Page, searchParams.OrderBy.ToString(), searchParams.Direction.ToString()))
                 .ReturnsAsync(new List<DocumentDTO> { });
 
             var result = await _documentService.GetDocumentsByParameters(searchParams);

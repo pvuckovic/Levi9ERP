@@ -26,7 +26,7 @@ namespace Levi9.ERP.Domain.Services
         }
         public async Task<IEnumerable<DocumentDTO>> GetDocumentsByParameters(SearchDocumentDTO searchParams)
         {
-            var products = await _documentRepository.GetDocumentsByParameters(searchParams.Name, searchParams.Page, searchParams.OrderBy, searchParams.Direction);
+            var products = await _documentRepository.GetDocumentsByParameters(searchParams.Name, searchParams.Page, searchParams.OrderBy.ToString(), searchParams.Direction.ToString());
             return products;
         }
     }
