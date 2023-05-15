@@ -39,7 +39,6 @@ namespace Levi9.ERP.Controllers
 
             ClientDTO clientDto = await _clientService.CreateClient(clientMap);
             string location = _urlHelper.Action("CreateClient", "Client", new { clientId = clientDto.Id }, Request.Scheme);
-
             return Created(location, _mapper.Map<ClientResponse>(clientDto));
         }
 

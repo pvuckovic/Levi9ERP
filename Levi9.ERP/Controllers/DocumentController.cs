@@ -17,6 +17,7 @@ namespace Levi9.ERP.Controllers
         private readonly IProductService _productService;
         private readonly IMapper _mapper;
         private readonly IUrlHelper _urlHelper;
+
         public DocumentController(IDocumentService documentService, IClientService clientService, IProductService productService, IMapper mapper, IUrlHelper urlHelper)
         {
             _documentService = documentService;
@@ -32,20 +33,21 @@ namespace Levi9.ERP.Controllers
         {
             if (await _clientService.GetClientById(document.ClientId) == null)
             {
-                return NotFound("Client doesnt exists");
+                return NotFound("Client doesn't exists");
             }
+
             foreach (var product in document.Items)
             {
                 var productbyId = await _productService.GetProductById(product.ProductId);
                 if (productbyId == null)
                 {
-                    return NotFound("Product doesnt exists");
+                    return NotFound($"Product: {product.Name} doesn't exists");
                 }
             }
+
             var documentMap = _mapper.Map<DocumentDTO>(document);
             var documentDTO = await _documentService.CreateDocument(documentMap);
             string location = _urlHelper.Action("CreateDocument", "Document", new { documentId = documentDTO.Id }, Request.Scheme);
-
             return Created(location, _mapper.Map<DocumentResponse>(documentDTO));
         }
         [HttpGet("{id}")]
@@ -65,7 +67,7 @@ namespace Levi9.ERP.Controllers
         {
             var mappedParams = _mapper.Map<SearchDocumentDTO>(searchParams);
             var documents = await _documentService.GetDocumentsByParameters(mappedParams);
-            if (documents == null || !documents.Any())
+            if (!documents.Any())
             {
                 return NotFound("No documents were found that match the search parameters");
             }

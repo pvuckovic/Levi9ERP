@@ -18,7 +18,6 @@ namespace Levi9.ERP.Domain.Services
             documentModel.LastUpdate = DateTime.Now.ToFileTimeUtc().ToString();
             var documentEntity = await _documentRepository.AddDocument(documentModel);
             return documentEntity;
-
         }
         public async Task<DocumentDTO> GetDocumentById(int id)
         {

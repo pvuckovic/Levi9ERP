@@ -35,13 +35,13 @@ namespace Levi9.ERP.Domain.Repositories
         }
         public async Task<IEnumerable<DocumentDTO>> GetDocumentsByParameters(string name, int page, string orderBy, string direction)
         {
-            var query = _context.Documents.AsQueryable();
+            var query = _context.Documents
+                   .Include(d => d.Client)
+                   .Include(d => d.ProductDocuments).ThenInclude(pd => pd.Product).AsQueryable();
+           
             if (!string.IsNullOrEmpty(name))
             {
-                query = query
-                    .Include(d => d.Client)
-                    .Include(d => d.ProductDocuments).ThenInclude(pd => pd.Product)
-                    .Where(d => d.Client.Name.Contains(name) ||
+                query = query.Where(d => d.Client.Name.Contains(name) ||
                          d.ProductDocuments.Any(pd => pd.Product.Name.Contains(name)) ||
                          d.DocumentType.Contains(name));
             }
@@ -57,8 +57,6 @@ namespace Levi9.ERP.Domain.Repositories
             var pageSize = 5;
             var skip = (page - 1) * pageSize;
             var documents = await sortedQuery
-                .Include(d => d.Client)
-                    .Include(d => d.ProductDocuments).ThenInclude(pd => pd.Product)
                 .Skip(skip)
                 .Take(pageSize)
                 .ToListAsync();

@@ -12,17 +12,16 @@ namespace Levi9.ERP.Mappers
         public DocumentProfiles()
         {
             CreateMap<ProductDocument, DocumentItemDTO>()
-                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Product.Name));
+               .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Product.Name));
             CreateMap<DocumentItemDTO, ProductDocument>();
             CreateMap<DocumentRequest, DocumentDTO>();
             CreateMap<DocumentDTO, DocumentResponse>()
-                .ForMember(dest => dest.DocumentId, opt => opt.MapFrom(src => src.Id));
+               .ForMember(dest => dest.DocumentId, opt => opt.MapFrom(src => src.Id));
             CreateMap<DocumentDTO, Document>()
                .ForMember(dest => dest.ProductDocuments, opt => opt.MapFrom(src => src.Items))
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+               .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                .ReverseMap();
             CreateMap<SearchDocumentRequest, SearchDocumentDTO>();
-
         }
     }
 }

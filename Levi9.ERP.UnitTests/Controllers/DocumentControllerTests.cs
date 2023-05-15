@@ -42,7 +42,6 @@ namespace Levi9.ERP.UnitTests.Controllers
         }
 
         [Test]
-
         public async Task CreatedDocumentReturns201Created()
         {
             var documentRequest = new DocumentRequest
@@ -102,6 +101,7 @@ namespace Levi9.ERP.UnitTests.Controllers
             Assert.AreEqual(documentDto.Items.Count, ((DocumentResponse)createdResult.Value).Items.Count);
 
         }
+
         [Test]
         public async Task CreateDocument_ClientId_Not_Exists_ReturnsNotFound()
         {
@@ -156,8 +156,8 @@ namespace Levi9.ERP.UnitTests.Controllers
             Assert.IsInstanceOf<NotFoundObjectResult>(result);
             var createdResult = (NotFoundObjectResult)result;
             Assert.AreEqual(404, createdResult.StatusCode);
-
         }
+
         [Test]
         public async Task GetById_WithValidId_ReturnsOk()
         {
@@ -193,8 +193,8 @@ namespace Levi9.ERP.UnitTests.Controllers
             Assert.IsInstanceOf<NotFoundObjectResult>(result);
             var notFoundResult = (NotFoundObjectResult)result;
             Assert.AreEqual("A document with that id doesn't exists", notFoundResult.Value);
-
         }
+
         [Test]
         public async Task SearchDocuments_With_Valid_Query_Params_ReturnsOkResult()
         {
@@ -237,6 +237,7 @@ namespace Levi9.ERP.UnitTests.Controllers
 
             Assert.IsInstanceOf<OkObjectResult>(result);
         }
+
         [Test]
         public async Task SearchDocuments_With_InValid_Query_Params_ReturnsNotFound()
         {
