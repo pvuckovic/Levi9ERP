@@ -7,6 +7,7 @@ using Levi9.ERP.Domain.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Levi9.ERP.Domain.Services;
 using Levi9.ERP.Datas.Requests;
+using Levi9.ERP.Domain.Models;
 
 namespace Levi9.ERP.UnitTests.Controllers
 {
@@ -139,7 +140,7 @@ namespace Levi9.ERP.UnitTests.Controllers
                 PriceListId = 1,
                 ProductId = 1,
                 Price = 9.99f,
-                Currency = "USD"
+                Currency = CurrencyType.USD
             };
             var priceProductDto = new PriceProductDTO
             {
@@ -153,14 +154,14 @@ namespace Levi9.ERP.UnitTests.Controllers
                 PriceListId = 1,
                 ProductId = 1,
                 Price = 9.99f,
-                Currency = "USD"
+                Currency = CurrencyType.USD
             };
             var priceResponse = new PriceResponse
             {
-                PriceListId = priceRequest.PriceListId,
-                ProductId = priceRequest.ProductId,
-                Price = priceRequest.Price,
-                Currency = priceRequest.Currency
+                PriceListId = newPriceProductDto.PriceListId,
+                ProductId = newPriceProductDto.ProductId,
+                Price = newPriceProductDto.Price,
+                Currency = newPriceProductDto.Currency
             };
 
             _mapperMock.Setup(x => x.Map<PriceProductDTO>(priceRequest)).Returns(priceProductDto);
@@ -182,7 +183,7 @@ namespace Levi9.ERP.UnitTests.Controllers
                 PriceListId = 1,
                 ProductId = 1,
                 Price = 9.99f,
-                Currency = "USD"
+                Currency = CurrencyType.USD
             };
             var priceProductDto = new PriceProductDTO
             {
@@ -199,5 +200,197 @@ namespace Levi9.ERP.UnitTests.Controllers
 
             Assert.That(result, Is.InstanceOf<BadRequestResult>());
         }
-    }
+        [Test]
+        public async Task UpdatePrice_ReturnsNewPriceProductDto_WhenServiceUpdatesPrice()
+        {
+            var priceRequest = new PriceRequest
+            {
+                PriceListId = 1,
+                ProductId = 1,
+                Price = 9.99f,
+                Currency = CurrencyType.USD
+            };
+            var priceProductDto = new PriceProductDTO
+            {
+                PriceListId = priceRequest.PriceListId,
+                ProductId = priceRequest.ProductId,
+                Price = priceRequest.Price,
+                Currency = priceRequest.Currency
+            };
+            var newPriceProductDto = new PriceProductDTO
+            {
+                PriceListId = 1,
+                ProductId = 1,
+                Price = 9.99f,
+                Currency = CurrencyType.USD
+            };
+            var priceResponse = new PriceResponse
+            {
+                PriceListId = newPriceProductDto.PriceListId,
+                ProductId = newPriceProductDto.ProductId,
+                Price = newPriceProductDto.Price,
+                Currency = newPriceProductDto.Currency
+            };
+
+            _mapperMock.Setup(x => x.Map<PriceProductDTO>(priceRequest)).Returns(priceProductDto);
+            _priceListServiceMock.Setup(x => x.UpdatePrice(priceProductDto)).ReturnsAsync(newPriceProductDto);
+            _mapperMock.Setup(x => x.Map<PriceResponse>(newPriceProductDto)).Returns(priceResponse);
+
+            var result = await _priceListController.UpdatePrice(priceRequest);
+
+            var okResult = result as OkObjectResult;
+            Assert.That(okResult, Is.Not.Null);
+            Assert.That(okResult.Value, Is.EqualTo(priceResponse));
+        }
+        [Test]
+        public async Task UpdatePrice_ReturnsBadRequest_WhenServiceReturnsNullPriceDto()
+        {
+            var priceRequest = new PriceRequest
+            {
+                PriceListId = 1,
+                ProductId = 1,
+                Price = 9.99f,
+                Currency = CurrencyType.USD
+            };
+            var priceProductDto = new PriceProductDTO
+            {
+                PriceListId = priceRequest.PriceListId,
+                ProductId = priceRequest.ProductId,
+                Price = priceRequest.Price,
+                Currency = priceRequest.Currency
+            };
+
+            _mapperMock.Setup(x => x.Map<PriceProductDTO>(priceRequest)).Returns(priceProductDto);
+            _priceListServiceMock.Setup(x => x.UpdatePrice(priceProductDto)).ReturnsAsync(null as PriceProductDTO);
+
+            var result = await _priceListController.UpdatePrice(priceRequest);
+
+            Assert.That(result, Is.InstanceOf<BadRequestResult>());
+        }
+        [Test]
+        public async Task SearchArticles_ValidRequest_ReturnsOkWithResults()
+        {
+            var searchRequest = new SearchArticleRequest
+            {
+                PageId = 1,
+                SearchString = "example",
+                OrderBy = OrderByArticleType.ProductId,
+                Direction = DirectionType.ASC
+            };
+            var searchDTO = new SearchArticleDTO
+            {
+                PageId = searchRequest.PageId,
+                SearchString = searchRequest.SearchString,
+                OrderBy = searchRequest.OrderBy,
+                Direction = searchRequest.Direction
+            };
+            var priceListArticleDTOs = new List<PriceListArticleDTO>
+            {
+                new PriceListArticleDTO { Id = 1, GlobalId = Guid.NewGuid(), Name = "PriceList 1", Articles = new List<ArticleDTO>()
+                    { 
+                        new ArticleDTO { Id = 2,},
+                        new ArticleDTO { Id = 3,}
+                    } 
+                }
+            };
+            var expectedResponse = new SearchArticleResponse
+            {
+                PricelistArticles = new List<PriceListArticleResponse>
+                {
+                    new PriceListArticleResponse { Id = 1,GlobalId = Guid.NewGuid(), Name = "PriceList 1",  Articles = new List<ArticleDTO>()
+                        {
+                            new ArticleDTO { Id = 2,},
+                            new ArticleDTO { Id = 3,}
+                        }  
+                    }
+                },
+                Page = searchRequest.PageId
+            };
+
+            _mapperMock.Setup(m => m.Map<SearchArticleDTO>(searchRequest)).Returns(searchDTO);
+            _priceListServiceMock.Setup(s => s.SearchArticle(searchDTO)).ReturnsAsync(priceListArticleDTOs);
+            _mapperMock.Setup(m => m.Map<List<PriceListArticleResponse>>(priceListArticleDTOs))
+                .Returns(expectedResponse.PricelistArticles);
+
+            var result = await _priceListController.SearchArticles(searchRequest);
+
+            Assert.That(result, Is.InstanceOf<OkObjectResult>());
+
+            var okResult = result as OkObjectResult;
+            Assert.That(okResult.Value, Is.Not.Null);
+            Assert.That(okResult.Value, Is.InstanceOf<SearchArticleResponse>());
+
+            var response = okResult.Value as SearchArticleResponse;
+            Assert.Multiple(() =>
+            {
+                Assert.That(response.PricelistArticles, Is.EqualTo(expectedResponse.PricelistArticles));
+                Assert.That(response.Page, Is.EqualTo(expectedResponse.Page));
+            });
+        }
+
+        [Test]
+        public async Task SearchArticles_NoResults_ReturnsOkWithMessage()
+        {
+            var searchRequest = new SearchArticleRequest
+            {
+                PageId = 1,
+                SearchString = "nonexistent",
+                OrderBy = null,
+                Direction = null
+            };
+            var searchDTO = new SearchArticleDTO
+            {
+                PageId = searchRequest.PageId,
+                SearchString = searchRequest.SearchString,
+                OrderBy = searchRequest.OrderBy,
+                Direction = searchRequest.Direction
+            };
+            var priceListArticleDTOs = new List<PriceListArticleDTO>();
+
+            _mapperMock.Setup(m => m.Map<SearchArticleDTO>(searchRequest)).Returns(searchDTO);
+            _priceListServiceMock.Setup(s => s.SearchArticle(searchDTO)).ReturnsAsync(priceListArticleDTOs);
+
+            var result = await _priceListController.SearchArticles(searchRequest);
+
+            Assert.IsInstanceOf<OkObjectResult>(result);
+
+            var okResult = result as OkObjectResult;
+            Assert.That(okResult.Value, Is.Not.Null);
+            Assert.That(okResult.Value, Is.InstanceOf<string>());
+
+            var response = okResult.Value as string;
+            Assert.That(response, Is.EqualTo("There is no articles found that match the search parameters :( "));
+        }
+
+        [Test]
+        public async Task SearchArticles_InvalidRequest_MissingDirection_ReturnsBadRequest()
+        {
+            var searchRequest = new SearchArticleRequest
+            {
+                PageId = 1,
+                SearchString = "example",
+                OrderBy = OrderByArticleType.ProductId,
+                Direction = null
+            };
+            var searchDTO = new SearchArticleDTO
+            {
+                PageId = searchRequest.PageId,
+                SearchString = searchRequest.SearchString,
+                OrderBy = searchRequest.OrderBy,
+                Direction = searchRequest.Direction
+            };
+            var priceListArticleDTOs = new List<PriceListArticleDTO>();
+
+            _mapperMock.Setup(m => m.Map<SearchArticleDTO>(searchRequest)).Returns(searchDTO);
+            _priceListServiceMock.Setup(s => s.SearchArticle(searchDTO)).ReturnsAsync(priceListArticleDTOs);
+            var result = await _priceListController.SearchArticles(searchRequest);
+
+            Assert.That(result, Is.InstanceOf<BadRequestObjectResult>());
+
+            var badRequestResult = result as BadRequestObjectResult;
+            Assert.That(badRequestResult.Value, Is.Not.Null);
+            Assert.That(badRequestResult.Value, Is.EqualTo("Direction is required, because OrderBy is selected"));
+        }
+
+    } 
 }

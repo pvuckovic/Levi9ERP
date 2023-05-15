@@ -1,5 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
-
+﻿using Levi9.ERP.Domain.Models;
+using System.ComponentModel.DataAnnotations;
 namespace Levi9.ERP.Datas.Requests
 {
     public class PriceRequest
@@ -14,8 +14,6 @@ namespace Levi9.ERP.Datas.Requests
         [Range(0, float.MaxValue, ErrorMessage = "Please enter a positive value")]
         public float Price { get; set; }
         [Required]
-        [StringLength(3), MinLength(3)]
-        [RegularExpression("RSD|EUR|GBP|USD|RMB|INR|JPY", ErrorMessage = "Currency must be one of RSD, EUR, GBP, USD, RMB, INR, JPY")]
-        public string Currency { get; set; }
+        public CurrencyType Currency { get; set; }
     }
 }

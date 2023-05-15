@@ -1,4 +1,5 @@
-﻿using Levi9.ERP.Domain.Models.DTO;
+﻿using Levi9.ERP.Domain.Models;
+using Levi9.ERP.Domain.Models.DTO;
 
 namespace Levi9.ERP.Domain.Services
 {
@@ -8,5 +9,8 @@ namespace Levi9.ERP.Domain.Services
         Task<IEnumerable<PriceListDTO>> GetAllPricesLists();
         Task<PriceListDTO> GetByGlobalIdAsync(Guid globalId);
         Task<PriceProductDTO> AddPrice(PriceProductDTO priceProductDTO);
+        Task<PriceProductDTO> UpdatePrice(PriceProductDTO priceProductDTO);
+        Task<IEnumerable<PriceListArticleDTO>> SearchArticle(SearchArticleDTO searchArticleDTO);
+
     }
 }
