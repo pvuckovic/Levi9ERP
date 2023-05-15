@@ -74,7 +74,7 @@ namespace Levi9.ERP.UnitTests.Controllers
             {
                 Id = 2,
                 ClientId = 1,
-                DocumentType = "INVOICE",
+                DocumentType = EnumDocumentType.INVOICE,
                 Items = new List<DocumentItemDTO>()
                 {
                     new DocumentItemDTO
@@ -96,7 +96,7 @@ namespace Levi9.ERP.UnitTests.Controllers
             Assert.IsInstanceOf<CreatedResult>(result);
             var createdResult = (CreatedResult)result;
             Assert.AreEqual(201, createdResult.StatusCode);
-            Assert.AreEqual(documentDto.DocumentType, ((DocumentResponse)createdResult.Value).DocumentType);
+            Assert.AreEqual(documentDto.DocumentType.ToString(), ((DocumentResponse)createdResult.Value).DocumentType);
             Assert.AreEqual(documentDto.ClientId, ((DocumentResponse)createdResult.Value).ClientId);
             Assert.AreEqual(documentDto.Items.Count, ((DocumentResponse)createdResult.Value).Items.Count);
 
@@ -134,7 +134,7 @@ namespace Levi9.ERP.UnitTests.Controllers
             var documentDto = new DocumentDTO
             {
                 Id = 2,
-                DocumentType = "INVOICE",
+                DocumentType = EnumDocumentType.INVOICE,
                 Items = new List<DocumentItemDTO>()
                 {
                     new DocumentItemDTO
@@ -205,7 +205,7 @@ namespace Levi9.ERP.UnitTests.Controllers
                 {
                     Id = 2,
                     ClientId = 1,
-                    DocumentType = "INVOICE",
+                    DocumentType = EnumDocumentType.INVOICE,
                     Items = new List<DocumentItemDTO>()
                     {
                         new DocumentItemDTO
@@ -219,7 +219,7 @@ namespace Levi9.ERP.UnitTests.Controllers
                 {
                     Id = 3,
                     ClientId = 1,
-                    DocumentType = "INVOICE",
+                    DocumentType = EnumDocumentType.INVOICE,
                     Items = new List<DocumentItemDTO>()
                     {
                         new DocumentItemDTO
@@ -248,7 +248,7 @@ namespace Levi9.ERP.UnitTests.Controllers
                 {
                     Id = 2,
                     ClientId = 1,
-                    DocumentType = "INVOICE",
+                    DocumentType = EnumDocumentType.INVOICE,
                     Items = new List<DocumentItemDTO>()
                     {
                         new DocumentItemDTO
@@ -262,7 +262,7 @@ namespace Levi9.ERP.UnitTests.Controllers
                 {
                     Id = 3,
                     ClientId = 1,
-                    DocumentType = "INVOICE",
+                    DocumentType = EnumDocumentType.INVOICE,
                     Items = new List<DocumentItemDTO>()
                     {
                         new DocumentItemDTO
