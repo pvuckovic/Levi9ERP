@@ -2,6 +2,9 @@ using Levi9.ERP.Data.Requests;
 using Levi9.ERP.Data.Responses;
 using Levi9.ERP.Datas.Requests;
 using Levi9.ERP.Datas.Responses;
+using Levi9.ERP.Domain;
+using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using System.Net;
@@ -16,6 +19,7 @@ namespace Levi9.ERP.IntegrationTests.Controllers
 
         private TestingWebAppFactory<Program> _factory;
         private HttpClient _client;
+        private DataBaseContext _dataBaseContext;
 
         [SetUp]
         public void Setup()
@@ -24,6 +28,13 @@ namespace Levi9.ERP.IntegrationTests.Controllers
             _client = _factory.CreateClient();
             string token = Fixture.GenerateJwt();
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            using (var scope = _factory.Services.CreateScope())
+            {
+                var dbContext = scope.ServiceProvider.GetRequiredService<DataBaseContext>();
+                dbContext.Database.EnsureDeleted();
+                dbContext.Products.AddRange(Fixture.GenerateProductData());
+                dbContext.SaveChanges();
+            }
         }
 
 
@@ -46,7 +57,7 @@ namespace Levi9.ERP.IntegrationTests.Controllers
         public async Task CreateProductAsync_ExistNameProduct_ReturnsBadRequest()
         {
             // Arrange
-            var productRequest = new ProductRequest { Name = "Shirt", ImageUrl = "slika.png" };
+            var productRequest = new ProductRequest { Name = "A-Jacket", ImageUrl = "slika.png" };
             // Act
             var response = await _client.PostAsJsonAsync("/v1/Product", productRequest);
             var result = await response.Content.ReadAsStringAsync();
@@ -67,7 +78,7 @@ namespace Levi9.ERP.IntegrationTests.Controllers
             // Assert
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
             Assert.AreEqual(id, content.Id);
-            Assert.AreEqual("Shirt", content.Name);
+            Assert.AreEqual("A-Jacket", content.Name);
         }
 
         [Test]
@@ -100,14 +111,14 @@ namespace Levi9.ERP.IntegrationTests.Controllers
         public async Task GetByGlobalId_ValidId_ReturnsOkResult()
         {
             // Arrange
-            var id = "494ad824-8ea2-47c3-938f-2de7a43db41a";
+            var id = "80ee1a50-522a-4813-842f-0a0766a4d71e";
             // Act
             var response = await _client.GetAsync($"/v1/Product/Global/{id}");
             var result = await response.Content.ReadAsStringAsync();
             var content = JsonConvert.DeserializeObject<ProductResponse>(result);
             // Assert
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
-            Assert.AreEqual("Shirt", content.Name);
+            Assert.AreEqual("A-Jacket", content.Name);
         }
 
         [Test]
@@ -127,7 +138,7 @@ namespace Levi9.ERP.IntegrationTests.Controllers
         public async Task SearchProducts_By_Name_Ascending_ValidParams_ReturnsOkResult()
         {
             // Arrange
-            var searchParams = new SearchProductRequest { Page = 1, Name = "Shirt", OrderBy = "name", Direction = "asc" };
+            var searchParams = new SearchProductRequest { Page = 1, Name = "Jacket", OrderBy = "name", Direction = "asc" };
             // Act
             var response = await _client.GetAsync($"/v1/Product/Search?Page={searchParams.Page}&Name={searchParams.Name}&OrderBy={searchParams.OrderBy}&Direction={searchParams.Direction}");
             var result = await response.Content.ReadAsStringAsync();
@@ -137,7 +148,7 @@ namespace Levi9.ERP.IntegrationTests.Controllers
             Assert.IsNotNull(content);
             Assert.IsInstanceOf<IEnumerable<ProductResponse>>(content.Items);
             Assert.AreEqual(1, content.Page);
-            Assert.IsTrue(content.Items.All(p => p.Name.Contains("Shirt")));
+            Assert.IsTrue(content.Items.All(p => p.Name.Contains("Jacket")));
             var sortedItems = content.Items.OrderBy(p => p.Name, StringComparer.Ordinal);
             Assert.IsTrue(content.Items.SequenceEqual(sortedItems));
         }
@@ -146,7 +157,7 @@ namespace Levi9.ERP.IntegrationTests.Controllers
         public async Task SearchProducts_By_Name_Descending_ValidParams_ReturnsOkResult()
         {
             // Arrange
-            var searchParams = new SearchProductRequest { Page = 1, Name = "Shirt", OrderBy = "name", Direction = "dsc" };
+            var searchParams = new SearchProductRequest { Page = 1, Name = "Jacket", OrderBy = "name", Direction = "dsc" };
             // Act
             var response = await _client.GetAsync($"/v1/Product/Search?Page={searchParams.Page}&Name={searchParams.Name}&OrderBy={searchParams.OrderBy}&Direction={searchParams.Direction}");
             var result = await response.Content.ReadAsStringAsync();
@@ -156,7 +167,7 @@ namespace Levi9.ERP.IntegrationTests.Controllers
             Assert.IsNotNull(content);
             Assert.IsInstanceOf<IEnumerable<ProductResponse>>(content.Items);
             Assert.AreEqual(1, content.Page);
-            Assert.IsTrue(content.Items.All(p => p.Name.Contains("Shirt")));
+            Assert.IsTrue(content.Items.All(p => p.Name.Contains("Jacket")));
             var sortedItems = content.Items.OrderByDescending(p => p.Name, StringComparer.Ordinal);
             Assert.IsTrue(content.Items.SequenceEqual(sortedItems));
         }
@@ -165,7 +176,7 @@ namespace Levi9.ERP.IntegrationTests.Controllers
         public async Task SearchProducts_By_Id_Ascending_ValidParams_ReturnsOkResult()
         {
             // Arrange
-            var searchParams = new SearchProductRequest { Page = 1, Name = "Shirt", OrderBy = "id", Direction = "asc" };
+            var searchParams = new SearchProductRequest { Page = 1, Name = "Jacket", OrderBy = "id", Direction = "asc" };
             // Act
             var response = await _client.GetAsync($"/v1/Product/Search?Page={searchParams.Page}&Name={searchParams.Name}&OrderBy={searchParams.OrderBy}&Direction={searchParams.Direction}");
             var result = await response.Content.ReadAsStringAsync();
@@ -175,7 +186,7 @@ namespace Levi9.ERP.IntegrationTests.Controllers
             Assert.IsNotNull(content);
             Assert.IsInstanceOf<IEnumerable<ProductResponse>>(content.Items);
             Assert.AreEqual(1, content.Page);
-            Assert.IsTrue(content.Items.All(p => p.Name.Contains("Shirt")));
+            Assert.IsTrue(content.Items.All(p => p.Name.Contains("Jacket")));
             var sortedItems = content.Items.OrderBy(p => p.Id);
             Assert.IsTrue(content.Items.SequenceEqual(sortedItems));
         }
@@ -184,7 +195,7 @@ namespace Levi9.ERP.IntegrationTests.Controllers
         public async Task SearchProducts_By_Id_Descending_ValidParams_ReturnsOkResult()
         {
             // Arrange
-            var searchParams = new SearchProductRequest { Page = 1, Name = "Shirt", OrderBy = "id", Direction = "dsc" };
+            var searchParams = new SearchProductRequest { Page = 1, Name = "Jacket", OrderBy = "id", Direction = "dsc" };
             // Act
             var response = await _client.GetAsync($"/v1/Product/Search?Page={searchParams.Page}&Name={searchParams.Name}&OrderBy={searchParams.OrderBy}&Direction={searchParams.Direction}");
             var result = await response.Content.ReadAsStringAsync();
@@ -194,7 +205,7 @@ namespace Levi9.ERP.IntegrationTests.Controllers
             Assert.IsNotNull(content);
             Assert.IsInstanceOf<IEnumerable<ProductResponse>>(content.Items);
             Assert.AreEqual(1, content.Page);
-            Assert.IsTrue(content.Items.All(p => p.Name.Contains("Shirt")));
+            Assert.IsTrue(content.Items.All(p => p.Name.Contains("Jacket")));
             var sortedItems = content.Items.OrderByDescending(p => p.Id);
             Assert.IsTrue(content.Items.SequenceEqual(sortedItems));
         }
@@ -203,7 +214,7 @@ namespace Levi9.ERP.IntegrationTests.Controllers
         public async Task SearchProducts_By_AvailableQuantity_Ascending_ValidParams_ReturnsOkResult()
         {
             // Arrange
-            var searchParams = new SearchProductRequest { Page = 1, Name = "Shirt", OrderBy = "availableQuantity", Direction = "asc" };
+            var searchParams = new SearchProductRequest { Page = 1, Name = "Jacket", OrderBy = "availableQuantity", Direction = "asc" };
             // Act
             var response = await _client.GetAsync($"/v1/Product/Search?Page={searchParams.Page}&Name={searchParams.Name}&OrderBy={searchParams.OrderBy}&Direction={searchParams.Direction}");
             var result = await response.Content.ReadAsStringAsync();
@@ -213,7 +224,7 @@ namespace Levi9.ERP.IntegrationTests.Controllers
             Assert.IsNotNull(content);
             Assert.IsInstanceOf<IEnumerable<ProductResponse>>(content.Items);
             Assert.AreEqual(1, content.Page);
-            Assert.IsTrue(content.Items.All(p => p.Name.Contains("Shirt")));
+            Assert.IsTrue(content.Items.All(p => p.Name.Contains("Jacket")));
             var sortedItems = content.Items.OrderBy(p => p.AvailableQuantity);
             Assert.IsTrue(content.Items.SequenceEqual(sortedItems));
         }
@@ -222,7 +233,7 @@ namespace Levi9.ERP.IntegrationTests.Controllers
         public async Task SearchProducts_By_AvailableQuantity_Descending_ValidParams_ReturnsOkResult()
         {
             // Arrange
-            var searchParams = new SearchProductRequest { Page = 1, Name = "Shirt", OrderBy = "availableQuantity", Direction = "dsc" };
+            var searchParams = new SearchProductRequest { Page = 1, Name = "Jacket", OrderBy = "availableQuantity", Direction = "dsc" };
             // Act
             var response = await _client.GetAsync($"/v1/Product/Search?Page={searchParams.Page}&Name={searchParams.Name}&OrderBy={searchParams.OrderBy}&Direction={searchParams.Direction}");
             var result = await response.Content.ReadAsStringAsync();
@@ -232,7 +243,7 @@ namespace Levi9.ERP.IntegrationTests.Controllers
             Assert.IsNotNull(content);
             Assert.IsInstanceOf<IEnumerable<ProductResponse>>(content.Items);
             Assert.AreEqual(1, content.Page);
-            Assert.IsTrue(content.Items.All(p => p.Name.Contains("Shirt")));
+            Assert.IsTrue(content.Items.All(p => p.Name.Contains("Jacket")));
             var sortedItems = content.Items.OrderByDescending(p => p.AvailableQuantity);
             Assert.IsTrue(content.Items.SequenceEqual(sortedItems));
         }
@@ -241,7 +252,7 @@ namespace Levi9.ERP.IntegrationTests.Controllers
         public async Task SearchProducts_Without_OrderBy_And_Direction_ValidParams_ReturnsOkResult()
         {
             // Arrange
-            var searchParams = new SearchProductRequest { Page = 1, Name = "Shirt" };
+            var searchParams = new SearchProductRequest { Page = 1, Name = "Jacket" };
             // Act
             var response = await _client.GetAsync($"/v1/Product/Search?Page={searchParams.Page}&Name={searchParams.Name}");
             var result = await response.Content.ReadAsStringAsync();
@@ -251,14 +262,14 @@ namespace Levi9.ERP.IntegrationTests.Controllers
             Assert.IsNotNull(content);
             Assert.IsInstanceOf<IEnumerable<ProductResponse>>(content.Items);
             Assert.AreEqual(1, content.Page);
-            Assert.IsTrue(content.Items.All(p => p.Name.Contains("Shirt")));
+            Assert.IsTrue(content.Items.All(p => p.Name.Contains("Jacket")));
         }
 
         [Test]
         public async Task SearchProducts_Without_Direction_ReturnsBadRequest()
         {
             // Arrange
-            var searchParams = new SearchProductRequest { Page = 1, Name = "Shirt", OrderBy = "name" };
+            var searchParams = new SearchProductRequest { Page = 1, Name = "Jacket", OrderBy = "name" };
             // Act
             var response = await _client.GetAsync($"/v1/Product/Search?Page={searchParams.Page}&Name={searchParams.Name}&OrderBy={searchParams.OrderBy}");
             var result = await response.Content.ReadAsStringAsync();
@@ -271,7 +282,7 @@ namespace Levi9.ERP.IntegrationTests.Controllers
         public async Task SearchProducts_With_Negative_Page_Number_ReturnsBadRequest()
         {
             // Arrange
-            var searchParams = new SearchProductRequest { Page = -1, Name = "Shirt", OrderBy = "name" };
+            var searchParams = new SearchProductRequest { Page = -1, Name = "Jacket", OrderBy = "name" };
             // Act
             var response = await _client.GetAsync($"/v1/Product/Search?Page={searchParams.Page}&Name={searchParams.Name}&OrderBy={searchParams.OrderBy}");
             var result = await response.Content.ReadAsStringAsync();

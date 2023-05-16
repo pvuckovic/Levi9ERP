@@ -1,4 +1,5 @@
 ﻿using Levi9.ERP.Domain;
+using Levi9.ERP.Domain.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
@@ -30,7 +31,6 @@ namespace Levi9.ERP.IntegrationTests
                 _dataBaseContext.Database.EnsureCreated();
             });
         }
-
     }
 }
 
