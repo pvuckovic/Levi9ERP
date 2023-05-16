@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Levi9.ERP.Domain.Services;
 using Levi9.ERP.Datas.Requests;
 using Levi9.ERP.Domain.Models;
+using Microsoft.Extensions.Logging;
 
 namespace Levi9.ERP.UnitTests.Controllers
 {
@@ -17,13 +18,16 @@ namespace Levi9.ERP.UnitTests.Controllers
         private PricelistController _priceListController;
         private Mock<IPriceListService> _priceListServiceMock;
         private Mock<IMapper> _mapperMock;
+        private Mock<ILogger<PricelistController>> _loggerMock;
+
 
         [SetUp]
         public void Setup()
         {
             _priceListServiceMock = new Mock<IPriceListService>();
             _mapperMock = new Mock<IMapper>();
-            _priceListController = new PricelistController(_priceListServiceMock.Object, _mapperMock.Object);
+            _loggerMock = new Mock<ILogger<PricelistController>>();
+            _priceListController = new PricelistController(_priceListServiceMock.Object, _mapperMock.Object, _loggerMock.Object);
         }
 
         [Test]

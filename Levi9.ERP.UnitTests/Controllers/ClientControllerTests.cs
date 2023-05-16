@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Castle.Core.Logging;
 using Levi9.ERP.Controllers;
 using Levi9.ERP.Domain.Mappers;
 using Levi9.ERP.Domain.Models.DTO;
@@ -8,6 +9,7 @@ using Levi9.ERP.Responses;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Routing;
+using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
 
@@ -20,6 +22,7 @@ namespace Levi9.ERP.UnitTests.Controllers
         private IMapper _mapper;
         private Mock<IUrlHelper> _urlHelperMock;
         private ClientController _clientController;
+        private Mock<ILogger<ClientController>> _loggerMock;
 
         [SetUp]
         public void Setup()
@@ -30,7 +33,9 @@ namespace Levi9.ERP.UnitTests.Controllers
                 cfg.AddProfile(new ClientProfiles());
             }).CreateMapper();
             _urlHelperMock = new Mock<IUrlHelper>();
-            _clientController = new ClientController(_mockClientService.Object, _mapper, _urlHelperMock.Object);
+            _loggerMock = new Mock<ILogger<ClientController>>();
+
+            _clientController = new ClientController(_mockClientService.Object, _mapper, _urlHelperMock.Object, _loggerMock.Object);
             _clientController.ControllerContext.HttpContext = new DefaultHttpContext();
         }
 

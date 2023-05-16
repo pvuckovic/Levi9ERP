@@ -1,6 +1,8 @@
-﻿using Levi9.ERP.Domain.Models.DTO;
+﻿using Levi9.ERP.Controllers;
+using Levi9.ERP.Domain.Models.DTO;
 using Levi9.ERP.Domain.Repositories;
 using Levi9.ERP.Domain.Services;
+using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
 
@@ -11,12 +13,15 @@ namespace Levi9.ERP.UnitTests.Services
     {
         private Mock<IClientRepository> _clientRepositoryMock;
         private ClientService _clientService;
+        private Mock<ILogger<ClientService>> _loggerMock;
+
 
         [SetUp]
         public void Setup()
         {
             _clientRepositoryMock = new Mock<IClientRepository>();
-            _clientService = new ClientService(_clientRepositoryMock.Object);
+            _loggerMock = new Mock<ILogger<ClientService>>();
+            _clientService = new ClientService(_clientRepositoryMock.Object, _loggerMock.Object);
         }
 
         [Test]

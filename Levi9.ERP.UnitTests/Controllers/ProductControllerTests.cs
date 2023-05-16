@@ -7,6 +7,7 @@ using Levi9.ERP.Domain.Models;
 using Levi9.ERP.Domain.Models.DTO;
 using Levi9.ERP.Domain.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
 
@@ -17,13 +18,15 @@ namespace Levi9.ERP.UnitTests.Controllers
         private Mock<IProductService> _productServiceMock;
         private Mock<IMapper> _mapperMock;
         private ProductController _productController;
+        private Mock<ILogger<ProductController>> _loggerMock;
 
         [SetUp]
         public void SetUp()
         {
             _productServiceMock = new Mock<IProductService>();
             _mapperMock = new Mock<IMapper>();
-            _productController = new ProductController(_productServiceMock.Object, _mapperMock.Object);
+            _loggerMock = new Mock<ILogger<ProductController>>();
+            _productController = new ProductController(_productServiceMock.Object, _mapperMock.Object, _loggerMock.Object);
         }
 
         [Test]
