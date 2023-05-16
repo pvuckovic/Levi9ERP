@@ -10,6 +10,7 @@ using Levi9.ERP.Mappers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Routing;
+using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
 
@@ -25,6 +26,8 @@ namespace Levi9.ERP.UnitTests.Controllers
         private IMapper _mapper;
         private Mock<IUrlHelper> _urlHelperMock;
         private DocumentController _documentController;
+        private Mock<ILogger<DocumentController>> _loggerMock;
+
 
         [SetUp]
         public void SetUp()
@@ -38,7 +41,8 @@ namespace Levi9.ERP.UnitTests.Controllers
                 cfg.AddProfile(new ClientProfiles());
             }).CreateMapper();
             _urlHelperMock = new Mock<IUrlHelper>();
-            _documentController = new DocumentController(_mockDocumentService.Object, _mockClientService.Object, _mockProductService.Object, _mapper, _urlHelperMock.Object);
+            _loggerMock = new Mock<ILogger<DocumentController>>();
+            _documentController = new DocumentController(_mockDocumentService.Object, _mockClientService.Object, _mockProductService.Object, _mapper, _urlHelperMock.Object, _loggerMock.Object);
             _documentController.ControllerContext.HttpContext = new DefaultHttpContext();
         }
 

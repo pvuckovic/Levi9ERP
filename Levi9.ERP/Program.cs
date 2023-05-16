@@ -7,10 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.EntityFrameworkCore;
-using System.Text.Json.Serialization;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Serilog;
 using System.Text;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -57,6 +58,8 @@ builder.Services.AddScoped<IUrlHelper>(x =>
 
 builder.Services.AddScoped<IPriceListRepository, PriceListRepository>();
 builder.Services.AddScoped<IPriceListService, PriceListService>();
+builder.Host.UseSerilog((context, configuration) =>
+    configuration.ReadFrom.Configuration(context.Configuration));
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -119,7 +122,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
    
 }
-
+app.UseSerilogRequestLogging();
 
 app.UseHttpsRedirection();
 
@@ -127,11 +130,20 @@ app.UseAuthentication();
 
 app.UseAuthorization();
 
-using (var context = builder.Services.BuildServiceProvider().GetService<DataBaseContext>())
+using (var scope = app.Services.CreateScope())
 {
-    context.Database.EnsureDeleted();
-    context.Database.Migrate();
+    var services = scope.ServiceProvider;
 
+    try
+    {
+        var dbContext = services.GetRequiredService<DataBaseContext>();
+        dbContext.Database.Migrate();
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occurred while migrating the database.");
+    }
 }
 
 app.MapControllers();
