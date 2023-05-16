@@ -28,7 +28,6 @@ namespace Levi9.ERP.UnitTests.Controllers
         private DocumentController _documentController;
         private Mock<ILogger<DocumentController>> _loggerMock;
 
-
         [SetUp]
         public void SetUp()
         {

@@ -16,7 +16,6 @@ namespace Levi9.ERP.UnitTests.Services
         private DocumentService _documentService;
         private Mock<ILogger<DocumentService>> _loggerMock;
 
-
         [SetUp]
         public void SetUp()
         {
