@@ -11,7 +11,8 @@ namespace Levi9.ERP.Domain.Mappers
         public ClientProfiles()
         {
             CreateMap<ClientRequest, ClientDTO>();
-            CreateMap<ClientDTO, ClientResponse>();
+            CreateMap<ClientDTO, ClientResponse>()
+            .ForMember(dest => dest.ClientId, opt => opt.MapFrom(src => src.Id));
             CreateMap<ClientDTO, Client>();
             CreateMap<Client, ClientDTO>();
         }
