@@ -11,6 +11,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using System.Text;
+using Microsoft.OpenApi.Models;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -137,6 +138,7 @@ using (var scope = app.Services.CreateScope())
     try
     {
         var dbContext = services.GetRequiredService<DataBaseContext>();
+        dbContext.Database.EnsureDeleted();
         dbContext.Database.Migrate();
     }
     catch (Exception ex)
@@ -149,3 +151,4 @@ using (var scope = app.Services.CreateScope())
 app.MapControllers();
 
 app.Run();
+public partial class Program{ }

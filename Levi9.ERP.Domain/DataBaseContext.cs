@@ -54,7 +54,7 @@ namespace Levi9.ERP.Domain
                  new PriceList
                  {
                      Id = 1,
-                     GlobalId = Guid.NewGuid(),
+                     GlobalId = new Guid("494ad824-8ee2-47c3-938f-2de7a43db41a"),
                      Name = "USD Price List",
                      LastUpdate = "634792557112051692"
                  }
@@ -63,7 +63,7 @@ namespace Levi9.ERP.Domain
                  new Client
                  {
                      Id = 1,
-                     GlobalId = Guid.NewGuid(),
+                     GlobalId = new Guid("494ad824-8ee2-47c3-938f-2de7a43db41b"),
                      Name = "Zlatko",
                      Address = "Njegoseva 2",
                      Email = "zlatko123@gmail.com",
@@ -78,7 +78,7 @@ namespace Levi9.ERP.Domain
                 new Document
                 {
                     Id = 1,
-                    GlobalId = Guid.NewGuid(),
+                    GlobalId = new Guid("494ad822-8ee2-47c3-938f-2de7a43db41a"),
                     LastUpdate = "634792557112051692",
                     DocumentType = "INVOICE",
                     ClientId = 1
@@ -88,7 +88,7 @@ namespace Levi9.ERP.Domain
                 new Product
                 {
                     Id = 1,
-                    GlobalId = Guid.NewGuid(),
+                    GlobalId = new Guid("494ad824-8ea2-47c3-938f-2de7a43db41a"),
                     Name = "Shirt",
                     ImageUrl = "someurl123344444",
                     AvailableQuantity = 70,
@@ -98,7 +98,7 @@ namespace Levi9.ERP.Domain
             modelBuilder.Entity<Price>().HasData(
                 new Price
                 {
-                    GlobalId = Guid.NewGuid(),
+                    GlobalId = new Guid("494ad824-8ee2-47c3-932f-2de7a43db41a"),
                     PriceValue = 12,
                     Currency = "USD",
                     LastUpdate = "634792557112051692",
@@ -111,7 +111,7 @@ namespace Levi9.ERP.Domain
                 new PriceList
                 {
                     Id = 2,
-                    GlobalId = Guid.NewGuid(),
+                    GlobalId = new Guid("494ad824-8ee2-47c3-938f-2de7a13db41a"),
                     Name = "EUR Price List",
                     LastUpdate = "634792557112051693"
                 }
@@ -121,7 +121,7 @@ namespace Levi9.ERP.Domain
                 new Product
                 {
                     Id = 2,
-                    GlobalId = Guid.NewGuid(),
+                    GlobalId = new Guid("494ad824-8ef7-47c3-938f-2de7a43db41a"),
                     Name = "A T-Shirt",
                     ImageUrl = "slika.png",
                     AvailableQuantity = 140,
@@ -131,7 +131,7 @@ namespace Levi9.ERP.Domain
             modelBuilder.Entity<Price>().HasData(
                 new Price
                 {
-                    GlobalId = Guid.NewGuid(),
+                    GlobalId = new Guid("494ad824-8ee2-47c3-938f-2de7a20db41a"),
                     PriceValue = 30,
                     Currency = "EUR",
                     LastUpdate = "634792557112051693",
@@ -144,7 +144,7 @@ namespace Levi9.ERP.Domain
                 new PriceList
                 {
                     Id = 3,
-                    GlobalId = Guid.NewGuid(),
+                    GlobalId = new Guid("494b7014-8ee2-47c3-938f-2de7a43db41a"),
                     Name = "RSD Price List",
                     LastUpdate = "634792557112051694"
                 }
@@ -154,7 +154,7 @@ namespace Levi9.ERP.Domain
                 new Product
                 {
                     Id = 3,
-                    GlobalId = Guid.NewGuid(),
+                    GlobalId = new Guid("494ad824-8ee2-47c3-938f-2de71b3db41a"),
                     Name = "Z T-Shirt",
                     ImageUrl = "slika2.png",
                     AvailableQuantity = 150,
@@ -164,7 +164,7 @@ namespace Levi9.ERP.Domain
             modelBuilder.Entity<Price>().HasData(
                 new Price
                 {
-                    GlobalId = Guid.NewGuid(),
+                    GlobalId = new Guid("492ad82b-8ee2-47c3-938f-2de7a43db41a"),
                     PriceValue = 1500,
                     Currency = "RSD",
                     LastUpdate = "634792557112051694",
@@ -178,7 +178,7 @@ namespace Levi9.ERP.Domain
                 new Product
                 {
                     Id = 4,
-                    GlobalId = Guid.NewGuid(),
+                    GlobalId = new Guid("494ad824-8ee2-47c3-126f-2de7a43db41a"),
                     Name = "B T-Shirt",
                     ImageUrl = "slika3.png",
                     AvailableQuantity = 550,
@@ -188,7 +188,7 @@ namespace Levi9.ERP.Domain
             modelBuilder.Entity<Price>().HasData(
                 new Price
                 {
-                    GlobalId = Guid.NewGuid(),
+                    GlobalId = new Guid("494bc224-8ee2-47c3-938f-2de7a43db41a"),
                     PriceValue = 1700,
                     Currency = "RSD",
                     LastUpdate = "634792557112051695",
