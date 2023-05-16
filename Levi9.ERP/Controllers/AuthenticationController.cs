@@ -7,37 +7,42 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Levi9.ERP.Controllers
 {
-    [Route("api/authentication")]
+    [Route("v1/[controller]")]
     [ApiController]
     [Produces("application/json", "application/xml")]
     public class AuthenticationController : ControllerBase
     {
         private readonly IClientService _clientService;
         private readonly JwtOptions _config;
+        private readonly ILogger<AuthenticationController> _logger;
 
-        public AuthenticationController(IClientService clientService, JwtOptions config)
+        public AuthenticationController(IClientService clientService, JwtOptions config, ILogger<AuthenticationController> logger)
         {
             _clientService = clientService;
             _config = config;
-
+            _logger = logger;
         }
 
         [HttpPost]
         [Consumes("application/json")]
         [AllowAnonymous]
-        public IActionResult ClientAuthentication([FromBody] AuthenticationRequest authenticationRequest)
+        public async Task<IActionResult> ClientAuthentication([FromBody] AuthenticationRequest authenticationRequest)
         {
-            ClientDTO authenticationDTO = _clientService.GetClientByEmail(authenticationRequest.Email);
+            _logger.LogInformation("Entering {FunctionName} in AuthenticationController. Timestamp: {Timestamp}.", nameof(ClientAuthentication), DateTime.UtcNow);
+            ClientDTO authenticationDTO = await _clientService.GetClientByEmail(authenticationRequest.Email);
             if (authenticationDTO == null)
             {
-               return  BadRequest("Email not valid");
+                _logger.LogWarning("Invalid emaila address: {Email} in {FunctionName} of AuthenticationController. Timestamp: {Timestamp}.", authenticationRequest.Email, nameof(ClientAuthentication), DateTime.UtcNow);
+                return BadRequest("Email not valid");
             }
             bool validateUser = AuthenticationHelper.ValidateUser(authenticationDTO.Password, authenticationDTO.Salt, authenticationRequest.Password);
             if (!validateUser)
             {
+                _logger.LogWarning("Wront password in {FunctionName} of AuthenticationController. Timestamp: {Timestamp}.", nameof(ClientAuthentication), DateTime.UtcNow);
                 return BadRequest("Bad Request - wrong password");
             }
             var token = AuthenticationHelper.GenerateJwt(_config);
+            _logger.LogInformation("Client successfully validated in {FunctionName} of AuthenticationController. Timestamp: {Timestamp}.", nameof(ClientAuthentication), DateTime.UtcNow);
             return Ok(token);
         }
 

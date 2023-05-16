@@ -2,6 +2,7 @@
 using Levi9.ERP.Domain.Models;
 using Levi9.ERP.Domain.Models.DTO;
 using Levi9.ERP.Domain.Repositories;
+using Microsoft.Extensions.Logging;
 
 namespace Levi9.ERP.Domain.Services
 {
@@ -9,14 +10,17 @@ namespace Levi9.ERP.Domain.Services
     {
         private readonly IProductRepository _productRepository;
         private readonly IMapper _mapper;
-        public ProductService(IProductRepository productRepository, IMapper mapper)
+        private readonly ILogger<ProductService> _logger;
+        public ProductService(IProductRepository productRepository, IMapper mapper, ILogger<ProductService> logger)
         {
             _productRepository = productRepository;
             _mapper = mapper;
+            _logger = logger;
         }
 
         public async Task<ProductDTO> CreateProductAsync(ProductDTO newProduct)
         {
+            _logger.LogInformation("Entering {FunctionName} in ProductService. Timestamp: {Timestamp}.", nameof(CreateProductAsync), DateTime.UtcNow);
             var product = new Product
             {
                 Name = newProduct.Name,
@@ -27,34 +31,48 @@ namespace Levi9.ERP.Domain.Services
             };
             Product addedProduct = await _productRepository.AddProductAsync(product);
             var productDto = _mapper.Map<ProductDTO>(addedProduct);
+            _logger.LogInformation("Adding new product in {FunctionName} of ProductService. Timestamp: {Timestamp}.", nameof(CreateProductAsync), DateTime.UtcNow);
             return productDto;
         }
 
         public async Task<ProductDTO> GetProductByName(string name)
         {
+            _logger.LogInformation("Entering {FunctionName} in ProductService. Timestamp: {Timestamp}.", nameof(GetProductByName), DateTime.UtcNow);
             var product = await _productRepository.GetProductByName(name);
             var productDto = _mapper.Map<ProductDTO>(product);
+            _logger.LogInformation("Retrieving product in {FunctionName} of ProductService. Timestamp: {Timestamp}.", nameof(GetProductByName), DateTime.UtcNow);
+
             return productDto;
         }
 
         public async Task<ProductDTO> GetProductById(int productId)
         {
+            _logger.LogInformation("Entering {FunctionName} in ProductService. Timestamp: {Timestamp}.", nameof(GetProductById), DateTime.UtcNow);
+
             var product = await _productRepository.GetProductById(productId);
             var productDto = _mapper.Map<ProductDTO>(product);
+            _logger.LogInformation("Retrieving product in {FunctionName} of ProductService. Timestamp: {Timestamp}.", nameof(GetProductById), DateTime.UtcNow);
+
             return productDto;
         }
 
         public async Task<ProductDTO> GetProductByGlobalId(Guid productId)
         {
+            _logger.LogInformation("Entering {FunctionName} in ProductService. Timestamp: {Timestamp}.", nameof(GetProductByGlobalId), DateTime.UtcNow);
+
             var product = await _productRepository.GetProductByGlobalId(productId);
             var productDto = _mapper.Map<ProductDTO>(product);
+            _logger.LogInformation("Retrieving product in {FunctionName} of ProductService. Timestamp: {Timestamp}.", nameof(GetProductByGlobalId), DateTime.UtcNow);
+
             return productDto;
         }
 
         public async Task<IEnumerable<ProductDTO>> GetProductsByParameters(SearchProductDTO searchParams)
         {
+            _logger.LogInformation("Entering {FunctionName} in ProductService. Timestamp: {Timestamp}.", nameof(GetProductsByParameters), DateTime.UtcNow);
             var products = await _productRepository.GetProductsByParameters(searchParams.Name, searchParams.Page, searchParams.OrderBy, searchParams.Direction);
             var mappedProducts = products.Select(p => _mapper.Map<ProductDTO>(p));
+            _logger.LogInformation("Retrieving products in {FunctionName} of ProductService. Timestamp: {Timestamp}.", nameof(GetProductsByParameters), DateTime.UtcNow);
             return mappedProducts;
         }
 

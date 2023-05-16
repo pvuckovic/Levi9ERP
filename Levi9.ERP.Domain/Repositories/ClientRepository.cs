@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Levi9.ERP.Domain.Models;
 using Levi9.ERP.Domain.Models.DTO;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace Levi9.ERP.Domain.Repositories
 {
@@ -8,36 +10,46 @@ namespace Levi9.ERP.Domain.Repositories
     {
         private readonly DataBaseContext _context;
         private readonly IMapper _mapper;
+        private readonly ILogger<ClientRepository> _logger;
 
-        public ClientRepository(DataBaseContext context, IMapper mapper)
+        public ClientRepository(DataBaseContext context, IMapper mapper, ILogger<ClientRepository> logger)
         {
             _context = context;
             _mapper = mapper;
+            _logger = logger;
         }
 
-        public ClientDTO AddClient(ClientDTO clientModel)
+        public async Task<ClientDTO> AddClient(ClientDTO clientModel)
         {
+            _logger.LogInformation("Entering {FunctionName} in ClientRepository. Timestamp: {Timestamp}.", nameof(AddClient), DateTime.UtcNow);
             Client clientMap = _mapper.Map<Client>(clientModel);
             var createdEntity = _context.Clients.Add(clientMap);
-            SaveChanges();
+            await SaveChanges();
+            _logger.LogInformation("Adding new client in {FunctionName} of ClientRepository. Timestamp: {Timestamp}.", nameof(AddClient), DateTime.UtcNow);
             return _mapper.Map<ClientDTO>(createdEntity.Entity);
         }
 
-        public ClientDTO GetClientByEmail(string email)
+        public async Task<ClientDTO> GetClientByEmail(string email)
         {
-            var clientByEmail = _context.Clients.FirstOrDefault(e => e.Email == email);
+            _logger.LogInformation("Entering {FunctionName} in ClientRepository. Timestamp: {Timestamp}.", nameof(GetClientByEmail), DateTime.UtcNow);
+            var clientByEmail = await _context.Clients.FirstOrDefaultAsync(e => e.Email == email);
+            _logger.LogInformation("Retrieving client in {FunctionName} of ClientRepository. Timestamp: {Timestamp}.", nameof(GetClientByEmail), DateTime.UtcNow);
+            var clientByEmail = await _context.Clients.FirstOrDefaultAsync(e => e.Email == email);
             return _mapper.Map<ClientDTO>(clientByEmail);
         }
 
-        public ClientDTO GetClientById(int id)
+        public async Task<ClientDTO> GetClientById(int id)
         {
-            var clientById = _context.Clients.FirstOrDefault(e => e.Id == id);
+            _logger.LogInformation("Entering {FunctionName} in ClientRepository. Timestamp: {Timestamp}.", nameof(GetClientById), DateTime.UtcNow);
+            var clientById = await _context.Clients.FirstOrDefaultAsync(e => e.Id == id);
+            _logger.LogInformation("Retrieving client in {FunctionName} of ClientRepository. Timestamp: {Timestamp}.", nameof(GetClientById), DateTime.UtcNow);
+            var clientById = await _context.Clients.FirstOrDefaultAsync(e => e.Id == id);
             return _mapper.Map<ClientDTO>(clientById);
         }
 
-        public bool SaveChanges()
+        public async Task<bool> SaveChanges()
         {
-            return _context.SaveChanges() > 0;
+            return await _context.SaveChangesAsync() > 0;
         }
     }
 }

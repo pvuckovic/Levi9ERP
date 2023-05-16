@@ -1,6 +1,8 @@
-﻿using Levi9.ERP.Domain.Models.DTO;
+﻿using Levi9.ERP.Controllers;
+using Levi9.ERP.Domain.Models.DTO;
 using Levi9.ERP.Domain.Repositories;
 using Levi9.ERP.Domain.Services;
+using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
 
@@ -11,16 +13,19 @@ namespace Levi9.ERP.UnitTests.Services
     {
         private Mock<IClientRepository> _clientRepositoryMock;
         private ClientService _clientService;
+        private Mock<ILogger<ClientService>> _loggerMock;
+
 
         [SetUp]
         public void Setup()
         {
             _clientRepositoryMock = new Mock<IClientRepository>();
-            _clientService = new ClientService(_clientRepositoryMock.Object);
+            _loggerMock = new Mock<ILogger<ClientService>>();
+            _clientService = new ClientService(_clientRepositoryMock.Object, _loggerMock.Object);
         }
 
         [Test]
-        public void CreateClient_ValidClient_ReturnsDTO()
+        public async Task CreateClient_ValidClient_ReturnsDTO()
         {
             var clientModel = new ClientDTO
             {
@@ -32,15 +37,15 @@ namespace Levi9.ERP.UnitTests.Services
                 GlobalId = clientModel.GlobalId,
                 Email = clientModel.Email,
             };
-            _clientRepositoryMock.Setup(x => x.AddClient(clientModel)).Returns(createdClient);
+            _clientRepositoryMock.Setup(x => x.AddClient(clientModel)).ReturnsAsync(createdClient);
 
-            var result = _clientService.CreateClient(clientModel);
+            var result = await _clientService.CreateClient(clientModel);
 
             Assert.IsNotNull(result);
             Assert.AreEqual(clientModel.Email, result.Email);
         }
         [Test]
-        public void GetByIdClient_ReturnsDTO()
+        public async Task GetByIdClient_ReturnsDTO()
         {
             var clientId = 1;
             var clientEntity = new ClientDTO
@@ -56,9 +61,9 @@ namespace Levi9.ERP.UnitTests.Services
                 Email = "john@example.com"
             };
 
-            _clientRepositoryMock.Setup(x => x.GetClientById(clientId)).Returns(clientEntity);
+            _clientRepositoryMock.Setup(x => x.GetClientById(clientId)).ReturnsAsync(clientEntity);
 
-            var result = _clientService.GetClientById(clientId);
+            var result = await _clientService.GetClientById(clientId);
 
             Assert.IsInstanceOf<ClientDTO>(result);
             var actualClientDTO = result;
