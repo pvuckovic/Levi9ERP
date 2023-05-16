@@ -7,10 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.EntityFrameworkCore;
-using System.Text.Json.Serialization;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Serilog;
 using System.Text;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -57,6 +58,8 @@ builder.Services.AddScoped<IUrlHelper>(x =>
 
 builder.Services.AddScoped<IPriceListRepository, PriceListRepository>();
 builder.Services.AddScoped<IPriceListService, PriceListService>();
+builder.Host.UseSerilog((context, configuration) =>
+    configuration.ReadFrom.Configuration(context.Configuration));
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -119,7 +122,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
    
 }
-
+app.UseSerilogRequestLogging();
 
 app.UseHttpsRedirection();
 
@@ -139,11 +142,12 @@ using (var scope = app.Services.CreateScope())
     }
     catch (Exception ex)
     {
-        //var logger = services.GetRequiredService<ILogger<Program>>();
-        //logger.LogError(ex, "An error occurred while migrating the database.");
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occurred while migrating the database.");
     }
 }
 
 app.MapControllers();
 
 app.Run();
+public partial class Program{ }

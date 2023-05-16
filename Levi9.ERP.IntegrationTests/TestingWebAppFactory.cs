@@ -15,7 +15,6 @@ namespace Levi9.ERP.IntegrationTests
             {
                 var descriptor = services.SingleOrDefault(
                     d => d.ServiceType == typeof(DbContextOptions<DataBaseContext>));
-
                 if (descriptor != null)
                 {
                     services.Remove(descriptor);
@@ -25,7 +24,6 @@ namespace Levi9.ERP.IntegrationTests
                 {
                     options.UseInMemoryDatabase("TestDatabase");
                 });
-
                 var serviceProvider = services.BuildServiceProvider();
 
                 _dataBaseContext = serviceProvider.GetRequiredService<DataBaseContext>();
@@ -35,3 +33,4 @@ namespace Levi9.ERP.IntegrationTests
 
     }
 }
+
