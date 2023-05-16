@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -80,6 +81,33 @@ builder.Services.AddAuthentication(options =>
 //👇 Configuring the Authorization Service
 builder.Services.AddAuthorization();
 
+builder.Services.AddSwaggerGen(opt =>
+{
+    opt.SwaggerDoc("v1", new OpenApiInfo { Title = "MyAPI", Version = "v1" });
+    opt.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        In = ParameterLocation.Header,
+        Description = "Please enter token",
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        BearerFormat = "JWT",
+        Scheme = "bearer"
+    });
+    opt.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type=ReferenceType.SecurityScheme,
+                    Id="Bearer"
+                }
+            },
+            new string[]{}
+        }
+    });
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -89,8 +117,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
    
 }
-
-
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
@@ -99,11 +125,26 @@ app.UseAuthorization();
 
 using (var context = builder.Services.BuildServiceProvider().GetService<DataBaseContext>())
 {
-    context.Database.EnsureDeleted();
-    context.Database.Migrate();
+    using (var scope = app.Services.CreateScope())
+    {
+        var services = scope.ServiceProvider;
 
+        try
+        {
+          
+            var dbContext = services.GetRequiredService<DataBaseContext>();
+            dbContext.Database.EnsureDeleted();
+            dbContext.Database.Migrate();
+        }
+        catch (Exception ex)
+        {
+            //var logger = services.GetRequiredService<ILogger<Program>>();
+            //logger.LogError(ex, "An error occurred while migrating the database.");
+        }
+    }
 }
 
 app.MapControllers();
 
 app.Run();
+public partial class Program{ }

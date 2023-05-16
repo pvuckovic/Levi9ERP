@@ -4,12 +4,14 @@ using Levi9.ERP.Datas.Responses;
 using Levi9.ERP.Domain.Models;
 using Levi9.ERP.Domain.Models.DTO;
 using Levi9.ERP.Domain.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Levi9.ERP.Controllers
 {
     [Route("v1/[controller]")]
     [ApiController]
+    [Authorize]
     public class PricelistController : ControllerBase
     {
         private readonly IPriceListService _priceListService;
@@ -19,8 +21,9 @@ namespace Levi9.ERP.Controllers
             _priceListService = priceListService;
             _mapper = mapper;
         }
-
+        
         [HttpGet("{id}")]
+        
         public async Task<IActionResult> Get(int id) 
         {
             if(id <= 0)
