@@ -387,19 +387,19 @@
 			"response": []
 		},
 		{
-			"name": "GetProducts",
+			"name": "SearchProducts",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:5091/Product?page=1&name=Shirt&orderBy=name&direction=asc",
+					"raw": "http://localhost:5091/Search?page=1&name=Shirt&orderBy=name&direction=asc",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "5091",
 					"path": [
-						"Product"
+						"Search"
 					],
 					"query": [
 						{

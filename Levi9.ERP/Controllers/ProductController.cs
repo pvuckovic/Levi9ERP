@@ -61,11 +61,16 @@ namespace Levi9.ERP.Controllers
             return Ok(productResponse);
         }
 
-        [HttpGet("/Search")]
+        [HttpGet("Search")]
         public async Task<IActionResult> SearchProducts([FromQuery] SearchProductRequest searchParams)
         {
             if (searchParams.Page <= 0) return BadRequest("Page must be greater than 0.");
             var mappedParams = _mapper.Map<SearchProductDTO>(searchParams);
+
+            if (!string.IsNullOrEmpty(searchParams.OrderBy) && string.IsNullOrEmpty(searchParams.Direction))
+            {
+                return BadRequest("If 'orderBy' is not empty, you must enter 'direction'!");
+            }
 
             var products = await _productService.GetProductsByParameters(mappedParams);
             if (products == null || !products.Any()) return NotFound("No products were found that match the search parameters.");

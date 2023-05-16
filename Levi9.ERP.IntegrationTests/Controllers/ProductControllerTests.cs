@@ -1,5 +1,7 @@
 using Levi9.ERP.Data.Requests;
 using Levi9.ERP.Data.Responses;
+using Levi9.ERP.Datas.Requests;
+using Levi9.ERP.Datas.Responses;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using System.Net;
@@ -120,6 +122,177 @@ namespace Levi9.ERP.IntegrationTests.Controllers
             Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
             Assert.AreEqual("A product with that id doesn't exists.", result);
         }
+
+        [Test]
+        public async Task SearchProducts_By_Name_Ascending_ValidParams_ReturnsOkResult()
+        {
+            // Arrange
+            var searchParams = new SearchProductRequest { Page = 1, Name = "Shirt", OrderBy = "name", Direction = "asc" };
+            // Act
+            var response = await _client.GetAsync($"/v1/Product/Search?Page={searchParams.Page}&Name={searchParams.Name}&OrderBy={searchParams.OrderBy}&Direction={searchParams.Direction}");
+            var result = await response.Content.ReadAsStringAsync();
+            var content = JsonConvert.DeserializeObject<SearchProductResponse>(result);
+            // Assert
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+            Assert.IsNotNull(content);
+            Assert.IsInstanceOf<IEnumerable<ProductResponse>>(content.Items);
+            Assert.AreEqual(1, content.Page);
+            Assert.IsTrue(content.Items.All(p => p.Name.Contains("Shirt")));
+            var sortedItems = content.Items.OrderBy(p => p.Name, StringComparer.Ordinal);
+            Assert.IsTrue(content.Items.SequenceEqual(sortedItems));
+        }
+
+        [Test]
+        public async Task SearchProducts_By_Name_Descending_ValidParams_ReturnsOkResult()
+        {
+            // Arrange
+            var searchParams = new SearchProductRequest { Page = 1, Name = "Shirt", OrderBy = "name", Direction = "dsc" };
+            // Act
+            var response = await _client.GetAsync($"/v1/Product/Search?Page={searchParams.Page}&Name={searchParams.Name}&OrderBy={searchParams.OrderBy}&Direction={searchParams.Direction}");
+            var result = await response.Content.ReadAsStringAsync();
+            var content = JsonConvert.DeserializeObject<SearchProductResponse>(result);
+            // Assert
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+            Assert.IsNotNull(content);
+            Assert.IsInstanceOf<IEnumerable<ProductResponse>>(content.Items);
+            Assert.AreEqual(1, content.Page);
+            Assert.IsTrue(content.Items.All(p => p.Name.Contains("Shirt")));
+            var sortedItems = content.Items.OrderByDescending(p => p.Name, StringComparer.Ordinal);
+            Assert.IsTrue(content.Items.SequenceEqual(sortedItems));
+        }
+
+        [Test]
+        public async Task SearchProducts_By_Id_Ascending_ValidParams_ReturnsOkResult()
+        {
+            // Arrange
+            var searchParams = new SearchProductRequest { Page = 1, Name = "Shirt", OrderBy = "id", Direction = "asc" };
+            // Act
+            var response = await _client.GetAsync($"/v1/Product/Search?Page={searchParams.Page}&Name={searchParams.Name}&OrderBy={searchParams.OrderBy}&Direction={searchParams.Direction}");
+            var result = await response.Content.ReadAsStringAsync();
+            var content = JsonConvert.DeserializeObject<SearchProductResponse>(result);
+            // Assert
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+            Assert.IsNotNull(content);
+            Assert.IsInstanceOf<IEnumerable<ProductResponse>>(content.Items);
+            Assert.AreEqual(1, content.Page);
+            Assert.IsTrue(content.Items.All(p => p.Name.Contains("Shirt")));
+            var sortedItems = content.Items.OrderBy(p => p.Id);
+            Assert.IsTrue(content.Items.SequenceEqual(sortedItems));
+        }
+
+        [Test]
+        public async Task SearchProducts_By_Id_Descending_ValidParams_ReturnsOkResult()
+        {
+            // Arrange
+            var searchParams = new SearchProductRequest { Page = 1, Name = "Shirt", OrderBy = "id", Direction = "dsc" };
+            // Act
+            var response = await _client.GetAsync($"/v1/Product/Search?Page={searchParams.Page}&Name={searchParams.Name}&OrderBy={searchParams.OrderBy}&Direction={searchParams.Direction}");
+            var result = await response.Content.ReadAsStringAsync();
+            var content = JsonConvert.DeserializeObject<SearchProductResponse>(result);
+            // Assert
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+            Assert.IsNotNull(content);
+            Assert.IsInstanceOf<IEnumerable<ProductResponse>>(content.Items);
+            Assert.AreEqual(1, content.Page);
+            Assert.IsTrue(content.Items.All(p => p.Name.Contains("Shirt")));
+            var sortedItems = content.Items.OrderByDescending(p => p.Id);
+            Assert.IsTrue(content.Items.SequenceEqual(sortedItems));
+        }
+
+        [Test]
+        public async Task SearchProducts_By_AvailableQuantity_Ascending_ValidParams_ReturnsOkResult()
+        {
+            // Arrange
+            var searchParams = new SearchProductRequest { Page = 1, Name = "Shirt", OrderBy = "availableQuantity", Direction = "asc" };
+            // Act
+            var response = await _client.GetAsync($"/v1/Product/Search?Page={searchParams.Page}&Name={searchParams.Name}&OrderBy={searchParams.OrderBy}&Direction={searchParams.Direction}");
+            var result = await response.Content.ReadAsStringAsync();
+            var content = JsonConvert.DeserializeObject<SearchProductResponse>(result);
+            // Assert
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+            Assert.IsNotNull(content);
+            Assert.IsInstanceOf<IEnumerable<ProductResponse>>(content.Items);
+            Assert.AreEqual(1, content.Page);
+            Assert.IsTrue(content.Items.All(p => p.Name.Contains("Shirt")));
+            var sortedItems = content.Items.OrderBy(p => p.AvailableQuantity);
+            Assert.IsTrue(content.Items.SequenceEqual(sortedItems));
+        }
+
+        [Test]
+        public async Task SearchProducts_By_AvailableQuantity_Descending_ValidParams_ReturnsOkResult()
+        {
+            // Arrange
+            var searchParams = new SearchProductRequest { Page = 1, Name = "Shirt", OrderBy = "availableQuantity", Direction = "dsc" };
+            // Act
+            var response = await _client.GetAsync($"/v1/Product/Search?Page={searchParams.Page}&Name={searchParams.Name}&OrderBy={searchParams.OrderBy}&Direction={searchParams.Direction}");
+            var result = await response.Content.ReadAsStringAsync();
+            var content = JsonConvert.DeserializeObject<SearchProductResponse>(result);
+            // Assert
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+            Assert.IsNotNull(content);
+            Assert.IsInstanceOf<IEnumerable<ProductResponse>>(content.Items);
+            Assert.AreEqual(1, content.Page);
+            Assert.IsTrue(content.Items.All(p => p.Name.Contains("Shirt")));
+            var sortedItems = content.Items.OrderByDescending(p => p.AvailableQuantity);
+            Assert.IsTrue(content.Items.SequenceEqual(sortedItems));
+        }
+
+        [Test]
+        public async Task SearchProducts_Without_OrderBy_And_Direction_ValidParams_ReturnsOkResult()
+        {
+            // Arrange
+            var searchParams = new SearchProductRequest { Page = 1, Name = "Shirt" };
+            // Act
+            var response = await _client.GetAsync($"/v1/Product/Search?Page={searchParams.Page}&Name={searchParams.Name}");
+            var result = await response.Content.ReadAsStringAsync();
+            var content = JsonConvert.DeserializeObject<SearchProductResponse>(result);
+            // Assert
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+            Assert.IsNotNull(content);
+            Assert.IsInstanceOf<IEnumerable<ProductResponse>>(content.Items);
+            Assert.AreEqual(1, content.Page);
+            Assert.IsTrue(content.Items.All(p => p.Name.Contains("Shirt")));
+        }
+
+        [Test]
+        public async Task SearchProducts_Without_Direction_ReturnsBadRequest()
+        {
+            // Arrange
+            var searchParams = new SearchProductRequest { Page = 1, Name = "Shirt", OrderBy = "name" };
+            // Act
+            var response = await _client.GetAsync($"/v1/Product/Search?Page={searchParams.Page}&Name={searchParams.Name}&OrderBy={searchParams.OrderBy}");
+            var result = await response.Content.ReadAsStringAsync();
+            // Assert
+            Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
+            Assert.AreEqual("If 'orderBy' is not empty, you must enter 'direction'!", result);
+        }
+
+        [Test]
+        public async Task SearchProducts_With_Negative_Page_Number_ReturnsBadRequest()
+        {
+            // Arrange
+            var searchParams = new SearchProductRequest { Page = -1, Name = "Shirt", OrderBy = "name" };
+            // Act
+            var response = await _client.GetAsync($"/v1/Product/Search?Page={searchParams.Page}&Name={searchParams.Name}&OrderBy={searchParams.OrderBy}");
+            var result = await response.Content.ReadAsStringAsync();
+            // Assert
+            Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
+            Assert.AreEqual("Page must be greater than 0.", result);
+        }
+
+        [Test]
+        public async Task SearchProducts_Products_Not_Exists_ReturnsNotFound()
+        {
+            // Arrange
+            var searchParams = new SearchProductRequest { Page = 1, Name = "Nema", OrderBy = "name", Direction = "dsc" };
+            // Act
+            var response = await _client.GetAsync($"/v1/Product/Search?Page={searchParams.Page}&Name={searchParams.Name}&OrderBy={searchParams.OrderBy}&Direction={searchParams.Direction}");
+            var result = await response.Content.ReadAsStringAsync();
+            // Assert
+            Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
+            Assert.AreEqual("No products were found that match the search parameters.", result);
+        }
+
 
         [TearDown]
         public void TearDown()
