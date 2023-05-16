@@ -272,20 +272,15 @@ namespace Levi9.ERP.IntegrationTests.Controllers
         [Test]
         public async Task SearchArticles_InvalidRequest_MissingDirection_ReturnsBadRequest()
         {
-            var searchRequest = new SearchArticleRequest
-            {
-                PageId = 1,
-                SearchString = "example",
-                OrderBy = OrderByArticleType.ProductId,
-                Direction = null
-            };
-
             var search = "PageId=1&SearchString=nonexistent&OrderBy=ProductId";
             var response = await _client.GetAsync($"/v1/Pricelist/prices?{search}");
 
             var content = await response.Content.ReadAsStringAsync();
-            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.BadRequest));
-            Assert.That(content, Is.EqualTo("Direction is required, because OrderBy is selected"));
+            Assert.Multiple(() =>
+            {
+                Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.BadRequest));
+                Assert.That(content, Is.EqualTo("Direction is required, because OrderBy is selected"));
+            });
         }
     }
 }
