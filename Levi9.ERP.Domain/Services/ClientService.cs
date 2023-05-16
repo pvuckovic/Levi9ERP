@@ -34,7 +34,6 @@ namespace Levi9.ERP.Domain.Services
             _logger.LogInformation("Entering {FunctionName} in ClientService. Timestamp: {Timestamp}.", nameof(GetClientByEmail), DateTime.UtcNow);
             var clientEntity = await _clientRepository.GetClientByEmail(email);
             _logger.LogInformation("Retrieving client in {FunctionName} of ClientService. Timestamp: {Timestamp}.", nameof(GetClientByEmail), DateTime.UtcNow);
-            var clientEntity = await _clientRepository.GetClientByEmail(email);
             return clientEntity;
         }
 
@@ -43,7 +42,6 @@ namespace Levi9.ERP.Domain.Services
             _logger.LogInformation("Entering {FunctionName} in ClientService. Timestamp: {Timestamp}.", nameof(GetClientById), DateTime.UtcNow);
             var clientEntity = await _clientRepository.GetClientById(id);
             _logger.LogInformation("Retrieving client in {FunctionName} of ClientService. Timestamp: {Timestamp}.", nameof(GetClientById), DateTime.UtcNow);
-            var clientEntity = await _clientRepository.GetClientById(id);
             return clientEntity;
         }
     }
