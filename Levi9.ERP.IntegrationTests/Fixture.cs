@@ -21,7 +21,7 @@ namespace Levi9.ERP.IntegrationTests
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        public static List<Product> GenerateProductData()
+         public static List<Product> GenerateProductData()
         {
 
             var products = new List<Product>
@@ -87,6 +87,115 @@ namespace Levi9.ERP.IntegrationTests
             };
             return products;
         }
+        public static List<PriceList> GeneratePriceListData()
+        {
 
+            var pricelists = new List<PriceList>
+            {
+                new PriceList
+                {
+                    Id = 1,
+                    GlobalId = new Guid("494ad824-8ee2-47c3-938f-2de7a43db41a"),
+                    Name = "USD Price List",
+                    LastUpdate = "634792557112051692",
+                    Prices = new List<Price>
+                    {
+                        new Price
+                        {
+                            ProductId = 1,
+                            PriceListId = 1,
+                            Product = new Product
+                            {
+                                Id = 1,
+                                GlobalId = new Guid("494ad824-8ea2-47c3-938f-2de7a43db41a"),
+                                Name = "Shirt",
+                                ImageUrl = "someurl123344444",
+                                AvailableQuantity = 70,
+                                LastUpdate = "634792557112051692"
+                            },
+                            GlobalId = new Guid("494ad824-8ee2-47c3-932f-2de7a43db41a"),
+                            PriceValue = 12,
+                            Currency = "USD",
+                            LastUpdate = "634792557112051692",
+                        }
+                    }
+                },
+                new PriceList
+                {
+                    Id = 2,
+                    GlobalId = new Guid("494ad824-8ee2-47c3-938f-2de7a13db41a"),
+                    Name = "EUR Price List",
+                    LastUpdate = "634792557112051693",
+                    Prices = new List<Price>
+                    {
+                        new Price
+                        {
+                            ProductId = 2,
+                            PriceListId = 2,
+                            Product = new Product
+                            {
+                                Id = 2,
+                                GlobalId = new Guid("24ce0abb-74c1-4721-a103-7534faf5a6f3"),
+                                Name = "B T-shirt",
+                                ImageUrl = "slika.png",
+                                AvailableQuantity = 140,
+                                LastUpdate = "143567342843789438",
+                            },
+                            GlobalId = new Guid("494ad824-8ee2-47c3-938f-2de7a20db41a"),
+                            PriceValue = 30,
+                            Currency = "EUR",
+                            LastUpdate = "634792557112051693"
+                        }
+                    }
+                },  
+                new PriceList
+                {
+                    Id = 3,
+                    GlobalId = new Guid("494b7014-8ee2-47c3-938f-2de7a43db41a"),
+                    Name = "RSD Price List",
+                    LastUpdate = "634792557112051694",
+                    Prices = new List<Price>
+                    {
+                        new Price
+                        {
+                            ProductId = 3,
+                            PriceListId = 3,
+                            Product = new Product
+                            {
+                                Id = 3,
+                                GlobalId = new Guid("494ad824-8ee2-47c3-938f-2de71b3db41a"),
+                                Name = "Z T-Shirt",
+                                ImageUrl = "slika2.png",
+                                AvailableQuantity = 150,
+                                LastUpdate = "634792557112051694",
+                            },
+                            GlobalId = new Guid("492ad82b-8ee2-47c3-938f-2de7a43db41a"),
+                            PriceValue = 1500,
+                            Currency = "RSD",
+                            LastUpdate = "634792557112051694",
+                        },
+                        new Price 
+                        {
+                            ProductId = 4,
+                            PriceListId = 3,
+                            Product = new Product
+                            {
+                                Id = 4,
+                                GlobalId = new Guid("494ad824-8ee2-47c3-126f-2de7a43db41a"),
+                                Name = "B T-Shirt",
+                                ImageUrl = "slika3.png",
+                                AvailableQuantity = 550,
+                                LastUpdate = "634792557112051695",
+                            },
+                            GlobalId = new Guid("494bc224-8ee2-47c3-938f-2de7a43db41a"),
+                            PriceValue = 1700,
+                            Currency = "RSD",
+                            LastUpdate = "634792557112051695"
+                        }
+                    }
+                }
+            };
+            return pricelists;
+        }
     }
 }
