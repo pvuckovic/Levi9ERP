@@ -1,18 +1,13 @@
-﻿using Levi9.ERP.Controllers;
-using Levi9.ERP.Datas.Requests;
+﻿using Levi9.ERP.Datas.Requests;
 using Levi9.ERP.Datas.Responses;
 using Levi9.ERP.Domain;
-using Levi9.ERP.Domain.Models.DTO;
 using Levi9.ERP.Domain.Models;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using System.Net;
 using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
 using System.Net.Http.Json;
 
 namespace Levi9.ERP.IntegrationTests.Controllers

@@ -64,10 +64,13 @@ namespace Levi9.ERP.Domain.Repositories
                 { "name", p => p.Name },
                 { "id", p => p.Prices.First().ProductId },
                 { "globalId", p => p.Prices.First().GlobalId },
-                { "availableQuantity", p => p.AvailableQuantity }
+                { "availableQuantity", p => p.AvailableQuantity },
             };
 
-            var orderByExpression = orderByMap.GetValueOrDefault(orderBy, p => p.Name);
+            var orderByExpression = (orderBy == null)
+                ? p => p.Name
+                : orderByMap.GetValueOrDefault(orderBy, p => p.Name);
+
             var sortedQuery = (direction == "asc")
                 ? query.OrderBy(orderByExpression)
                 : query.OrderByDescending(orderByExpression);

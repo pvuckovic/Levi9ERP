@@ -6,5 +6,11 @@ namespace Levi9.ERP.Controllers
     [ApiController]
     public class HealthCheckController : ControllerBase
     {
+
+        [HttpGet]
+        public ActionResult<string> Get()
+        {
+            return "Healthy";
+        }
     }
 }

@@ -5,6 +5,7 @@ using Levi9.ERP.Datas.Requests;
 using Levi9.ERP.Datas.Responses;
 using Levi9.ERP.Domain.Models.DTO;
 using Levi9.ERP.Domain.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Levi9.ERP.Controllers
@@ -12,6 +13,7 @@ namespace Levi9.ERP.Controllers
 
     [Route("v1/[controller]")]
     [ApiController]
+    [Authorize]
     public class ProductController : ControllerBase
     {
         private readonly IProductService _productService;
@@ -72,7 +74,7 @@ namespace Levi9.ERP.Controllers
             return Ok(productResponse);
         }
 
-        [HttpGet("/Global/{id}")]
+        [HttpGet("Global/{id}")]
         public async Task<IActionResult> GetByGlobalId(Guid id)
         {
             _logger.LogInformation("Entering {FunctionName} in ProductController. Timestamp: {Timestamp}.", nameof(GetById), DateTime.UtcNow);
@@ -88,7 +90,7 @@ namespace Levi9.ERP.Controllers
             return Ok(productResponse);
         }
 
-        [HttpGet("/Product")]
+        [HttpGet("Search")]
         public async Task<IActionResult> SearchProducts([FromQuery] SearchProductRequest searchParams)
         {
             _logger.LogInformation("Entering {FunctionName} in ProductController. Timestamp: {Timestamp}.", nameof(GetById), DateTime.UtcNow);
@@ -98,6 +100,12 @@ namespace Levi9.ERP.Controllers
                 return BadRequest("Page must be greater than 0.");
             }
             var mappedParams = _mapper.Map<SearchProductDTO>(searchParams);
+
+            if (!string.IsNullOrEmpty(searchParams.OrderBy) && string.IsNullOrEmpty(searchParams.Direction))
+            {
+                _logger.LogInformation("If 'orderBy' is not empty, you must enter 'direction'! {FunctionName} in ProductController. Timestamp: {Timestamp}.", nameof(GetById), DateTime.UtcNow);
+                return BadRequest("If 'orderBy' is not empty, you must enter 'direction'!");
+            }
 
             var products = await _productService.GetProductsByParameters(mappedParams);
             if (products == null || !products.Any())

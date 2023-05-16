@@ -29,6 +29,7 @@ namespace Levi9.ERP.Domain.Repositories
             _logger.LogInformation("Adding new document in {FunctionName} of DocumentRepository. Timestamp: {Timestamp}.", nameof(AddDocument), DateTime.UtcNow);
             return _mapper.Map<DocumentDTO>(createdDocumentEntity.Entity);
         }
+
         public async Task<DocumentDTO> GetDocumentById(int id)
         {
             _logger.LogInformation("Entering {FunctionName} in DocumentRepository. Timestamp: {Timestamp}.", nameof(GetDocumentById), DateTime.UtcNow);
