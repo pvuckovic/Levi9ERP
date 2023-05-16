@@ -13,9 +13,6 @@ namespace Levi9.ERP.IntegrationTests
         {
             builder.ConfigureServices(services =>
             {
-                //services.AddScoped<IProductRepository, ProductRepository>();
-                //services.AddScoped<IProductService, ProductService>();
-
                 var descriptor = services.SingleOrDefault(
                     d => d.ServiceType == typeof(DbContextOptions<DataBaseContext>));
 

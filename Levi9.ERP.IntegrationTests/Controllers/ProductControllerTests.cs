@@ -1,7 +1,9 @@
 using Levi9.ERP.Data.Requests;
 using Levi9.ERP.Data.Responses;
 using Newtonsoft.Json;
+using NUnit.Framework;
 using System.Net;
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
 
 namespace Levi9.ERP.IntegrationTests.Controllers
@@ -18,6 +20,8 @@ namespace Levi9.ERP.IntegrationTests.Controllers
         {
             _factory = new TestingWebAppFactory<Program>();
             _client = _factory.CreateClient();
+            string token = Fixture.GenerateJwt();
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
         }
 
 
