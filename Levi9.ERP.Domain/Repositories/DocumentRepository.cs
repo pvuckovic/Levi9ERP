@@ -19,7 +19,6 @@ namespace Levi9.ERP.Domain.Repositories
             _mapper = mapper;
             _logger = logger;
         }
-
         public async Task<DocumentDTO> AddDocument(DocumentDTO documentModel)
         {
             _logger.LogInformation("Entering {FunctionName} in DocumentRepository. Timestamp: {Timestamp}.", nameof(AddDocument), DateTime.UtcNow);

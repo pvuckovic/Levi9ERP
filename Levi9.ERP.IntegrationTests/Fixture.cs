@@ -20,8 +20,7 @@ namespace Levi9.ERP.IntegrationTests
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
-
-         public static List<Product> GenerateProductData()
+        public static List<Product> GenerateProductData()
         {
 
             var products = new List<Product>
@@ -147,7 +146,7 @@ namespace Levi9.ERP.IntegrationTests
                             LastUpdate = "634792557112051693"
                         }
                     }
-                },  
+                },
                 new PriceList
                 {
                     Id = 3,
@@ -174,7 +173,7 @@ namespace Levi9.ERP.IntegrationTests
                             Currency = "RSD",
                             LastUpdate = "634792557112051694",
                         },
-                        new Price 
+                        new Price
                         {
                             ProductId = 4,
                             PriceListId = 3,
@@ -196,6 +195,63 @@ namespace Levi9.ERP.IntegrationTests
                 }
             };
             return pricelists;
+        }
+        public static List<Client> GenerateClientData()
+        {
+            var clients = new List<Client>
+            {
+                new Client
+                {
+                     Id = 1,
+                     GlobalId = new Guid("494ad824-8ee2-47c3-938f-2de7a43db41b"),
+                     Name = "Zlatko",
+                     Address = "Njegoseva 2",
+                     Email = "zlatko123@gmail.com",
+                     Password = "test",
+                     Salt = "test1",
+                     Phone = "0606363344",
+                     LastUpdate = "634792557112051692",
+                     PriceListId = 1
+                },
+                 new Client
+                 {
+                     Id = 2,
+                     GlobalId = new Guid("a4ed855d-816f-4565-8954-0bd6f88df68e"),
+                     Name = "Igor",
+                     Address = "Njegoseva 3",
+                     Email = "igor123@gmail.com",
+                     Password = "test",
+                     Salt = "test1",
+                     Phone = "0606363344",
+                     LastUpdate = "634792557112051692",
+                     PriceListId = 1
+                 },
+            };
+            return clients;
+        }
+        public static Document GenerateDocumentsData()
+        {
+            var documents = new Document
+            {
+                Id = 1,
+                GlobalId = new Guid("6018b3b5-03c3-44d2-aa4b-85b92adedc68"),
+                LastUpdate = "634792557112051692",
+                DocumentType = DocumentType.INVOICE.ToString(),
+                ClientId = 1,
+                ProductDocuments = new List<ProductDocument>
+                {
+                     new ProductDocument
+                     {
+                         ProductId = 1,
+                         DocumentId = 1,
+                         PriceValue = 9.99f,
+                         Quantity = 5,
+                         Currency = CurrencyType.USD.ToString(),
+                     }
+                },
+
+            };
+            return documents;
         }
     }
 }
