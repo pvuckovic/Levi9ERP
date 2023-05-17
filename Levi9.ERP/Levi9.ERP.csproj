@@ -29,4 +29,8 @@
     <ProjectReference Include="..\Levi9.ERP.Domain\Levi9.ERP.Domain.csproj" />
   </ItemGroup>
 
+	<ItemGroup>
+		<InternalsVisibleTo Include="Levi9.ERP.IntegrationTests"/>
+    </ItemGroup>
+
 </Project>

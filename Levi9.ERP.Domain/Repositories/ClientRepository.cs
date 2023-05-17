@@ -31,9 +31,8 @@ namespace Levi9.ERP.Domain.Repositories
 
         public async Task<ClientDTO> GetClientByEmail(string email)
         {
-            _logger.LogInformation("Entering {FunctionName} in ClientRepository. Timestamp: {Timestamp}.", nameof(GetClientByEmail), DateTime.UtcNow);
-            var clientByEmail = await _context.Clients.FirstOrDefaultAsync(e => e.Email == email);
             _logger.LogInformation("Retrieving client in {FunctionName} of ClientRepository. Timestamp: {Timestamp}.", nameof(GetClientByEmail), DateTime.UtcNow);
+            var clientByEmail = await _context.Clients.FirstOrDefaultAsync(e => e.Email == email);
             return _mapper.Map<ClientDTO>(clientByEmail);
         }
 
