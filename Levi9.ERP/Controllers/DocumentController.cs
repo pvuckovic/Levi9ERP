@@ -3,6 +3,7 @@ using Levi9.ERP.Datas.Requests;
 using Levi9.ERP.Datas.Responses;
 using Levi9.ERP.Domain.Models.DTO;
 using Levi9.ERP.Domain.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Levi9.ERP.Controllers
@@ -28,6 +29,7 @@ namespace Levi9.ERP.Controllers
             _urlHelper = urlHelper;
             _logger = logger;   
         }
+        [Authorize]
         [HttpPost]
         [Consumes("application/json")]
         public async Task<IActionResult> CreateDocument([FromBody] DocumentRequest document)
@@ -55,6 +57,7 @@ namespace Levi9.ERP.Controllers
             _logger.LogInformation("Document created successfully in {FunctionName} of DocumentController. Timestamp: {Timestamp}.", nameof(CreateDocument), DateTime.UtcNow);
             return Created(location, _mapper.Map<DocumentResponse>(documentDTO));
         }
+        [Authorize]
         [HttpGet("{id}")]
         [Consumes("application/json")]
         public async Task<IActionResult> GetById(int id)
@@ -70,6 +73,7 @@ namespace Levi9.ERP.Controllers
             _logger.LogInformation("Document retrieved successfully with ID: {DocumentId} in {FunctionName} of DocumentController. Timestamp: {Timestamp}.", id, nameof(GetById), DateTime.UtcNow);
             return Ok(documentResponse);
         }
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> SearchDocuments([FromQuery] SearchDocumentRequest searchParams)
         {

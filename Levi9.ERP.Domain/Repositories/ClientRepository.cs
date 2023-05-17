@@ -34,7 +34,6 @@ namespace Levi9.ERP.Domain.Repositories
             _logger.LogInformation("Entering {FunctionName} in ClientRepository. Timestamp: {Timestamp}.", nameof(GetClientByEmail), DateTime.UtcNow);
             var clientByEmail = await _context.Clients.FirstOrDefaultAsync(e => e.Email == email);
             _logger.LogInformation("Retrieving client in {FunctionName} of ClientRepository. Timestamp: {Timestamp}.", nameof(GetClientByEmail), DateTime.UtcNow);
-            var clientByEmail = await _context.Clients.FirstOrDefaultAsync(e => e.Email == email);
             return _mapper.Map<ClientDTO>(clientByEmail);
         }
 
@@ -43,7 +42,6 @@ namespace Levi9.ERP.Domain.Repositories
             _logger.LogInformation("Entering {FunctionName} in ClientRepository. Timestamp: {Timestamp}.", nameof(GetClientById), DateTime.UtcNow);
             var clientById = await _context.Clients.FirstOrDefaultAsync(e => e.Id == id);
             _logger.LogInformation("Retrieving client in {FunctionName} of ClientRepository. Timestamp: {Timestamp}.", nameof(GetClientById), DateTime.UtcNow);
-            var clientById = await _context.Clients.FirstOrDefaultAsync(e => e.Id == id);
             return _mapper.Map<ClientDTO>(clientById);
         }
 

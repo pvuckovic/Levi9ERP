@@ -20,13 +20,7 @@ namespace Levi9.ERP.Domain.Repositories
             _context = context;
             _mapper = mapper;
             _logger = logger;
-
-        public DocumentRepository(DataBaseContext context, IMapper mapper)
-        {
-            _context = context;
-            _mapper = mapper;
         }
-
         public async Task<DocumentDTO> AddDocument(DocumentDTO documentModel)
         {
             _logger.LogInformation("Entering {FunctionName} in DocumentRepository. Timestamp: {Timestamp}.", nameof(AddDocument), DateTime.UtcNow);
@@ -34,10 +28,6 @@ namespace Levi9.ERP.Domain.Repositories
             var createdDocumentEntity = _context.Documents.Add(documentMap);
             await SaveChanges();
             _logger.LogInformation("Adding new document in {FunctionName} of DocumentRepository. Timestamp: {Timestamp}.", nameof(AddDocument), DateTime.UtcNow);
-            Document documentMap = _mapper.Map<Document>(documentModel);
-            var createdDocumentEntity = _context.Documents.Add(documentMap);
-
-            await SaveChanges();
             return _mapper.Map<DocumentDTO>(createdDocumentEntity.Entity);
         }
         public async Task<DocumentDTO> GetDocumentById(int id)

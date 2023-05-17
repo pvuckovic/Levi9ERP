@@ -12,7 +12,7 @@ namespace Levi9.ERP.Datas.Requests
         public string Name { get; set; }
         [RegularExpression("^(id|globalId|documentType)$", ErrorMessage = "Order by parameter must be id, globalId, documentType.")]
         public OrderByDocumentSearch? OrderBy { get; set; }
-        [RegularExpression("^(ASC|DSC)$", ErrorMessage = "The direction must be asc or dsc")]
+        [RegularExpression("^(ASC|DESC)$", ErrorMessage = "The direction must be asc or desc")]
         public DirectionType? Direction { get; set; }
     }
 }
