@@ -20,7 +20,7 @@ namespace Levi9.ERP.IntegrationTests
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
-         public static List<Product> GenerateProductData()
+        public static List<Product> GenerateProductData()
         {
 
             var products = new List<Product>
@@ -147,7 +147,6 @@ namespace Levi9.ERP.IntegrationTests
                         }
                     }
                 },
-
                 new PriceList
                 {
                     Id = 3,
