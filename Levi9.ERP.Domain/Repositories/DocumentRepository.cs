@@ -4,8 +4,6 @@ using Levi9.ERP.Domain.Models.DTO;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Linq.Expressions;
-using System.Net.Sockets;
-using System.Linq.Expressions;
 
 namespace Levi9.ERP.Domain.Repositories
 {
@@ -30,6 +28,7 @@ namespace Levi9.ERP.Domain.Repositories
             _logger.LogInformation("Adding new document in {FunctionName} of DocumentRepository. Timestamp: {Timestamp}.", nameof(AddDocument), DateTime.UtcNow);
             return _mapper.Map<DocumentDTO>(createdDocumentEntity.Entity);
         }
+
         public async Task<DocumentDTO> GetDocumentById(int id)
         {
             _logger.LogInformation("Entering {FunctionName} in DocumentRepository. Timestamp: {Timestamp}.", nameof(GetDocumentById), DateTime.UtcNow);

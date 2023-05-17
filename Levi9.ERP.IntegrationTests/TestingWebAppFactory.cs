@@ -1,4 +1,5 @@
 ﻿using Levi9.ERP.Domain;
+using Levi9.ERP.Domain.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
@@ -19,17 +20,17 @@ namespace Levi9.ERP.IntegrationTests
                 {
                     services.Remove(descriptor);
                 }
+
                 services.AddDbContext<DataBaseContext>(options =>
                 {
                     options.UseInMemoryDatabase("TestDatabase");
                 });
-                
                 var serviceProvider = services.BuildServiceProvider();
-                
+
                 _dataBaseContext = serviceProvider.GetRequiredService<DataBaseContext>();
                 _dataBaseContext.Database.EnsureCreated();
             });
         }
-
     }
 }
+
