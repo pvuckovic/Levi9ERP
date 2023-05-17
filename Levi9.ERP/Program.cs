@@ -1,12 +1,15 @@
-﻿using Levi9.ERP.Domain;
+﻿using HealthChecks.UI.Client;
+using Levi9.ERP.Domain;
 using Levi9.ERP.Domain.Helpers;
 using Levi9.ERP.Domain.Repositories;
 using Levi9.ERP.Domain.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
@@ -113,6 +116,12 @@ builder.Services.AddSwaggerGen(opt =>
         }
     });
 });
+
+builder.Services.AddHealthChecks()
+    .AddSqlServer(builder.Configuration.GetConnectionString("ErpDatabase"));
+
+builder.Services.AddHealthChecksUI().AddInMemoryStorage();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -120,7 +129,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-   
+
 }
 app.UseSerilogRequestLogging();
 
@@ -147,6 +156,16 @@ using (var scope = app.Services.CreateScope())
 }
 
 app.MapControllers();
+
+app.MapHealthChecks("/healthcheck", new HealthCheckOptions
+{
+    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+});
+app.MapHealthChecksUI(options =>
+{
+    options.UIPath = "/healthcheck-ui"; //URL path for the Health Checks UI dashboard
+});
+
 
 app.Run();
 public partial class Program{ }

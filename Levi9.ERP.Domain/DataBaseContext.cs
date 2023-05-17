@@ -12,7 +12,7 @@ namespace Levi9.ERP.Domain
         public DbSet<Document> Documents { get; set; }
         public DbSet<ProductDocument> ProductDocuments { get; set; }
 
-        public DataBaseContext(DbContextOptions options) : base(options)
+        public DataBaseContext(DbContextOptions<DataBaseContext> options) : base(options)
         {
             Database.EnsureCreated();
         }
