@@ -1,4 +1,5 @@
 ﻿using Levi9.ERP.Domain.Models;
+using Levi9.ERP.Domain.Models.DTO;
 
 namespace Levi9.ERP.Domain.Repositories
 {
@@ -9,5 +10,6 @@ namespace Levi9.ERP.Domain.Repositories
         Task<Product> GetProductById(int productId);
         Task<Product> GetProductByGlobalId(Guid productId);
         Task<IEnumerable<Product>> GetProductsByParameters(string name, int page, string orderBy, string direction);
+        Task<IEnumerable<Product>> GetProductsByLastUpdate(string lastUpdate);
     }
 }

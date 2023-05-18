@@ -254,6 +254,41 @@ namespace Levi9.ERP.UnitTests.Services
             Assert.That(result, Is.InstanceOf<IEnumerable<ProductDTO>>());
             Assert.That(result.Any(), Is.False);
         }
+        [Test]
+        public async Task GetAllProducts_ReturnsMappedList_WhenRepositoryReturnsNonEmptyList()
+        {
+            var lastUpdate = "133288706851213387";
+            var product1 = new Product { Id = 1, Name = "Product 1" };
+            var product2 = new Product { Id = 2, Name = "Product 2" };
+            var products = new List<Product> { product1, product2 };
+            var expectedDTO1 = new ProductDTO { Id = 1, Name = "Product 1" };
+            var expectedDTO2 = new ProductDTO { Id = 2, Name = "Product 2" };
+            var expectedDTOs = new List<ProductDTO> { expectedDTO1, expectedDTO2 };
 
+            _productRepositoryMock.Setup(x => x.GetProductsByLastUpdate(lastUpdate)).ReturnsAsync(products);
+            _mapperMock.Setup(x => x.Map<ProductDTO>(product1)).Returns(expectedDTO1);
+            _mapperMock.Setup(x => x.Map<ProductDTO>(product2)).Returns(expectedDTO2);
+
+            var result = await _productService.GetProductsByLastUpdate(lastUpdate);
+
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result, Is.InstanceOf<IEnumerable<ProductDTO>>());
+            Assert.That(result.Count(), Is.EqualTo(expectedDTOs.Count));
+            CollectionAssert.AreEqual(expectedDTOs, result);
+        }
+
+        [Test]
+        public async Task GetAllProducts_ReturnsEmptyList_WhenRepositoryReturnsEmptyList()
+        {
+            var lastUpdate = "133288706851213387";
+            var emptyList = new List<Product>();
+            _productRepositoryMock.Setup(x => x.GetProductsByLastUpdate(lastUpdate)).ReturnsAsync(emptyList);
+
+            var result = await _productService.GetProductsByLastUpdate(lastUpdate);
+
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result, Is.InstanceOf<IEnumerable<ProductDTO>>());
+            Assert.That(result.Any(), Is.False);
+        }
     }
 }

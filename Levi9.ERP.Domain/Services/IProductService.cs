@@ -1,4 +1,5 @@
-﻿using Levi9.ERP.Domain.Models.DTO;
+﻿using Levi9.ERP.Domain.Models;
+using Levi9.ERP.Domain.Models.DTO;
 
 namespace Levi9.ERP.Domain.Services
 {
@@ -7,7 +8,8 @@ namespace Levi9.ERP.Domain.Services
         Task<ProductDTO> CreateProductAsync(ProductDTO product);
         Task<ProductDTO> GetProductByName(string name);
         Task<ProductDTO> GetProductById(int productId);
-        Task<ProductDTO> GetProductByGlobalId(Guid productId);
+        Task<ProductDTO> GetProductByGlobalId(Guid productId);      
         Task<IEnumerable<ProductDTO>> GetProductsByParameters(SearchProductDTO searchParams);
+        Task<IEnumerable<ProductDTO>> GetProductsByLastUpdate(string lastUpdateDate);
     }
 }

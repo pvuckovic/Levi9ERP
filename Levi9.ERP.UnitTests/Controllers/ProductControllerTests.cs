@@ -3,6 +3,7 @@ using Levi9.ERP.Controllers;
 using Levi9.ERP.Data.Requests;
 using Levi9.ERP.Data.Responses;
 using Levi9.ERP.Datas.Requests;
+using Levi9.ERP.Datas.Responses;
 using Levi9.ERP.Domain.Models;
 using Levi9.ERP.Domain.Models.DTO;
 using Levi9.ERP.Domain.Services;
@@ -295,6 +296,43 @@ namespace Levi9.ERP.UnitTests.Controllers
             Assert.IsInstanceOf<NotFoundObjectResult>(result);
             var notFoundResult = (NotFoundObjectResult)result;
             Assert.AreEqual("No products were found that match the search parameters.", notFoundResult.Value);
+        }
+        [Test]
+        public async Task GetAllProducts_ReturnsOkWithMappedList_WhenServiceReturnsNonEmptyList()
+        {
+            var lastUpdate = "133288706851213387";
+            var productDto1 = new ProductDTO { Id = 1, Name = "Product 1" };
+            var productDto2 = new ProductDTO { Id = 2, Name = "Product 2" };
+            var productDto = new List<ProductDTO> { productDto1, productDto2 };
+            var expectedResponse1 = new ProductResponse { Id = 1, Name = "Product 1" };
+            var expectedResponse2 = new ProductResponse { Id = 2, Name = "Product 2" };
+            var expectedResponses = new List<ProductResponse> { expectedResponse1, expectedResponse2 };
+
+            _productServiceMock.Setup(x => x.GetProductsByLastUpdate(lastUpdate)).ReturnsAsync(productDto);
+            _mapperMock.Setup(x => x.Map<ProductResponse>(productDto1)).Returns(expectedResponse1);
+            _mapperMock.Setup(x => x.Map<ProductResponse>(productDto2)).Returns(expectedResponse2);
+
+            var result = await _productController.GetAllProducts(lastUpdate);
+
+            var okResult = result as OkObjectResult;
+            Assert.That(okResult, Is.Not.Null);
+            var responseList = okResult.Value as IEnumerable<ProductResponse>;
+            Assert.That(responseList, Is.Not.Null);
+            CollectionAssert.AreEqual(expectedResponses, responseList);
+        }
+        [Test]
+        public async Task GetAllProducts_ReturnsOkWithEmptyList_WhenServiceReturnsEmptyList()
+        {
+            var lastUpdate = "133288706851213387";
+            var emptyList = Enumerable.Empty<ProductDTO>();
+            _productServiceMock.Setup(x => x.GetProductsByLastUpdate(lastUpdate)).ReturnsAsync(emptyList);
+
+            var result = await _productController.GetAllProducts(lastUpdate);
+
+            var okResult = result as OkObjectResult;
+            Assert.That(okResult, Is.Not.Null);
+            var responseList = okResult.Value as IEnumerable<ProductDTO>;
+            CollectionAssert.AreEqual(responseList, emptyList);
         }
 
     }

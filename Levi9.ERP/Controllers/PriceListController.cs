@@ -77,7 +77,6 @@ namespace Levi9.ERP.Controllers
                 return Ok("There is no prices lists in database :( ");
             }
 
-
             var listResponse = list.Select(p => _mapper.Map<PriceListResponse>(p));
             _logger.LogInformation("Pricelists retrieved successfully in {FunctionName} of PriceListController. Timestamp: {Timestamp}.", nameof(GetAllPricesLists), DateTime.UtcNow);
             return Ok(listResponse);
