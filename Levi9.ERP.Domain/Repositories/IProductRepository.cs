@@ -11,5 +11,6 @@ namespace Levi9.ERP.Domain.Repositories
         Task<Product> GetProductByGlobalId(Guid productId);
         Task<IEnumerable<Product>> GetProductsByParameters(string name, int page, string orderBy, string direction);
         Task<IEnumerable<Product>> GetProductsByLastUpdate(string lastUpdate);
+        Task<IEnumerable<Product>> GetAllProducts();
     }
 }

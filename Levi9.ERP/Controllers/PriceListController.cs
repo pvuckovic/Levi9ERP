@@ -11,7 +11,7 @@ namespace Levi9.ERP.Controllers
 {
     [Route("v1/[controller]")]
     [ApiController]
-    [Authorize]
+   // [Authorize]
     public class PricelistController : ControllerBase
     {
         private readonly IPriceListService _priceListService;
