@@ -8,5 +8,7 @@ namespace Levi9.ERP.Domain.Repositories
         Task<ClientDTO> GetClientByEmail(string email);
         Task<ClientDTO> GetClientById(int id);
         Task<bool> SaveChanges();
+        Task<IEnumerable<ClientDTO>> GetProductsByLastUpdate(string lastUpdate);
+
     }
 }

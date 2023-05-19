@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using Levi9.ERP.Data.Responses;
 using Levi9.ERP.Datas.Requests;
+using Levi9.ERP.Domain.Models;
 using Levi9.ERP.Domain.Models.DTO;
 using Levi9.ERP.Domain.Services;
 using Levi9.ERP.Requests;
@@ -61,6 +63,21 @@ namespace Levi9.ERP.Controllers
             var clientResponse = _mapper.Map<ClientResponse>(clientDTO);
             _logger.LogInformation("Client retrieved successfully with ID: {ClientId} in {FunctionName} of ClientController. Timestamp: {Timestamp}.", id, nameof(GetClientById), DateTime.UtcNow);
             return Ok(clientResponse);
+        }
+        [Authorize]
+        [HttpGet("sync/{lastUpdate}")]
+        public async Task<IActionResult> GetAllClients(string lastUpdate)
+        {
+            _logger.LogInformation("Entering {FunctionName} in ClientController. Timestamp: {Timestamp}.", nameof(GetAllClients), DateTime.UtcNow);
+            var clients = await _clientService.GetClientsByLastUpdate(lastUpdate);
+            if (!clients.Any())
+            {
+                _logger.LogWarning("Clients not found in {FunctionName} of ClientController. Timestamp: {Timestamp}.", nameof(GetAllClients), DateTime.UtcNow);
+                return Ok(clients);
+            }
+            var mappedClients = clients.Select(c => _mapper.Map<ClientResponse>(c));
+            _logger.LogInformation("Clients retrieved successfully in {FunctionName} of ClientController. Timestamp: {Timestamp}.", nameof(GetAllClients), DateTime.UtcNow);
+            return Ok(mappedClients);
         }
     }
 }

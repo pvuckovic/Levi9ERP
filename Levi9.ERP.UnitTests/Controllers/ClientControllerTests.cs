@@ -1,7 +1,5 @@
 ﻿using AutoMapper;
-using Castle.Core.Logging;
 using Levi9.ERP.Controllers;
-using Levi9.ERP.Domain.Mappers;
 using Levi9.ERP.Domain.Models.DTO;
 using Levi9.ERP.Domain.Services;
 using Levi9.ERP.Requests;
@@ -19,7 +17,7 @@ namespace Levi9.ERP.UnitTests.Controllers
     public class ClientControllerTests
     {
         private Mock<IClientService> _mockClientService;
-        private IMapper _mapper;
+        private Mock<IMapper> _mockMapper;
         private Mock<IUrlHelper> _urlHelperMock;
         private ClientController _clientController;
         private Mock<ILogger<ClientController>> _loggerMock;
@@ -27,15 +25,12 @@ namespace Levi9.ERP.UnitTests.Controllers
         [SetUp]
         public void Setup()
         {
+            _mockMapper = new Mock<IMapper>();
             _mockClientService = new Mock<IClientService>();
-            _mapper = new MapperConfiguration(cfg =>
-            {
-                cfg.AddProfile(new ClientProfiles());
-            }).CreateMapper();
             _urlHelperMock = new Mock<IUrlHelper>();
             _loggerMock = new Mock<ILogger<ClientController>>();
 
-            _clientController = new ClientController(_mockClientService.Object, _mapper, _urlHelperMock.Object, _loggerMock.Object);
+            _clientController = new ClientController(_mockClientService.Object, _mockMapper.Object, _urlHelperMock.Object, _loggerMock.Object);
             _clientController.ControllerContext.HttpContext = new DefaultHttpContext();
         }
 
@@ -122,6 +117,43 @@ namespace Levi9.ERP.UnitTests.Controllers
             var notFoundResult = (NotFoundObjectResult)result;
             Assert.AreEqual("User not found", notFoundResult.Value);
 
+        }
+        [Test]
+        public async Task GetAllClients_ReturnsOkWithMappedList_WhenServiceReturnsNonEmptyList()
+        {
+            var lastUpdate = "123288706851213387";
+            var clientDto1 = new ClientDTO { Id = 1, Name = "Client 1" };
+            var clientDto2 = new ClientDTO { Id = 2, Name = "Client 2" };
+            var clientsDto = new List<ClientDTO> { clientDto1, clientDto2 };
+            var expectedResponse1 = new ClientResponse { ClientId = 1, Name = "Client 1" };
+            var expectedResponse2 = new ClientResponse { ClientId = 2, Name = "Client 2" };
+            var expectedResponses = new List<ClientResponse> { expectedResponse1, expectedResponse2 };
+
+            _mockClientService.Setup(x => x.GetClientsByLastUpdate(lastUpdate)).ReturnsAsync(clientsDto);
+            _mockMapper.Setup(x => x.Map<ClientResponse>(clientDto1)).Returns(expectedResponse1);
+            _mockMapper.Setup(x => x.Map<ClientResponse>(clientDto2)).Returns(expectedResponse2);
+
+            var result = await _clientController.GetAllClients(lastUpdate);
+
+            var okResult = result as OkObjectResult;
+            Assert.That(okResult, Is.Not.Null);
+            var responseList = okResult.Value as IEnumerable<ClientResponse>;
+            Assert.That(responseList, Is.Not.Null);
+            CollectionAssert.AreEqual(expectedResponses, responseList);
+        }
+        [Test]
+        public async Task GetAllClients_ReturnsOkWithEmptyList_WhenServiceReturnsEmptyList()
+        {
+            var lastUpdate = "833288706851213387";
+            var emptyList = Enumerable.Empty<ClientDTO>();
+            _mockClientService.Setup(x => x.GetClientsByLastUpdate(lastUpdate)).ReturnsAsync(emptyList);
+
+            var result = await _clientController.GetAllClients(lastUpdate);
+
+            var okResult = result as OkObjectResult;
+            Assert.That(okResult, Is.Not.Null);
+            var responseList = okResult.Value as IEnumerable<ClientDTO>;
+            CollectionAssert.AreEqual(responseList, emptyList);
         }
     }
 }
