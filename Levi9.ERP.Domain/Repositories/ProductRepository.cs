@@ -91,7 +91,7 @@ namespace Levi9.ERP.Domain.Repositories
         {
             _logger.LogInformation("Entering {FunctionName} in ProductRepository. Timestamp: {Timestamp}.", nameof(GetProductsByLastUpdate), DateTime.UtcNow);
             return await _dataBaseContext.Products
-                                            .Where(p => string.Compare(p.LastUpdate, lastUpdate) > 0 && p.Prices.Any())
+                                            .Where(p => string.Compare(p.LastUpdate, lastUpdate) > 0 && p.Prices.Any(p => p.Currency == "EUR") )
                                             .Include(p => p.Prices)
                                             .ThenInclude(p => p.PriceList)
                                             .ToListAsync();
