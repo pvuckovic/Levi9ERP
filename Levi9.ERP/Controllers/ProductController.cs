@@ -131,7 +131,7 @@ namespace Levi9.ERP.Controllers
 
             if (!products.Any())
             {
-                _logger.LogInformation("There is products in database ProductController. Timestamp: {Timestamp}.", nameof(GetAllProducts), DateTime.UtcNow);
+                _logger.LogInformation("There is no products in database ProductController. Timestamp: {Timestamp}.", nameof(GetAllProducts), DateTime.UtcNow);
                 return Ok(products);
             }
 

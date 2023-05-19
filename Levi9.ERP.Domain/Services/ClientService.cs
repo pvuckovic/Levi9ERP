@@ -44,5 +44,15 @@ namespace Levi9.ERP.Domain.Services
             _logger.LogInformation("Retrieving client in {FunctionName} of ClientService. Timestamp: {Timestamp}.", nameof(GetClientById), DateTime.UtcNow);
             return clientEntity;
         }
+
+        public async Task<IEnumerable<ClientDTO>> GetClientsByLastUpdate(string lastUpdate)
+        {
+            _logger.LogInformation("Entering {FunctionName} in ClientService. Timestamp: {Timestamp}.", nameof(GetClientsByLastUpdate), DateTime.UtcNow);
+            var products = await _clientRepository.GetProductsByLastUpdate(lastUpdate);
+            if (!products.Any())
+                return new List<ClientDTO>();
+            _logger.LogInformation("Retrieving products in {FunctionName} of ClientService. Timestamp: {Timestamp}.", nameof(GetClientsByLastUpdate), DateTime.UtcNow);
+            return products;
+        }
     }
 }

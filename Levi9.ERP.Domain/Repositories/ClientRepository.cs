@@ -44,6 +44,17 @@ namespace Levi9.ERP.Domain.Repositories
             return _mapper.Map<ClientDTO>(clientById);
         }
 
+        public async Task<IEnumerable<ClientDTO>> GetProductsByLastUpdate(string lastUpdate)
+        {
+            _logger.LogInformation("Entering {FunctionName} in ClientRepository. Timestamp: {Timestamp}.", nameof(GetProductsByLastUpdate), DateTime.UtcNow);
+            var clients = await _context.Clients
+                                .Where(c => string.Compare(c.LastUpdate, lastUpdate) > 0)
+                                .Include(c => c.PriceList)
+                                .ToListAsync();
+            _logger.LogInformation("Retrieving clients in {FunctionName} of ClientRepository. Timestamp: {Timestamp}.", nameof(GetProductsByLastUpdate), DateTime.UtcNow);
+            return clients.Select(c => _mapper.Map<ClientDTO>(c));
+        }
+
         public async Task<bool> SaveChanges()
         {
             return await _context.SaveChangesAsync() > 0;

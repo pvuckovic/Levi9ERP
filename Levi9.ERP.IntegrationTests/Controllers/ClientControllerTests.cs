@@ -1,4 +1,5 @@
-﻿using Levi9.ERP.Domain;
+﻿using Levi9.ERP.Data.Responses;
+using Levi9.ERP.Domain;
 using Levi9.ERP.Requests;
 using Levi9.ERP.Responses;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -22,7 +23,7 @@ namespace Levi9.ERP.IntegrationTests.Controllers
         {
             _factory = new TestingWebAppFactory<Program>();
             _client = _factory.CreateClient();
-             token = Fixture.GenerateJwt();
+            token = Fixture.GenerateJwt();
             using (var scope = _factory.Services.CreateScope())
             {
                 var dbContext = scope.ServiceProvider.GetRequiredService<DataBaseContext>();
@@ -57,7 +58,7 @@ namespace Levi9.ERP.IntegrationTests.Controllers
         }
         [Test]
         public async Task CreateClientAsync_ReturnsCreated()
-        { 
+        {
             var clientRequest = new ClientRequest { Name = "Test Client", Address = "test Adress", Email = "testEmail@example.com", Password = "test", Phone = "0606464433", PriceListId = 1 };
 
             var response = await _client.PostAsJsonAsync("/v1/Client", clientRequest);
@@ -77,7 +78,7 @@ namespace Levi9.ERP.IntegrationTests.Controllers
             var result = await response.Content.ReadAsStringAsync();
 
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.BadRequest));
-            Assert.That(result , Is.EqualTo("\"Email already exists\""));
+            Assert.That(result, Is.EqualTo("\"Email already exists\""));
         }
         [Test]
         public async Task GetClientById_InvalidId_ReturnsBadRequest()
@@ -97,6 +98,41 @@ namespace Levi9.ERP.IntegrationTests.Controllers
             var response = await _client.GetAsync($"/v1/client/{id}");
 
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.Unauthorized));
+        }
+        [Test]
+        public async Task GetAllProducts_ReturnsOkWithMappedList_WhenServiceReturnsNonEmptyList()
+        {
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            var response = await _client.GetAsync("/v1/Client/sync/133288706851213387");
+
+            var content = await response.Content.ReadAsStringAsync();
+
+            var result = JsonConvert.DeserializeObject<IEnumerable<ClientResponse>>(content);
+            Assert.Multiple(() =>
+            {
+                Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+                Assert.That(result, Is.Not.Null);
+            });
+        }
+        [Test]
+        public async Task GetAllProducts_ReturnsOkWithEmptyList_WhenServiceReturnsEmptyList()
+        {
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            using (var scope = _factory.Services.CreateScope())
+            {
+                var dbContext = scope.ServiceProvider.GetRequiredService<DataBaseContext>();
+                dbContext.Clients.RemoveRange(dbContext.Clients);
+                dbContext.SaveChanges();
+            }
+            var response = await _client.GetAsync("/v1/Client/sync/933288706851213387");
+
+            var content = await response.Content.ReadAsStringAsync();
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+                Assert.That(content, Is.EqualTo("[]"));
+            });
         }
     }
 }
