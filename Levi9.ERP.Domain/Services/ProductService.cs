@@ -3,6 +3,7 @@ using Levi9.ERP.Domain.Models;
 using Levi9.ERP.Domain.Models.DTO;
 using Levi9.ERP.Domain.Repositories;
 using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
 
 namespace Levi9.ERP.Domain.Services
 {
@@ -76,5 +77,14 @@ namespace Levi9.ERP.Domain.Services
             return mappedProducts;
         }
 
+        public async Task<IEnumerable<ProductDTO>> GetProductsByLastUpdate(string lastUpdate)
+        {
+            _logger.LogInformation("Entering {FunctionName} in ProductService. Timestamp: {Timestamp}.", nameof(GetProductsByLastUpdate), DateTime.UtcNow);
+            var products = await _productRepository.GetProductsByLastUpdate(lastUpdate);
+            if (!products.Any())
+                return new List<ProductDTO>();
+            _logger.LogInformation("Retrieving products in {FunctionName} of ProductService. Timestamp: {Timestamp}.", nameof(GetProductsByLastUpdate), DateTime.UtcNow);
+            return products.Select(p => _mapper.Map<ProductDTO>(p));
+        }
     }
 }

@@ -86,5 +86,11 @@ namespace Levi9.ERP.Domain.Repositories
             _logger.LogInformation("Retrieving products in {FunctionName} of ProductRepository. Timestamp: {Timestamp}.", nameof(GetProductsByParameters), DateTime.UtcNow);
             return products;
         }
+
+        public async Task<IEnumerable<Product>> GetProductsByLastUpdate(string lastUpdate)
+        {
+            _logger.LogInformation("Entering {FunctionName} in ProductRepository. Timestamp: {Timestamp}.", nameof(GetProductsByLastUpdate), DateTime.UtcNow);
+            return await _dataBaseContext.Products.Where(p => string.Compare(p.LastUpdate, lastUpdate) > 0).Include(p => p.Prices).ThenInclude(p => p.PriceList).ToListAsync();
+        }
     }
 }

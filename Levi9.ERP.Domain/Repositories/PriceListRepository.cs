@@ -39,10 +39,19 @@ namespace Levi9.ERP.Domain.Repositories
             {
                 if (PriceExists(price.PriceListId, price.ProductId))
                 {
+                    price.Product = _dataBaseContext.Products.FirstOrDefault(p => p.Id == price.ProductId);
+                    price.Product.LastUpdate = price.LastUpdate;
+
+                    price.PriceList = _dataBaseContext.PriceLists.FirstOrDefault(p => p.Id == price.PriceListId);
+                    price.PriceList.LastUpdate = price.LastUpdate;
+
                     _dataBaseContext.Attach(price);
                     _dataBaseContext.Entry(price).Property(x => x.PriceValue).IsModified = true;
                     _dataBaseContext.Entry(price).Property(x => x.Currency).IsModified = true;
                     _dataBaseContext.Entry(price).Property(x => x.LastUpdate).IsModified = true;
+                    _dataBaseContext.Entry(price).Reference(x => x.Product).IsModified = true;
+                    _dataBaseContext.Entry(price).Reference(x => x.PriceList).IsModified = true;
+
                     await _dataBaseContext.SaveChangesAsync();
                     _logger.LogInformation("Updating document in {FunctionName} of PriceListRepository. Timestamp: {Timestamp}.", nameof(UpdatePrice), DateTime.UtcNow);
                     return price;
@@ -57,6 +66,12 @@ namespace Levi9.ERP.Domain.Repositories
             {
                 if (!PriceExists(price.PriceListId, price.ProductId))
                 {
+                    price.Product = _dataBaseContext.Products.FirstOrDefault(p => p.Id == price.ProductId);
+                    price.Product.LastUpdate = price.LastUpdate;
+
+                    price.PriceList = _dataBaseContext.PriceLists.FirstOrDefault(p => p.Id == price.PriceListId);
+                    price.PriceList.LastUpdate = price.LastUpdate;
+
                     await _dataBaseContext.Prices.AddAsync(price);
                     await _dataBaseContext.SaveChangesAsync();
                     _logger.LogInformation("Adding new price in {FunctionName} of DocumentRepository. Timestamp: {Timestamp}.", nameof(AddPrice), DateTime.UtcNow);

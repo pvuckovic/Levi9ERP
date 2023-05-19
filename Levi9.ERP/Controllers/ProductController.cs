@@ -122,5 +122,22 @@ namespace Levi9.ERP.Controllers
             _logger.LogInformation("Successful search in {FunctionName} of ClientController. Timestamp: {Timestamp}.", nameof(SearchProducts), DateTime.UtcNow);
             return Ok(responseProducts);
         }
+
+        [HttpGet("sync/{lastUpdate}")]
+        public async Task<IActionResult> GetAllProducts (string lastUpdate)
+        {
+            _logger.LogInformation("Entering {FunctionName} in ProductsController. Timestamp: {Timestamp}.", nameof(GetAllProducts), DateTime.UtcNow);
+            var products = await _productService.GetProductsByLastUpdate(lastUpdate);
+
+            if (!products.Any())
+            {
+                _logger.LogInformation("There is products in database ProductController. Timestamp: {Timestamp}.", nameof(GetAllProducts), DateTime.UtcNow);
+                return Ok(products);
+            }
+
+            var mappedProducts = products.Select(p => _mapper.Map<ProductResponse>(p));
+            _logger.LogInformation("Products retrieved successfully in {FunctionName} of ProductController. Timestamp: {Timestamp}.", nameof(GetAllProducts), DateTime.UtcNow);
+            return Ok(mappedProducts);
+        }
     }
 }

@@ -303,8 +303,39 @@ namespace Levi9.ERP.IntegrationTests.Controllers
             Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
             Assert.AreEqual("No products were found that match the search parameters.", result);
         }
+        [Test]
+        public async Task GetAllProducts_ReturnsOkWithMappedList_WhenServiceReturnsNonEmptyList()
+        {
+            var response = await _client.GetAsync("/v1/Product/sync/133288706851213387");
 
+            var content = await response.Content.ReadAsStringAsync();
 
+            var result = JsonConvert.DeserializeObject<IEnumerable<ProductResponse>>(content);
+            Assert.Multiple(() =>
+            {
+                Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+                Assert.That(result, Is.Not.Null);
+            });
+        }
+        [Test]
+        public async Task GetAllProducts_ReturnsOkWithEmptyList_WhenServiceReturnsEmptyList()
+        {
+            using (var scope = _factory.Services.CreateScope())
+            {
+                var dbContext = scope.ServiceProvider.GetRequiredService<DataBaseContext>();
+                dbContext.Products.RemoveRange(dbContext.Products);
+                dbContext.SaveChanges();
+            }
+            var response = await _client.GetAsync("/v1/Product/sync/933288706851213387");
+
+            var content = await response.Content.ReadAsStringAsync();
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+                Assert.That(content, Is.EqualTo("[]"));
+            });
+        }
         [TearDown]
         public void TearDown()
         {
