@@ -13,7 +13,7 @@ namespace Levi9.ERP.Controllers
 
     [Route("v1/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class ProductController : ControllerBase
     {
         private readonly IProductService _productService;
@@ -138,6 +138,22 @@ namespace Levi9.ERP.Controllers
             var mappedProducts = products.Select(p => _mapper.Map<ProductResponse>(p));
             _logger.LogInformation("Products retrieved successfully in {FunctionName} of ProductController. Timestamp: {Timestamp}.", nameof(GetAllProducts), DateTime.UtcNow);
             return Ok(mappedProducts);
+        }
+
+        [HttpGet("All")]
+        public async Task<IActionResult> GetAllProducts()
+        {
+            _logger.LogInformation("Entering {FunctionName} in ProductController. Timestamp: {Timestamp}.", nameof(GetAllProducts), DateTime.UtcNow);
+            var products = await _productService.GetAllProducts();
+            if (products == null || !products.Any())
+            {
+                _logger.LogInformation("No products found in {FunctionName} in ProductController. Timestamp: {Timestamp}.", nameof(GetAllProducts), DateTime.UtcNow);
+                return NotFound("No products found.");
+            }
+
+            var productResponses = _mapper.Map<IEnumerable<ProductResponse>>(products);
+            _logger.LogInformation("Retrieving all products in {FunctionName} of ProductController. Timestamp: {Timestamp}.", nameof(GetAllProducts), DateTime.UtcNow);
+            return Ok(productResponses);
         }
     }
 }

@@ -27,6 +27,16 @@ var jwtOptions = builder.Configuration
     .GetSection("JwtOptions")
     .Get<JwtOptions>();
 
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(
+        builder =>
+        {
+            builder.WithOrigins("http://localhost:3000", "https://localhost:3000")
+                                .AllowAnyHeader()
+                                .AllowAnyMethod();
+        });
+});
 builder.Services.AddSingleton(jwtOptions);
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 // Add services to the container.
@@ -124,6 +134,13 @@ builder.Services.AddHealthChecksUI().AddInMemoryStorage();
 
 var app = builder.Build();
 
+app.UseCors(builder =>
+{
+    builder
+    .AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader();
+});
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

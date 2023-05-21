@@ -11,5 +11,6 @@ namespace Levi9.ERP.Domain.Services
         Task<ProductDTO> GetProductByGlobalId(Guid productId);      
         Task<IEnumerable<ProductDTO>> GetProductsByParameters(SearchProductDTO searchParams);
         Task<IEnumerable<ProductDTO>> GetProductsByLastUpdate(string lastUpdateDate);
+        Task<IEnumerable<ProductDTO>> GetAllProducts();
     }
 }

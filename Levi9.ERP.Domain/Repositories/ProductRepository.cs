@@ -96,5 +96,18 @@ namespace Levi9.ERP.Domain.Repositories
                                             .ThenInclude(p => p.PriceList)
                                             .ToListAsync();
         }
+
+        public async Task<IEnumerable<Product>> GetAllProducts()
+        {
+            _logger.LogInformation("Entering {FunctionName} in ProductRepository. Timestamp: {Timestamp}.", nameof(GetAllProducts), DateTime.UtcNow);
+
+            var products = await _dataBaseContext.Products
+                .Include(p => p.Prices)
+                .ToListAsync();
+
+            _logger.LogInformation("Retrieving all products in {FunctionName} of ProductRepository. Timestamp: {Timestamp}.", nameof(GetAllProducts), DateTime.UtcNow);
+
+            return products;
+        }
     }
 }

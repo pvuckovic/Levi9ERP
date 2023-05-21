@@ -86,5 +86,18 @@ namespace Levi9.ERP.Domain.Services
             _logger.LogInformation("Retrieving products in {FunctionName} of ProductService. Timestamp: {Timestamp}.", nameof(GetProductsByLastUpdate), DateTime.UtcNow);
             return products.Select(p => _mapper.Map<ProductDTO>(p));
         }
+
+        public async Task<IEnumerable<ProductDTO>> GetAllProducts()
+        {
+            _logger.LogInformation("Entering {FunctionName} in ProductService. Timestamp: {Timestamp}.", nameof(GetAllProducts), DateTime.UtcNow);
+
+            var products = await _productRepository.GetAllProducts();
+
+            _logger.LogInformation("Retrieving all products in {FunctionName} of ProductService. Timestamp: {Timestamp}.", nameof(GetAllProducts), DateTime.UtcNow);
+
+            var productDTOs = _mapper.Map<List<ProductDTO>>(products);
+
+            return productDTOs;
+        }
     }
 }
