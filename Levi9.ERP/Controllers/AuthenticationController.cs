@@ -42,8 +42,14 @@ namespace Levi9.ERP.Controllers
                 return BadRequest("Bad Request - wrong password");
             }
             var token = AuthenticationHelper.GenerateJwt(_config);
+            var idClient = authenticationDTO.Id;
+            var responseBody = new
+            {
+                Token = token,
+                IdClient = idClient
+            };
             _logger.LogInformation("Client successfully validated in {FunctionName} of AuthenticationController. Timestamp: {Timestamp}.", nameof(ClientAuthentication), DateTime.UtcNow);
-            return Ok(token);
+            return Ok(responseBody);
         }
 
     }
