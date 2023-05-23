@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using Levi9.ERP.Controllers;
+using Levi9.ERP.Datas.Requests;
+using Levi9.ERP.Datas.Responses;
 using Levi9.ERP.Domain.Models.DTO;
 using Levi9.ERP.Domain.Services;
 using Levi9.ERP.Requests;
@@ -9,7 +11,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Extensions.Logging;
 using Moq;
+using Newtonsoft.Json;
 using NUnit.Framework;
+using System.ComponentModel.DataAnnotations;
 
 namespace Levi9.ERP.UnitTests.Controllers
 {
@@ -125,19 +129,19 @@ namespace Levi9.ERP.UnitTests.Controllers
             var clientDto1 = new ClientDTO { Id = 1, Name = "Client 1" };
             var clientDto2 = new ClientDTO { Id = 2, Name = "Client 2" };
             var clientsDto = new List<ClientDTO> { clientDto1, clientDto2 };
-            var expectedResponse1 = new ClientResponse { ClientId = 1, Name = "Client 1" };
-            var expectedResponse2 = new ClientResponse { ClientId = 2, Name = "Client 2" };
-            var expectedResponses = new List<ClientResponse> { expectedResponse1, expectedResponse2 };
+            var expectedResponse1 = new ClientResponseSync { GlobalId = Guid.NewGuid(), Name = "Client 1" };
+            var expectedResponse2 = new ClientResponseSync { GlobalId = Guid.NewGuid(), Name = "Client 2" };
+            var expectedResponses = new List<ClientResponseSync> { expectedResponse1, expectedResponse2 };
 
             _mockClientService.Setup(x => x.GetClientsByLastUpdate(lastUpdate)).ReturnsAsync(clientsDto);
-            _mockMapper.Setup(x => x.Map<ClientResponse>(clientDto1)).Returns(expectedResponse1);
-            _mockMapper.Setup(x => x.Map<ClientResponse>(clientDto2)).Returns(expectedResponse2);
+            _mockMapper.Setup(x => x.Map<ClientResponseSync>(clientDto1)).Returns(expectedResponse1);
+            _mockMapper.Setup(x => x.Map<ClientResponseSync>(clientDto2)).Returns(expectedResponse2);
 
             var result = await _clientController.GetAllClients(lastUpdate);
 
             var okResult = result as OkObjectResult;
             Assert.That(okResult, Is.Not.Null);
-            var responseList = okResult.Value as IEnumerable<ClientResponse>;
+            var responseList = okResult.Value as IEnumerable<ClientResponseSync>;
             Assert.That(responseList, Is.Not.Null);
             CollectionAssert.AreEqual(expectedResponses, responseList);
         }
@@ -154,6 +158,79 @@ namespace Levi9.ERP.UnitTests.Controllers
             Assert.That(okResult, Is.Not.Null);
             var responseList = okResult.Value as IEnumerable<ClientDTO>;
             CollectionAssert.AreEqual(responseList, emptyList);
+        }
+
+        [Test]
+        public async Task SyncClients_WithValidClients_ReturnsOkResult()
+        {
+            // Arrange
+            var clients = new List<ClientSyncRequest>
+            {
+                new ClientSyncRequest 
+                {
+                    GlobalId = Guid.NewGuid(),
+                    Name = "Kumara",
+                    Address = "Devito",
+                    Email = "okomene@gmail.com",
+                    Password = "Ratatata",
+                    Phone = "0611234567"
+                }
+            };
+
+            var newClients = new List<ClientSyncRequestDTO>
+            {
+                new ClientSyncRequestDTO 
+                {
+                    GlobalId = Guid.NewGuid(),
+                    Name = "Kumara",
+                    Address = "Devito",
+                    Email = "okomene@gmail.com",
+                    Password = "Ratatata",
+                    Phone = "0611234567",
+                    PriceListId = 1
+                }
+            };
+
+            var expectedResult = "123456789987654321";
+
+            _mockMapper.Setup(m => m.Map<List<ClientSyncRequestDTO>>(clients)).Returns(newClients);
+            _mockClientService.Setup(s => s.SyncClients(newClients)).ReturnsAsync(expectedResult);
+
+            // Act
+            var result = await _clientController.SyncClients(clients);
+
+            // Assert
+            Assert.IsInstanceOf<OkObjectResult>(result);
+            var okResult = result as OkObjectResult;
+            Assert.AreEqual(expectedResult, okResult.Value);
+        }
+
+        [Test]
+        public async Task SyncClients_WithInvalidClients_ReturnsBadRequest()
+        {
+            // Arrange
+            var clients = new List<ClientSyncRequest>
+            {
+                new ClientSyncRequest { }
+            };
+
+            var newClients = new List<ClientSyncRequestDTO>
+            {
+                new ClientSyncRequestDTO {}
+            };
+
+            string expectedResult = null;
+
+            _mockMapper.Setup(m => m.Map<List<ClientSyncRequestDTO>>(clients)).Returns(newClients);
+            _mockClientService.Setup(s => s.SyncClients(newClients)).ReturnsAsync(expectedResult);
+
+            // Act
+            var result = await _clientController.SyncClients(clients);
+
+            // Assert
+            Assert.IsInstanceOf<BadRequestObjectResult>(result);
+            var badRequestResult = result as BadRequestObjectResult;
+            Assert.AreEqual("Update failed!", badRequestResult.Value);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Levi9.ERP.Domain.Helpers;
 using Levi9.ERP.Domain.Models;
 using Levi9.ERP.Domain.Models.DTO;
 using Microsoft.EntityFrameworkCore;
@@ -53,6 +54,38 @@ namespace Levi9.ERP.Domain.Repositories
                                 .ToListAsync();
             _logger.LogInformation("Retrieving clients in {FunctionName} of ClientRepository. Timestamp: {Timestamp}.", nameof(GetProductsByLastUpdate), DateTime.UtcNow);
             return clients.Select(c => _mapper.Map<ClientDTO>(c));
+        }
+
+        public async Task<Client> UpdateClient(ClientSyncRequestDTO client)
+        {
+            _logger.LogInformation("Entering {FunctionName} in ClientRepository. Timestamp: {Timestamp}.", nameof(UpdateClient), DateTime.UtcNow);
+            Client clientMap = _mapper.Map<Client>(client);
+            var updatedClient = await _context.Clients.FirstOrDefaultAsync(c => c.GlobalId == clientMap.GlobalId);
+            updatedClient.Email = client.Email;
+            updatedClient.Address = client.Address;
+            updatedClient.Phone = client.Phone;
+            updatedClient.LastUpdate = client.LastUpdate;
+            updatedClient.Name = client.Name;
+            updatedClient.Password = AuthenticationHelper.HashPassword(client.Password, updatedClient.Salt);
+            await _context.SaveChangesAsync();
+            _logger.LogInformation("Retrieving confirmation of updated client in {FunctionName} of ClientRepository. Timestamp: {Timestamp}.", nameof(UpdateClient), DateTime.UtcNow);
+            return clientMap;
+        }
+
+        public async Task<bool> DoesClientEmailAlreadyExists(Guid globalId, string email)
+        {
+            _logger.LogInformation("Entering { FunctionName} in ClientRepository.Timestamp { Timestamp}.", nameof(DoesClientEmailAlreadyExists), DateTime.UtcNow);
+            var result = await _context.Clients.AnyAsync(p => p.GlobalId != globalId && p.Email == email);
+            _logger.LogInformation("Retrieving confirmation if Email: {Email} already exists in { FunctionName} of ClientRepository. Timestamp { Timestamp}.", email, nameof(DoesClientEmailAlreadyExists), DateTime.UtcNow);
+            return result;
+        }
+
+        public async Task<bool> DoesClientByGlobalIdExists(Guid globalId)
+        {
+            _logger.LogInformation("Entering { FunctionName} in ClientRepository.Timestamp { Timestamp}.", nameof(DoesClientByGlobalIdExists), DateTime.UtcNow);
+            var result = await _context.Clients.AnyAsync(p => p.GlobalId == globalId);
+            _logger.LogInformation("Retrieving confirmation of client with GlobalId { Id} in { FunctionName}of ClientRepository. Timestamp { Timestamp}.", globalId, nameof(DoesClientByGlobalIdExists), DateTime.UtcNow);
+            return result;
         }
 
         public async Task<bool> SaveChanges()
