@@ -61,7 +61,7 @@ namespace Levi9.ERP.Domain
                      Password = "mL+yK0IZ6Tbe5ZgQVme2GWD8ayRg9VtRI897U0LuB0w=",
                      Salt = "ypt+7c/LVq46Eg==",
                      Phone = "0611234567",
-                     LastUpdate = "133291695156186842",
+                     LastUpdate = "111111111111111111",
                      PriceListId = 1
                  });
             modelBuilder.Entity<Client>().HasData(
@@ -75,7 +75,7 @@ namespace Levi9.ERP.Domain
                      Password = "MWpg/GsSmNKsvjH0ApaCvOG4C/G4sJb58hudQeRxzEc=",
                      Salt = "aTgpP/3Uf1JULg==",
                      Phone = "0621234567",
-                     LastUpdate = "133291695252052729",
+                     LastUpdate = "111111111111111111",
                      PriceListId = 2
                  });
             modelBuilder.Entity<Client>().HasData(
@@ -89,7 +89,7 @@ namespace Levi9.ERP.Domain
                      Password = "uOEE7w8xH/lX2mmKdgb63SxqItyMrLfamMbYx5uSn7Y=",
                      Salt = "boAfkuX2rmOaaA==",
                      Phone = "0631234567",
-                     LastUpdate = "133291695380809913",
+                     LastUpdate = "111111111111111111",
                      PriceListId = 3
                  });
             modelBuilder.Entity<Client>().HasData(
@@ -103,7 +103,7 @@ namespace Levi9.ERP.Domain
                      Password = "Zr9Dm1X54LUOAqAybdKj+96MS98kLfrk7dUSB2kXn6s=",
                      Salt = "ATpzta8FakmUvA==",
                      Phone = "0641234567",
-                     LastUpdate = "133291695478630236",
+                     LastUpdate = "111111111111111111",
                      PriceListId = 4
                  });
             modelBuilder.Entity<Client>().HasData(
@@ -117,7 +117,7 @@ namespace Levi9.ERP.Domain
                      Password = "PylZhPreW4GCLJ5zPs19QaVFqH+clUKonOGy+R3s+X8=",
                      Salt = "r6H61KFl8j041w==",
                      Phone = "0651234567",
-                     LastUpdate = "133291695569534051",
+                     LastUpdate = "111111111111111111",
                      PriceListId = 5
                  });
             modelBuilder.Entity<Client>().HasData(
@@ -131,7 +131,7 @@ namespace Levi9.ERP.Domain
                      Password = "kgrSYNIZgqg2NKyxe2xBgmiKmQBp/cUiprmFuxyqCnk=",
                      Salt = "QX8u19aR8y3QmQ==",
                      Phone = "0661234567",
-                     LastUpdate = "133291695663444894",
+                     LastUpdate = "111111111111111111",
                      PriceListId = 6
                  });
             modelBuilder.Entity<Client>().HasData(
@@ -145,7 +145,7 @@ namespace Levi9.ERP.Domain
                      Password = "uN1+O4ywbrGcKAVjKCXfCILz8K57UW+0fLzz/G+pMOg=",
                      Salt = "qWurv2IcifFGJQ==",
                      Phone = "0671234567",
-                     LastUpdate = "133291695757736110",
+                     LastUpdate = "111111111111111111",
                      PriceListId = 7
                  });
             #endregion
@@ -182,7 +182,7 @@ namespace Levi9.ERP.Domain
                     Name = "T-ShirtBlack",
                     ImageUrl = "images/tshirtimage/T-ShirtBlack.png",
                     AvailableQuantity = 104,
-                    LastUpdate = DateTime.Now.ToFileTimeUtc().ToString(),
+                    LastUpdate = "111111111111111111",
                 }
                );
             modelBuilder.Entity<Product>().HasData(
@@ -193,7 +193,7 @@ namespace Levi9.ERP.Domain
                     Name = "T-ShirtBlue",
                     ImageUrl = "images/tshirtimage/T-ShirtBlue.png",
                     AvailableQuantity = 138,
-                    LastUpdate = DateTime.Now.ToFileTimeUtc().ToString(),
+                    LastUpdate = "111111111111111111",
                 }
                 );
             modelBuilder.Entity<Product>().HasData(
@@ -204,7 +204,7 @@ namespace Levi9.ERP.Domain
                    Name = "T-ShirtBrown",
                    ImageUrl = "images/tshirtimage/T-ShirtBrown.png",
                    AvailableQuantity = 745,
-                   LastUpdate = DateTime.Now.ToFileTimeUtc().ToString(),
+                   LastUpdate = "111111111111111111",
                }
                );
             modelBuilder.Entity<Product>().HasData(
@@ -215,7 +215,7 @@ namespace Levi9.ERP.Domain
                     Name = "T-ShirtGreen",
                     ImageUrl = "images/tshirtimage/T-ShirtGreen.png",
                     AvailableQuantity = 5,
-                    LastUpdate = DateTime.Now.ToFileTimeUtc().ToString(),
+                    LastUpdate = "111111111111111111",
                 }
                 );
             modelBuilder.Entity<Product>().HasData(
@@ -226,7 +226,7 @@ namespace Levi9.ERP.Domain
                  Name = "T-ShirtPurple",
                  ImageUrl = "images/tshirtimage/T-ShirtPurple.png",
                  AvailableQuantity = 57,
-                 LastUpdate = DateTime.Now.ToFileTimeUtc().ToString(),
+                 LastUpdate = "111111111111111111",
              }
             );
             modelBuilder.Entity<Product>().HasData(
@@ -237,7 +237,7 @@ namespace Levi9.ERP.Domain
                     Name = "T-ShirtRed",
                     ImageUrl = "images/tshirtimage/T-ShirtRed.png",
                     AvailableQuantity = 224,
-                    LastUpdate = DateTime.Now.ToFileTimeUtc().ToString(),
+                    LastUpdate = "111111111111111111",
                 }
                 );
             modelBuilder.Entity<Product>().HasData(
@@ -248,7 +248,7 @@ namespace Levi9.ERP.Domain
                    Name = "T-ShirtRose",
                    ImageUrl = "images/tshirtimage/T-ShirtRose.png",
                    AvailableQuantity = 150,
-                   LastUpdate = DateTime.Now.ToFileTimeUtc().ToString(),
+                   LastUpdate = "111111111111111111",
                }
                );
             modelBuilder.Entity<Product>().HasData(
@@ -259,7 +259,7 @@ namespace Levi9.ERP.Domain
                     Name = "T-ShirtYellow",
                     ImageUrl = "images/tshirtimage/T-ShirtYellow.png",
                     AvailableQuantity = 186,
-                    LastUpdate = DateTime.Now.ToFileTimeUtc().ToString(),
+                    LastUpdate = "111111111111111111",
                 }
                 );
 
@@ -271,7 +271,7 @@ namespace Levi9.ERP.Domain
                    Name = "T-ShirtBlack 9 Gradient",
                    ImageUrl = "images/tshirtimage/T-ShirtBlack9gradient.png",
                    AvailableQuantity = 104,
-                   LastUpdate = DateTime.Now.ToFileTimeUtc().ToString(),
+                   LastUpdate = "111111111111111111",
                }
               );
             modelBuilder.Entity<Product>().HasData(
@@ -282,7 +282,7 @@ namespace Levi9.ERP.Domain
                     Name = "T-ShirtBlue 9 Gradient",
                     ImageUrl = "images/tshirtimage/T-ShirtBlue9gradient.png",
                     AvailableQuantity = 138,
-                    LastUpdate = DateTime.Now.ToFileTimeUtc().ToString(),
+                    LastUpdate = "111111111111111111",
                 }
                 );
             modelBuilder.Entity<Product>().HasData(
@@ -293,7 +293,7 @@ namespace Levi9.ERP.Domain
                    Name = "T-ShirtBrown 9 Gradient",
                    ImageUrl = "images/tshirtimage/T-ShirtBrown9gradient.png",
                    AvailableQuantity = 745,
-                   LastUpdate = DateTime.Now.ToFileTimeUtc().ToString(),
+                   LastUpdate = "111111111111111111",
                }
                );
             modelBuilder.Entity<Product>().HasData(
@@ -304,7 +304,7 @@ namespace Levi9.ERP.Domain
                     Name = "T-ShirtGreen 9 Gradient",
                     ImageUrl = "images/tshirtimage/T-ShirtGreen9gradient.png",
                     AvailableQuantity = 5,
-                    LastUpdate = DateTime.Now.ToFileTimeUtc().ToString(),
+                    LastUpdate = "111111111111111111",
                 }
                 );
             modelBuilder.Entity<Product>().HasData(
@@ -315,7 +315,7 @@ namespace Levi9.ERP.Domain
                  Name = "T-ShirtPurple 9 Gradient",
                  ImageUrl = "images/tshirtimage/T-ShirtPurple9gradient.png",
                  AvailableQuantity = 57,
-                 LastUpdate = DateTime.Now.ToFileTimeUtc().ToString(),
+                 LastUpdate = "111111111111111111",
              }
             );
             modelBuilder.Entity<Product>().HasData(
@@ -326,7 +326,7 @@ namespace Levi9.ERP.Domain
                     Name = "T-ShirtRed 9 Gradient",
                     ImageUrl = "images/tshirtimage/T-ShirtRed9gradient.png",
                     AvailableQuantity = 224,
-                    LastUpdate = DateTime.Now.ToFileTimeUtc().ToString(),
+                    LastUpdate = "111111111111111111",
                 }
                 );
             modelBuilder.Entity<Product>().HasData(
@@ -337,7 +337,7 @@ namespace Levi9.ERP.Domain
                    Name = "T-ShirtRose 9 Gradient",
                    ImageUrl = "images/tshirtimage/T-ShirtRose9gradient.png",
                    AvailableQuantity = 150,
-                   LastUpdate = DateTime.Now.ToFileTimeUtc().ToString(),
+                   LastUpdate = "111111111111111111",
                }
                );
             modelBuilder.Entity<Product>().HasData(
@@ -348,7 +348,7 @@ namespace Levi9.ERP.Domain
                     Name = "T-ShirtYellow 9 Gradient",
                     ImageUrl = "images/tshirtimage/T-ShirtYellow9gradient.png",
                     AvailableQuantity = 186,
-                    LastUpdate = DateTime.Now.ToFileTimeUtc().ToString(),
+                    LastUpdate = "111111111111111111",
                 }
                 );
             #endregion
