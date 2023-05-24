@@ -7,5 +7,6 @@ namespace Levi9.ERP.Domain.Services
         public Task<DocumentDTO> CreateDocument(DocumentDTO documentDTO);
         public Task<DocumentDTO> GetDocumentById(int id);
         public Task<IEnumerable<DocumentDTO>> GetDocumentsByParameters(SearchDocumentDTO searchParams);
+        Task<IEnumerable<DocumentDTO>> GetAllDocuments();
     }
 }
