@@ -93,5 +93,20 @@ namespace Levi9.ERP.Controllers
             _logger.LogInformation("Successful search in {FunctionName} of DocumentController. Timestamp: {Timestamp}.", nameof(SearchDocuments), DateTime.UtcNow);
             return Ok(responseProducts);
         }
+        [HttpGet("All")]
+        public async Task<IActionResult> GetAllDocuments()
+        {
+            _logger.LogInformation("Entering {FunctionName} in DocumentController. Timestamp: {Timestamp}.", nameof(GetAllDocuments), DateTime.UtcNow);
+            var documents = await _documentService.GetAllDocuments();
+            if (documents == null || !documents.Any())
+            {
+                _logger.LogInformation("No documents found in {FunctionName} in DocumentController. Timestamp: {Timestamp}.", nameof(GetAllDocuments), DateTime.UtcNow);
+                return NotFound("No documents found.");
+            }
+
+            var documentsResponses = _mapper.Map<IEnumerable<DocumentResponse>>(documents);
+            _logger.LogInformation("Retrieving all documents in {FunctionName} of DocumentController. Timestamp: {Timestamp}.", nameof(GetAllDocuments), DateTime.UtcNow);
+            return Ok(documentsResponses);
+        }
     }
 }

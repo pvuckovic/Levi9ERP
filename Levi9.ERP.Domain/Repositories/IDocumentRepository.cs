@@ -8,5 +8,6 @@ namespace Levi9.ERP.Domain.Repositories
         Task<DocumentDTO> GetDocumentById(int id);
         Task<IEnumerable<DocumentDTO>> GetDocumentsByParameters(string name, int page, string orderBy, string direction);
         Task<bool> SaveChanges();
+        Task<IEnumerable<DocumentDTO>> GetAllDocuments();
     }
 }
