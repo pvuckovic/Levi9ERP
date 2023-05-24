@@ -11,7 +11,7 @@ namespace Levi9.ERP.Controllers
 {
     [Route("v1/[controller]")]
     [ApiController]
-    [Authorize]
+    
     public class PricelistController : ControllerBase
     {
         private readonly IPriceListService _priceListService;
@@ -25,6 +25,7 @@ namespace Levi9.ERP.Controllers
         }
         
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<IActionResult> Get(int id)
         {
             _logger.LogInformation("Entering {FunctionName} in PriceListController. Timestamp: {Timestamp}.", nameof(Get), DateTime.UtcNow);
@@ -49,6 +50,7 @@ namespace Levi9.ERP.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         [Route("global/{globalId}")]
         public async Task<IActionResult> GetByGlobalId(Guid globalId)
         {
@@ -66,6 +68,7 @@ namespace Levi9.ERP.Controllers
             return Ok(priceListResponse);
         }
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> GetAllPricesLists()
         {
             _logger.LogInformation("Entering {FunctionName} in PriceListController. Timestamp: {Timestamp}.", nameof(GetAllPricesLists), DateTime.UtcNow);
@@ -83,6 +86,7 @@ namespace Levi9.ERP.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         [Route("product/price")]
         public async Task<IActionResult> AddProductIntoPriceList([FromBody] PriceRequest priceRequest)
         {
@@ -101,6 +105,7 @@ namespace Levi9.ERP.Controllers
             return Ok(priceResponse);
         }
         [HttpPut]
+        [Authorize]
         [Route("product/price")]
         public async Task<IActionResult> UpdatePrice([FromBody] PriceRequest priceRequest)
         {
@@ -120,6 +125,7 @@ namespace Levi9.ERP.Controllers
             return Ok(priceResponse);
         }
         [HttpGet]
+        [Authorize]
         [Route("prices")]
         public async Task<IActionResult> SearchArticles([FromQuery] SearchArticleRequest searchArticleRequest)
         {
