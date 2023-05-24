@@ -8,5 +8,7 @@ namespace Levi9.ERP.Domain.Services
         Task<ClientDTO> GetClientByEmail(string email);
         Task<ClientDTO> GetClientById(int id);
         Task<IEnumerable<ClientDTO>> GetClientsByLastUpdate(string lastUpdate);
+        Task<string> SyncClients(List<ClientSyncRequestDTO> clients);
+
     }
 }
