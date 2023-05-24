@@ -61,7 +61,7 @@ namespace Levi9.ERP.Domain
                      Password = "mL+yK0IZ6Tbe5ZgQVme2GWD8ayRg9VtRI897U0LuB0w=",
                      Salt = "ypt+7c/LVq46Eg==",
                      Phone = "0611234567",
-                     LastUpdate = "133291695156186842",
+                     LastUpdate = "111111111111111111",
                      PriceListId = 1
                  });
             modelBuilder.Entity<Client>().HasData(
@@ -75,7 +75,7 @@ namespace Levi9.ERP.Domain
                      Password = "MWpg/GsSmNKsvjH0ApaCvOG4C/G4sJb58hudQeRxzEc=",
                      Salt = "aTgpP/3Uf1JULg==",
                      Phone = "0621234567",
-                     LastUpdate = "133291695252052729",
+                     LastUpdate = "111111111111111111",
                      PriceListId = 2
                  });
             modelBuilder.Entity<Client>().HasData(
@@ -89,7 +89,7 @@ namespace Levi9.ERP.Domain
                      Password = "uOEE7w8xH/lX2mmKdgb63SxqItyMrLfamMbYx5uSn7Y=",
                      Salt = "boAfkuX2rmOaaA==",
                      Phone = "0631234567",
-                     LastUpdate = "133291695380809913",
+                     LastUpdate = "111111111111111111",
                      PriceListId = 3
                  });
             modelBuilder.Entity<Client>().HasData(
@@ -103,7 +103,7 @@ namespace Levi9.ERP.Domain
                      Password = "Zr9Dm1X54LUOAqAybdKj+96MS98kLfrk7dUSB2kXn6s=",
                      Salt = "ATpzta8FakmUvA==",
                      Phone = "0641234567",
-                     LastUpdate = "133291695478630236",
+                     LastUpdate = "111111111111111111",
                      PriceListId = 4
                  });
             modelBuilder.Entity<Client>().HasData(
@@ -117,7 +117,7 @@ namespace Levi9.ERP.Domain
                      Password = "PylZhPreW4GCLJ5zPs19QaVFqH+clUKonOGy+R3s+X8=",
                      Salt = "r6H61KFl8j041w==",
                      Phone = "0651234567",
-                     LastUpdate = "133291695569534051",
+                     LastUpdate = "111111111111111111",
                      PriceListId = 5
                  });
             modelBuilder.Entity<Client>().HasData(
@@ -131,7 +131,7 @@ namespace Levi9.ERP.Domain
                      Password = "kgrSYNIZgqg2NKyxe2xBgmiKmQBp/cUiprmFuxyqCnk=",
                      Salt = "QX8u19aR8y3QmQ==",
                      Phone = "0661234567",
-                     LastUpdate = "133291695663444894",
+                     LastUpdate = "111111111111111111",
                      PriceListId = 6
                  });
             modelBuilder.Entity<Client>().HasData(
@@ -145,7 +145,7 @@ namespace Levi9.ERP.Domain
                      Password = "uN1+O4ywbrGcKAVjKCXfCILz8K57UW+0fLzz/G+pMOg=",
                      Salt = "qWurv2IcifFGJQ==",
                      Phone = "0671234567",
-                     LastUpdate = "133291695757736110",
+                     LastUpdate = "111111111111111111",
                      PriceListId = 7
                  });
             #endregion
@@ -182,7 +182,7 @@ namespace Levi9.ERP.Domain
                     Name = "T-ShirtBlack",
                     ImageUrl = "https://db3pap003files.storage.live.com/y4mbO0YJ-ovSlqOuXjgGPR2IsjN8sCk9ULksyzIkvLEJeRyYnqKUxHmuxppx-HMcp6oNzzOrMc6_6YRgmiaeA5_vxCRWCV9ARd_GK6hPLdp3tEcsgR7Us9uzAfvH331KiJrqlwCGiOPFDi_OsHLznB3tqbTk-bFfQIqQdyTkno03JxvSOQ8vwEjvCFJUa0Bx7IUBzg4bU_qzf3qpgZMeYI1y1rt9qCldOaIi3WgyU-E5J0?encodeFailures=1&width=500&height=500",
                     AvailableQuantity = 104,
-                    LastUpdate = DateTime.Now.ToFileTimeUtc().ToString(),
+                    LastUpdate = "111111111111111111",
                 }
                );
             modelBuilder.Entity<Product>().HasData(
@@ -193,7 +193,7 @@ namespace Levi9.ERP.Domain
                     Name = "T-ShirtBlue",
                     ImageUrl = "https://db3pap003files.storage.live.com/y4m-kRT2GTNRM1fORXdHbHlvpzF8ne8_HsD3AoL-ytcD5vCq2S7olsPp-Nnw017SkIRz6yUxkIym7En4FjUFiENJ2BVJN0TWz9aqDHht8mlh5RrTwQ-ZBXD6Lm8fI9cy390BzcPCGZchRsm6dGkmTU3q3xZE-WU1VNKV-64xUJN02ofGt6w7I7vJxqaeaHh15q_ul04x3dCUumC53DWniI5oEilVornGdGyddxKc8xZoqw?encodeFailures=1&width=500&height=500",
                     AvailableQuantity = 138,
-                    LastUpdate = DateTime.Now.ToFileTimeUtc().ToString(),
+                    LastUpdate = "111111111111111111",
                 }
                 );
             modelBuilder.Entity<Product>().HasData(
@@ -204,7 +204,7 @@ namespace Levi9.ERP.Domain
                    Name = "T-ShirtBrown",
                    ImageUrl = "https://db3pap003files.storage.live.com/y4mAsciDm3-1F9piIJKD-IzaefrUBqEbA6CPHpORsvcIBh6PK8Ze9TOhMEvKpBx0RhBUTOIP5AItxqcmLSMiYSz2g7KV8XG0jugLvNtkqC8R1DwnwOQRZHj3csgnd_iTL1qWPfzolxTny7naR0izqMtG3i-w3ziMWHQuEqzwiTc98QTHj8LfkRuMHhv72ZNttAQuoj3-Y2iHokZ4JsuU5DkNfzVpvAKZ4w5wgS5V99rOD8?encodeFailures=1&width=500&height=500",
                    AvailableQuantity = 745,
-                   LastUpdate = DateTime.Now.ToFileTimeUtc().ToString(),
+                   LastUpdate = "111111111111111111",
                }
                );
             modelBuilder.Entity<Product>().HasData(
@@ -215,7 +215,7 @@ namespace Levi9.ERP.Domain
                     Name = "T-ShirtGreen",
                     ImageUrl = "https://db3pap003files.storage.live.com/y4mIMtsMKg4MteMPQCPtJgs6K1S-d2um3XXpYS8Du6_NWnd4lNDiHdlq6Eb524q2jskw_8_vshuYV5u-K6AO8mxW2llKQxnBEL01m5t-JNBM5LecnrYtGho2DiJipC6x4r3jD1VeW34xPSR1p_juV-1oqWdrrQUf8PbaDdD75jE3ar1KeD9yUlPhM5BUrCTjzaJusBxqVk0smMVMzQ7Bja62BV6-4jQ0W743Q1JiUNeOPA?encodeFailures=1&width=500&height=500",
                     AvailableQuantity = 5,
-                    LastUpdate = DateTime.Now.ToFileTimeUtc().ToString(),
+                    LastUpdate = "111111111111111111",
                 }
                 );
             modelBuilder.Entity<Product>().HasData(
@@ -226,7 +226,7 @@ namespace Levi9.ERP.Domain
                  Name = "T-ShirtPurple",
                  ImageUrl = "https://db3pap003files.storage.live.com/y4m0eG0CddqsLAfGnFHIiySLlbn9TzPQ9pQOm7YcP9QXblbZJauurhybDbiJTbA4xb-obY2cjRUlaacpZakO8zQ1oDTZQrDaipf0vU9FiylYlxK64_CzrAuGrJenGE98iclH6BN9uWZH3k1V5XthDTzldVwtY2lvP_upoU-UQyNGfX0goTCeF3FnK7rHh5pwIPSQWwSeHNPserQ6skA9FWR0ehISp1axZbphMw6aYmQwhU?encodeFailures=1&width=500&height=500",
                  AvailableQuantity = 57,
-                 LastUpdate = DateTime.Now.ToFileTimeUtc().ToString(),
+                 LastUpdate = "111111111111111111",
              }
             );
             modelBuilder.Entity<Product>().HasData(
@@ -237,7 +237,7 @@ namespace Levi9.ERP.Domain
                     Name = "T-ShirtRed",
                     ImageUrl = "https://db3pap003files.storage.live.com/y4mLQ8P5MJROOmihR3K_1SU4Y_Iisgc0y1DeC-ZizOELnj82YZeiGhXEY8cavf9xNTC12wtRKmUN42mQysBXyV066A8XFzE9XNScQNdflZhIhCKM0xUmgKHlCG6P9z3jIiqdxENbwxFU6dBr1UEpJpaZXWRHliG8nJNI1TttSsDw533HGJR5gCO9hpdlDDz4W0ltkmYE_oPT24JKDwnLNZyHZv6dfzI-qqzOrlBa5TnPQQ?encodeFailures=1&width=500&height=500",
                     AvailableQuantity = 224,
-                    LastUpdate = DateTime.Now.ToFileTimeUtc().ToString(),
+                    LastUpdate = "111111111111111111",
                 }
                 );
             modelBuilder.Entity<Product>().HasData(
@@ -248,7 +248,7 @@ namespace Levi9.ERP.Domain
                    Name = "T-ShirtRose",
                    ImageUrl = "https://db3pap003files.storage.live.com/y4m0BTJrLTQNPzne4u5bX6n47paz88nldiOZnxawfhv4oJKFk8fP4TZR91HGDs43pSIw2wEXKbJq3cJ8pItmZ-tu9LSPBEpjbTo5jIuiMsFipvDwkZoT4r9C0DHCYD6vVjnRdGP0OgbxKBKGgtOXUlc3hMb3KalQVb5xlK1EC_ukMs5cLmBeHqGzEmI2SBe3zCyeoNgaf3GpysUv9NAcoG1ppL0FCXfJMJbM0zWUbcSfJ0?encodeFailures=1&width=500&height=500",
                    AvailableQuantity = 150,
-                   LastUpdate = DateTime.Now.ToFileTimeUtc().ToString(),
+                   LastUpdate = "111111111111111111",
                }
                );
             modelBuilder.Entity<Product>().HasData(
@@ -259,7 +259,7 @@ namespace Levi9.ERP.Domain
                     Name = "T-ShirtYellow",
                     ImageUrl = "https://db3pap003files.storage.live.com/y4m8PzFIhNEKewi3wbogTAR2veLJqFbaOBgSNlzytwuowu0Lv2SIQxwPhsPe9EFmuc0N8lgEdowWmm29Cavcz6isxa4cpPVOr6jtl9BW5Ajv4lcvKSE4oXqNIMeElwiw53q6Bg84U_VG1c3ntS0UCXSMdo4iRDZJURcBbeIDv7GFCnRKcgMHQ6FD1md_owl3q55SGzBIEsFOpyMku_CcvDb77ttqpDhJ4YPF9CCbzQ8esk?encodeFailures=1&width=500&height=500",
                     AvailableQuantity = 186,
-                    LastUpdate = DateTime.Now.ToFileTimeUtc().ToString(),
+                    LastUpdate = "111111111111111111",
                 }
                 );
 
@@ -271,7 +271,7 @@ namespace Levi9.ERP.Domain
                    Name = "T-ShirtBlack 9 Gradient",
                    ImageUrl = "https://db3pap003files.storage.live.com/y4mcROrUsGJ1C_DaPGGRsunJPAdSjzSLWBSqcDa4cHQt2VRY9AZqbHg4T7EPdSV1btrGwXH7VAJuf61Ld1knMXgnsRqdUuLpQkQCtWFYohlEv9VAK3QZzHC6XaVQNugbmcDj03yOM09WghkBH2eDm_EV5MF8iXSjIOwAktBC9Qet-CY16VN2MSm7UFFgw94gEbasO_GBbkRvzfCwOmUcXICRMopHO6obWAB_ATRGjlLHO4?encodeFailures=1&width=500&height=500",
                    AvailableQuantity = 104,
-                   LastUpdate = DateTime.Now.ToFileTimeUtc().ToString(),
+                   LastUpdate = "111111111111111111",
                }
               );
             modelBuilder.Entity<Product>().HasData(
@@ -282,7 +282,7 @@ namespace Levi9.ERP.Domain
                     Name = "T-ShirtBlue 9 Gradient",
                     ImageUrl = "https://db3pap003files.storage.live.com/y4myPaEj8lwOAp9D6FSSd6vqVOshe2DZNPeTkOqpYexCSHAtxzO73MHXGGEkScMtu8k1iYqm2lKRBn5DMz5f0zerCAOvzrd8pGwL_fmarBVTMSmopv0Vy1YV5FDpu1-hPgVG0zKhYbu0jy8x2n4_ZOpZTDjzcrwrJrE78DuISNhBLvF2SGidifBduSxqFfXd7DPF_2Gr4dIMcymuT-OBT2opZWcpARi9ccxq-vfz-KPnqA?encodeFailures=1&width=500&height=500",
                     AvailableQuantity = 138,
-                    LastUpdate = DateTime.Now.ToFileTimeUtc().ToString(),
+                    LastUpdate = "111111111111111111",
                 }
                 );
             modelBuilder.Entity<Product>().HasData(
@@ -293,7 +293,7 @@ namespace Levi9.ERP.Domain
                    Name = "T-ShirtBrown 9 Gradient",
                    ImageUrl = "https://db3pap003files.storage.live.com/y4maMJZDwT_Bt_9lYoj4QEBJplPpSpox0xs8mlm5MJZp-e4mC1TTol3ATfgm9TGwDlCcYnXzdhSqaPeqkZJK90tgRR_KQHtctku28zVSo3D8Rf_462QClZiF4CC03XosaZsn0ZWDdq7KhWdYpC8hUpkJQf9bbvjeRgYJfdHr8yqhGO3ENu8lAwvwUIMRs9LaXDIBAaXurelBc7zK18wxVt8opgjC4MvmdhJC0rjqWefNk8?encodeFailures=1&width=500&height=500",
                    AvailableQuantity = 745,
-                   LastUpdate = DateTime.Now.ToFileTimeUtc().ToString(),
+                   LastUpdate = "111111111111111111",
                }
                );
             modelBuilder.Entity<Product>().HasData(
@@ -304,7 +304,7 @@ namespace Levi9.ERP.Domain
                     Name = "T-ShirtGreen 9 Gradient",
                     ImageUrl = "https://db3pap003files.storage.live.com/y4mywnSFEOeNPAc3Dv5LG3QKmt8cnkjDcCHmNyhpMMvkFiSJlUvZkss9mSJAYld9eYyTO4ELiz4sMXc2pgLtrqqsjzrTfWHItrt9Vesn1xHDXi7ONiXvdldHGHQwBDoTr5yQhbvShlKJVTfpL0UM67KIKTjDH3c9MqAUc2S8bwTjmai-g_WeOH4BdyJZz41mDWGTS88odSwCfN94gatrXq-Nc4vr96zUOhvoWSJHQPm-rE?encodeFailures=1&width=500&height=500",
                     AvailableQuantity = 5,
-                    LastUpdate = DateTime.Now.ToFileTimeUtc().ToString(),
+                    LastUpdate = "111111111111111111",
                 }
                 );
             modelBuilder.Entity<Product>().HasData(
@@ -315,7 +315,7 @@ namespace Levi9.ERP.Domain
                  Name = "T-ShirtPurple 9 Gradient",
                  ImageUrl = "https://db3pap003files.storage.live.com/y4mkHeVXwv9fF7d7rmBK_fJ0Ge3c07dLoVpzqCrrF5HIEFDpKXFGkoRnJ9WmXzt1-bsSG3J5gSP8C3Aj5p8GjTS_tnZrGMCj2oNJbYvMRbyJbAzA3Gy7ynLFEdddnq8cNHwwWB4Jh2k8988ufJ7H-p2oe5lr4oQRvshHBzuIRt52RNWaGspRAVow1L551awcDC_BfmD2se_Yg9guDVlDTOMqVvO9PEqlMP3B-3y_I9oIz0?encodeFailures=1&width=500&height=500",
                  AvailableQuantity = 57,
-                 LastUpdate = DateTime.Now.ToFileTimeUtc().ToString(),
+                 LastUpdate = "111111111111111111",
              }
             );
             modelBuilder.Entity<Product>().HasData(
@@ -326,7 +326,7 @@ namespace Levi9.ERP.Domain
                     Name = "T-ShirtRed 9 Gradient",
                     ImageUrl = "https://db3pap003files.storage.live.com/y4mAuqUBcOB4e_6Pkv5WtCBhsOp6xQyB3dhrzYEuJsoMAijFJ6pSGth6esbBkAIU2JpgSDze6vTEC07JiJWAPnyjuL2PsE_bmP1XypvPO3HZP2uIDAThpD-nk4Ews_QeQd0TNNorcNqO6JqaEqIP9OpEEfkLnBcK5Q0FHBI3IxP6octHzAlY5_M-z93ypRdrhwBjEjnmpEBsZ7eeZwORwXxRa1nw2b-TwPSr6F6uZZ2MUs?encodeFailures=1&width=500&height=500",
                     AvailableQuantity = 224,
-                    LastUpdate = DateTime.Now.ToFileTimeUtc().ToString(),
+                    LastUpdate = "111111111111111111",
                 }
                 );
             modelBuilder.Entity<Product>().HasData(
@@ -337,7 +337,7 @@ namespace Levi9.ERP.Domain
                    Name = "T-ShirtRose 9 Gradient",
                    ImageUrl = "https://db3pap003files.storage.live.com/y4mUU4G3Dpx9xkjqniNIZeMWz-wr3t18PGCtpoQxOv522aU8IDNVk6-MWFtqONztKzH6BelSIR6NhOXklxW5CEhTct5nyscvSGwHujoHepodUBhtjuXXW2KudArDxA2g4ARoELCaWVCAvdAm46C7BnzDcbXRf4QBFvz-iUG9V-Nm7O1adpQ6gnF96Xkp2iyNrkGkpc0x2hJ06TVqNWDYM7XfrJooKEbFfYcllC7cy17X5E?encodeFailures=1&width=500&height=500",
                    AvailableQuantity = 150,
-                   LastUpdate = DateTime.Now.ToFileTimeUtc().ToString(),
+                   LastUpdate = "111111111111111111",
                }
                );
             modelBuilder.Entity<Product>().HasData(
@@ -348,7 +348,7 @@ namespace Levi9.ERP.Domain
                     Name = "T-ShirtYellow 9 Gradient",
                     ImageUrl = "https://db3pap003files.storage.live.com/y4m9Oo0CoS06pvC58i8iE_2_WfJE-rEuIMGRWZcbdjThze0gTjJBWWtaDGSsnxJmhCweSY3lvNc6ZYxLMV8zlKM5CTJ24-WbT4iLjCtOgYg_Oy3hxxhcZOTXkMefthHQhT2OxtSmUDKkQIf4shsWTIu81eHGEovGq63_UqM-gkXR0uqYZXZLfgmVR9cTgk4Hyt8dmweIrouQ_eGM4L7TS5xP3d74G3moTJ72Lzjv8XLbSo?encodeFailures=1&width=500&height=500",
                     AvailableQuantity = 186,
-                    LastUpdate = DateTime.Now.ToFileTimeUtc().ToString(),
+                    LastUpdate = "111111111111111111",
                 }
                 );
             #endregion
