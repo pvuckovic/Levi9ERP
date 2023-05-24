@@ -18,17 +18,19 @@ namespace Levi9.ERP.Domain.Services
             _mapper = mapper;
             _logger = logger;
         }
-
+        
         public async Task<ProductDTO> CreateProductAsync(ProductDTO newProduct)
         {
             _logger.LogInformation("Entering {FunctionName} in ProductService. Timestamp: {Timestamp}.", nameof(CreateProductAsync), DateTime.UtcNow);
+            Random random = new Random();
             var product = new Product
             {
                 Name = newProduct.Name,
                 GlobalId = Guid.NewGuid(),
                 ImageUrl = newProduct.ImageUrl,
-                AvailableQuantity = 15000,
+                AvailableQuantity = random.Next(1000, 15001),
                 LastUpdate = DateTime.Now.ToFileTimeUtc().ToString(),
+                Prices = new List<Price>()
             };
             Product addedProduct = await _productRepository.AddProductAsync(product);
             var productDto = _mapper.Map<ProductDTO>(addedProduct);
