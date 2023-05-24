@@ -1,4 +1,6 @@
-﻿using Levi9.ERP.Controllers;
+﻿using AutoMapper;
+using Levi9.ERP.Controllers;
+using Levi9.ERP.Datas.Requests;
 using Levi9.ERP.Domain.Models.DTO;
 using Levi9.ERP.Domain.Repositories;
 using Levi9.ERP.Domain.Services;
@@ -14,6 +16,7 @@ namespace Levi9.ERP.UnitTests.Services
         private Mock<IClientRepository> _clientRepositoryMock;
         private ClientService _clientService;
         private Mock<ILogger<ClientService>> _loggerMock;
+        private Mock<IMapper> _mapper;
 
 
         [SetUp]
@@ -21,7 +24,8 @@ namespace Levi9.ERP.UnitTests.Services
         {
             _clientRepositoryMock = new Mock<IClientRepository>();
             _loggerMock = new Mock<ILogger<ClientService>>();
-            _clientService = new ClientService(_clientRepositoryMock.Object, _loggerMock.Object);
+            _mapper = new Mock<IMapper>();
+            _clientService = new ClientService(_clientRepositoryMock.Object, _loggerMock.Object, _mapper.Object);
         }
 
         [Test]
@@ -70,6 +74,58 @@ namespace Levi9.ERP.UnitTests.Services
             Assert.AreEqual(expectedClientDTO.Id, actualClientDTO.Id);
             Assert.AreEqual(expectedClientDTO.Name, actualClientDTO.Name);
             Assert.AreEqual(expectedClientDTO.Email, actualClientDTO.Email);
+        }
+        [Test]
+        public async Task SyncClients_WithNonExistingEmails_ReturnsLastUpdateTimestamp()
+        {
+            // Arrange
+            var clients = new List<ClientSyncRequestDTO>
+            {
+                new ClientSyncRequestDTO { GlobalId = Guid.NewGuid(), Email = "test1@example.com" },
+                new ClientSyncRequestDTO { GlobalId = Guid.NewGuid(), Email = "test2@example.com" },
+                // Add more client DTOs as needed
+            };
+
+            var lastUpdate = DateTime.Now.ToFileTimeUtc().ToString();
+
+            _clientRepositoryMock.Setup(r => r.DoesClientEmailAlreadyExists(It.IsAny<Guid>(), It.IsAny<string>())).ReturnsAsync(false);
+            _clientRepositoryMock.Setup(r => r.DoesClientByGlobalIdExists(It.IsAny<Guid>())).ReturnsAsync(false);
+           //_clientRepositoryMock.Setup(r => r.AddClient(It.IsAny<ClientDTO>())).Returns(Task.CompletedTask);
+
+            _mapper.Setup(m => m.Map<ClientDTO>(It.IsAny<ClientSyncRequestDTO>())).Returns(new ClientDTO());
+
+            // Act
+            var result = await _clientService.SyncClients(clients);
+
+            // Assert
+            Assert.IsNotNull(result);
+            _clientRepositoryMock.Verify(r => r.DoesClientEmailAlreadyExists(It.IsAny<Guid>(), It.IsAny<string>()), Times.Exactly(clients.Count));
+            _clientRepositoryMock.Verify(r => r.DoesClientByGlobalIdExists(It.IsAny<Guid>()), Times.Exactly(clients.Count));
+            _clientRepositoryMock.Verify(r => r.AddClient(It.IsAny<ClientDTO>()), Times.Exactly(clients.Count));
+            _clientRepositoryMock.Verify(r => r.UpdateClient(It.IsAny<ClientSyncRequestDTO>()), Times.Never);
+        }
+
+        [Test]
+        public async Task SyncClients_WithExistingEmails_ReturnsNull()
+        {
+            // Arrange
+            var clients = new List<ClientSyncRequestDTO>
+            {
+                new ClientSyncRequestDTO { GlobalId = Guid.NewGuid(), Email = "test1@example.com" },
+                new ClientSyncRequestDTO { GlobalId = Guid.NewGuid(), Email = "test2@example.com" },
+            };
+
+            _clientRepositoryMock.Setup(r => r.DoesClientEmailAlreadyExists(It.IsAny<Guid>(), It.IsAny<string>())).ReturnsAsync(true);
+
+            // Act
+            var result = await _clientService.SyncClients(clients);
+
+            // Assert
+            Assert.IsNull(result);
+            _clientRepositoryMock.Verify(r => r.DoesClientEmailAlreadyExists(It.IsAny<Guid>(), It.IsAny<string>()), Times.Exactly(1));
+            _clientRepositoryMock.Verify(r => r.DoesClientByGlobalIdExists(It.IsAny<Guid>()), Times.Never);
+            _clientRepositoryMock.Verify(r => r.AddClient(It.IsAny<ClientDTO>()), Times.Never);
+            _clientRepositoryMock.Verify(r => r.UpdateClient(It.IsAny<ClientSyncRequestDTO>()), Times.Never);
         }
     }
 }

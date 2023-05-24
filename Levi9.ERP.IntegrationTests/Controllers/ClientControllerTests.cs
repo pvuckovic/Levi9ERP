@@ -1,4 +1,5 @@
 ﻿using Levi9.ERP.Data.Responses;
+using Levi9.ERP.Datas.Requests;
 using Levi9.ERP.Domain;
 using Levi9.ERP.Requests;
 using Levi9.ERP.Responses;
@@ -9,6 +10,7 @@ using NUnit.Framework;
 using System.Net;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
+using System.Text;
 
 namespace Levi9.ERP.IntegrationTests.Controllers
 {
@@ -133,6 +135,66 @@ namespace Levi9.ERP.IntegrationTests.Controllers
                 Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
                 Assert.That(content, Is.EqualTo("[]"));
             });
+        }
+
+        [Test]
+        public async Task SyncClients_WithValidData_ReturnsOkResult()
+        {
+            // Arrange
+            // Act
+            var clients = new List<ClientSyncRequest>
+            {
+                new ClientSyncRequest
+                {
+                    GlobalId = new Guid("B1233B21-ADF0-4148-80AC-8852907419B7"),
+                    Name = "Test1 Client",
+                    Address = "Test1 Address 123",
+                    Email = "test1@example.com",
+                    Password = "password",
+                    Phone = "0611234567",
+                    PriceListId = 1
+                }
+            };
+
+            var jsonRequest = JsonConvert.SerializeObject(clients);
+            var httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
+
+            var response = await _client.PostAsync("/v1/client/sync", httpContent);
+            var result = await response.Content.ReadAsStringAsync();
+
+            // Assert
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+            Assert.IsNotNull(result);
+        }
+
+        [Test]
+        public async Task SyncClients_WithAlreadyExistingEmailData_ReturnsOk()
+        {
+            // Arrange
+            // Act
+            var clients = new List<ClientSyncRequest>
+            {
+                new ClientSyncRequest
+                {
+                    GlobalId = new Guid("B1233B21-ADF0-4148-80AC-8852907419B7"),
+                    Name = "Test1 Client",
+                    Address = "Test1 Address 123",
+                    Email = "zlatko123@gmail.com",
+                    Password = "password",
+                    Phone = "0611234567",
+                    PriceListId = 1
+                }
+            };
+
+            var jsonRequest = JsonConvert.SerializeObject(clients);
+            var httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
+
+            var response = await _client.PostAsync("/v1/client/sync", httpContent);
+            var result = await response.Content.ReadAsStringAsync();
+
+            // Assert
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+            Assert.IsNotNull(result);
         }
     }
 }

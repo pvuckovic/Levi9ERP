@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Levi9.ERP.Data.Responses;
 using Levi9.ERP.Datas.Requests;
+using Levi9.ERP.Datas.Responses;
 using Levi9.ERP.Domain.Models;
 using Levi9.ERP.Domain.Models.DTO;
 using Levi9.ERP.Domain.Services;
@@ -31,7 +32,6 @@ namespace Levi9.ERP.Controllers
 
         [HttpPost]
         [Consumes("application/json")]
-        [AllowAnonymous]
         public async Task<IActionResult> CreateClient([FromBody] ClientRequest client)
         {
             _logger.LogInformation("Entering {FunctionName} in ClientController. Timestamp: {Timestamp}.", nameof(CreateClient), DateTime.UtcNow);
@@ -64,7 +64,7 @@ namespace Levi9.ERP.Controllers
             _logger.LogInformation("Client retrieved successfully with ID: {ClientId} in {FunctionName} of ClientController. Timestamp: {Timestamp}.", id, nameof(GetClientById), DateTime.UtcNow);
             return Ok(clientResponse);
         }
-        [Authorize]
+
         [HttpGet("sync/{lastUpdate}")]
         public async Task<IActionResult> GetAllClients(string lastUpdate)
         {
@@ -75,9 +75,25 @@ namespace Levi9.ERP.Controllers
                 _logger.LogWarning("Clients not found in {FunctionName} of ClientController. Timestamp: {Timestamp}.", nameof(GetAllClients), DateTime.UtcNow);
                 return Ok(clients);
             }
-            var mappedClients = clients.Select(c => _mapper.Map<ClientResponse>(c));
+            var mappedClients = clients.Select(c => _mapper.Map<ClientResponseSync>(c));
             _logger.LogInformation("Clients retrieved successfully in {FunctionName} of ClientController. Timestamp: {Timestamp}.", nameof(GetAllClients), DateTime.UtcNow);
             return Ok(mappedClients);
+        }
+
+        [HttpPost("sync")]
+        public async Task<IActionResult> SyncClients(List<ClientSyncRequest> clients)
+        {
+            _logger.LogInformation("Entering {FunctionName} in ClientController. Timestamp: {Timestamp}.", nameof(SyncClients), DateTime.UtcNow);
+            var newClients = _mapper.Map<List<ClientSyncRequestDTO>>(clients);
+            string result = await _clientService.SyncClients(newClients);
+            if (result == null)
+            {
+                _logger.LogError("Filed to update clients in {FunctionName} of ClientController. Timestamp: {Timestamp}.", nameof(SyncClients), DateTime.UtcNow);
+                string error = "Update failed!";
+                return BadRequest(error);
+            }
+            _logger.LogInformation("Clients updated successfully in {FunctionName} of ProduClientControllerctController. Timestamp: {Timestamp}.", nameof(SyncClients), DateTime.UtcNow);
+            return Ok(result);
         }
     }
 }
