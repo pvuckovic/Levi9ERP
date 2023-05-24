@@ -168,7 +168,7 @@ namespace Levi9.ERP.IntegrationTests.Controllers
         }
 
         [Test]
-        public async Task SyncClients_WithInvalidEmailData_ReturnsBadRequest()
+        public async Task SyncClients_WithAlreadyExistingEmailData_ReturnsOk()
         {
             // Arrange
             // Act
@@ -193,8 +193,8 @@ namespace Levi9.ERP.IntegrationTests.Controllers
             var result = await response.Content.ReadAsStringAsync();
 
             // Assert
-            Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
-            Assert.AreEqual("\"Update failed!\"", result);
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+            Assert.IsNotNull(result);
         }
     }
 }

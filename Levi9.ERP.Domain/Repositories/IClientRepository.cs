@@ -12,6 +12,8 @@ namespace Levi9.ERP.Domain.Repositories
         Task<IEnumerable<ClientDTO>> GetProductsByLastUpdate(string lastUpdate);
         Task<bool> DoesClientEmailAlreadyExists(Guid globalId, string email);
         Task<bool> DoesClientByGlobalIdExists(Guid globalId);
-        Task<Client> UpdateClient(ClientSyncRequestDTO client);
+        Task<Client> UpdateClient(ClientSyncRequestDTO client);  
+        Task<Client> UpdateClientByEmail(ClientSyncRequestDTO client);
+
     }
 }

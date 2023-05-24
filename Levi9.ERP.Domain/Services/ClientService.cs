@@ -63,14 +63,15 @@ namespace Levi9.ERP.Domain.Services
         public async Task<string> SyncClients(List<ClientSyncRequestDTO> clients)
         {
             _logger.LogInformation("Entering {FunctionName} in ClientService. Timestamp: {Timestamp}.", nameof(SyncClients), DateTime.UtcNow);
-            foreach (var client in clients)
-            {
-                if (await _clientRepository.DoesClientEmailAlreadyExists(client.GlobalId, client.Email))
-                {
-                    _logger.LogError("Client email: {Email} already exists for GlobalId: {GlobalId} in {FunctionName} of ClientService. Timestamp: {Timestamp}.", client.Email, client.GlobalId, nameof(SyncClients), DateTime.UtcNow);
-                    return null;
-                }
-            }
+            //foreach (var client in clients)
+            //{
+            //    if (await _clientRepository.DoesClientEmailAlreadyExists(client.GlobalId, client.Email))
+            //    {
+            //        await _clientRepository.UpdateClientByEmail(client);
+            //        clients.Remove(client);
+            //        _logger.LogInformation("Client updated successfully in {FunctionName} of ClientService. Timestamp: {Timestamp}.", nameof(SyncClients), DateTime.UtcNow);
+            //    }
+            //}
 
             string lastUpdate = null;
             foreach (var client in clients)
@@ -80,6 +81,11 @@ namespace Levi9.ERP.Domain.Services
                 if (await _clientRepository.DoesClientByGlobalIdExists(client.GlobalId))
                 {
                     await _clientRepository.UpdateClient(client);
+                    _logger.LogInformation("Client updated successfully in {FunctionName} of ClientService. Timestamp: {Timestamp}.", nameof(SyncClients), DateTime.UtcNow);
+                }
+                else if (await _clientRepository.DoesClientEmailAlreadyExists(client.GlobalId, client.Email))
+                {
+                    await _clientRepository.UpdateClientByEmail(client);
                     _logger.LogInformation("Client updated successfully in {FunctionName} of ClientService. Timestamp: {Timestamp}.", nameof(SyncClients), DateTime.UtcNow);
                 }
                 else

@@ -66,9 +66,25 @@ namespace Levi9.ERP.Domain.Repositories
             updatedClient.Phone = client.Phone;
             updatedClient.LastUpdate = client.LastUpdate;
             updatedClient.Name = client.Name;
-            updatedClient.Password = AuthenticationHelper.HashPassword(client.Password, updatedClient.Salt);
+            updatedClient.Password = client.Password;
             await _context.SaveChangesAsync();
             _logger.LogInformation("Retrieving confirmation of updated client in {FunctionName} of ClientRepository. Timestamp: {Timestamp}.", nameof(UpdateClient), DateTime.UtcNow);
+            return clientMap;
+        }
+
+        public async Task<Client> UpdateClientByEmail(ClientSyncRequestDTO client)
+        {
+            _logger.LogInformation("Entering {FunctionName} in ClientRepository. Timestamp: {Timestamp}.", nameof(UpdateClientByEmail), DateTime.UtcNow);
+            Client clientMap = _mapper.Map<Client>(client);
+            var updatedClient = await _context.Clients.FirstOrDefaultAsync(c => c.Email == clientMap.Email);
+            updatedClient.GlobalId = client.GlobalId;
+            updatedClient.Address = client.Address;
+            updatedClient.Phone = client.Phone;
+            updatedClient.LastUpdate = client.LastUpdate;
+            updatedClient.Name = client.Name;
+            updatedClient.Password = client.Password;
+            await _context.SaveChangesAsync();
+            _logger.LogInformation("Retrieving confirmation of updated client in {FunctionName} of ClientRepository. Timestamp: {Timestamp}.", nameof(UpdateClientByEmail), DateTime.UtcNow);
             return clientMap;
         }
 
