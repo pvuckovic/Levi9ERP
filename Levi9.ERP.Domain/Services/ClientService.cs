@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Levi9.ERP.Domain.Helpers;
-using Levi9.ERP.Domain.Models;
 using Levi9.ERP.Domain.Models.DTO;
 using Levi9.ERP.Domain.Repositories;
 using Microsoft.Extensions.Logging;
@@ -28,7 +27,8 @@ namespace Levi9.ERP.Domain.Services
             string salt = AuthenticationHelper.GenerateRandomSalt();
             clientModel.Password = AuthenticationHelper.HashPassword(clientModel.Password, salt);
             clientModel.Salt = salt;
-            clientModel.LastUpdate = DateTime.Now.ToFileTimeUtc().ToString();
+            if(clientModel.LastUpdate == null)
+                clientModel.LastUpdate = DateTime.Now.ToFileTimeUtc().ToString();
             var clientEntity = await _clientRepository.AddClient(clientModel);
             _logger.LogInformation("Adding new client in {FunctionName} of ClientService. Timestamp: {Timestamp}.", nameof(CreateClient), DateTime.UtcNow);
             return clientEntity;
@@ -63,21 +63,10 @@ namespace Levi9.ERP.Domain.Services
         public async Task<string> SyncClients(List<ClientSyncRequestDTO> clients)
         {
             _logger.LogInformation("Entering {FunctionName} in ClientService. Timestamp: {Timestamp}.", nameof(SyncClients), DateTime.UtcNow);
-            //foreach (var client in clients)
-            //{
-            //    if (await _clientRepository.DoesClientEmailAlreadyExists(client.GlobalId, client.Email))
-            //    {
-            //        await _clientRepository.UpdateClientByEmail(client);
-            //        clients.Remove(client);
-            //        _logger.LogInformation("Client updated successfully in {FunctionName} of ClientService. Timestamp: {Timestamp}.", nameof(SyncClients), DateTime.UtcNow);
-            //    }
-            //}
 
             string lastUpdate = null;
             foreach (var client in clients)
             {
-                lastUpdate = DateTime.Now.ToFileTimeUtc().ToString();
-                client.LastUpdate = lastUpdate;
                 if (await _clientRepository.DoesClientByGlobalIdExists(client.GlobalId))
                 {
                     await _clientRepository.UpdateClient(client);
@@ -94,6 +83,7 @@ namespace Levi9.ERP.Domain.Services
                     await CreateClient(newClient);
                     _logger.LogInformation("Client inserted successfully in {FunctionName} of ClientService. Timestamp: {Timestamp}.", nameof(SyncClients), DateTime.UtcNow);
                 }
+                lastUpdate = client.LastUpdate;
             }
             return lastUpdate;
         }
