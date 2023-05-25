@@ -56,6 +56,7 @@ namespace Levi9.ERP.Domain.Services
             {
 
                 DocumentDTO doc = _mapper.Map<DocumentDTO>(document);
+                doc.LastUpdate = DateTime.Now.ToFileTimeUtc().ToString();
                 doc.ClientId = await _clientRepository.GetClientIdFromClientGlobalId(document.ClientId);
                 int i = 0;
                 foreach (var product in doc.Items)
@@ -70,11 +71,10 @@ namespace Levi9.ERP.Domain.Services
                 }
                 else
                 {
-                    doc.GlobalId = Guid.NewGuid();
                     await _documentRepository.AddDocument(doc);
                     _logger.LogInformation("Document inserted successfully in {FunctionName} of DocumentService. Timestamp: {Timestamp}.", nameof(SyncDocuments), DateTime.UtcNow);
                 }
-                lastUpdate = document.LastUpdate;
+                lastUpdate = doc.LastUpdate;
             }
             return lastUpdate;
         }

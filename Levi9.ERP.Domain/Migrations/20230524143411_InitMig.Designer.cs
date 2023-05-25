@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Levi9.ERP.Domain.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    [Migration("20230524142735_SeedMigration")]
-    partial class SeedMigration
+    [Migration("20230524143411_InitMig")]
+    partial class InitMig
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -253,8 +253,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 1,
                             PriceListId = 1,
                             Currency = "RSD",
-                            GlobalId = new Guid("c7625086-f3ac-4e14-83fe-686103dba898"),
-                            LastUpdate = "133294120548089189",
+                            GlobalId = new Guid("023aa3ac-69f0-4aa8-a4ce-52ccd3029fe8"),
+                            LastUpdate = "133294124516592237",
                             PriceValue = 9750.25f
                         },
                         new
@@ -262,8 +262,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 1,
                             PriceListId = 2,
                             Currency = "EUR",
-                            GlobalId = new Guid("53764251-15ad-443c-b6b5-c5e633bfb4ca"),
-                            LastUpdate = "133294120548089274",
+                            GlobalId = new Guid("ab68f406-34ba-434e-b504-0ccdd7ba099b"),
+                            LastUpdate = "133294124516592314",
                             PriceValue = 82.88f
                         },
                         new
@@ -271,8 +271,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 1,
                             PriceListId = 3,
                             Currency = "GBP",
-                            GlobalId = new Guid("f149b020-8f47-4345-8331-f0717d8fa3d1"),
-                            LastUpdate = "133294120548089292",
+                            GlobalId = new Guid("b8a44f0a-b047-4281-9de3-f94969f64fa8"),
+                            LastUpdate = "133294124516592332",
                             PriceValue = 70.2f
                         },
                         new
@@ -280,8 +280,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 1,
                             PriceListId = 4,
                             Currency = "USD",
-                            GlobalId = new Guid("0444ba5b-37ba-4eaa-90c1-ab7cb7edbe68"),
-                            LastUpdate = "133294120548089309",
+                            GlobalId = new Guid("d33a6183-be25-4cf3-b5da-ca9d05ffd062"),
+                            LastUpdate = "133294124516592356",
                             PriceValue = 94.58f
                         },
                         new
@@ -289,8 +289,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 1,
                             PriceListId = 5,
                             Currency = "RMB",
-                            GlobalId = new Guid("b05e4144-8e4c-485f-9167-116e36fec88f"),
-                            LastUpdate = "133294120548089325",
+                            GlobalId = new Guid("e664be1f-7773-43cf-986b-6bc2dfc23d13"),
+                            LastUpdate = "133294124516592373",
                             PriceValue = 607.44f
                         },
                         new
@@ -298,8 +298,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 1,
                             PriceListId = 6,
                             Currency = "INR",
-                            GlobalId = new Guid("4689bb46-1e23-499a-80dd-a26636bd9946"),
-                            LastUpdate = "133294120548089341",
+                            GlobalId = new Guid("1fb497a5-3119-4518-ae06-f0cb5168d33c"),
+                            LastUpdate = "133294124516592390",
                             PriceValue = 6922.68f
                         },
                         new
@@ -307,8 +307,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 1,
                             PriceListId = 7,
                             Currency = "JPY",
-                            GlobalId = new Guid("a6e321f0-eb08-4d1c-aee9-d23d21df5111"),
-                            LastUpdate = "133294120548089364",
+                            GlobalId = new Guid("7a3568cb-5fb7-45f0-a4d5-dabd85739ef6"),
+                            LastUpdate = "133294124516592405",
                             PriceValue = 10237.76f
                         },
                         new
@@ -316,8 +316,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 2,
                             PriceListId = 1,
                             Currency = "RSD",
-                            GlobalId = new Guid("125cc3bb-31eb-4bf0-8143-5c0de74ab38e"),
-                            LastUpdate = "133294120548089382",
+                            GlobalId = new Guid("a5f267a8-f56e-422b-9738-ddcb55fa93d8"),
+                            LastUpdate = "133294124516592421",
                             PriceValue = 4121.5f
                         },
                         new
@@ -325,8 +325,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 2,
                             PriceListId = 2,
                             Currency = "EUR",
-                            GlobalId = new Guid("99a3e6b6-75a3-45a5-9503-ba6b40b95ba9"),
-                            LastUpdate = "133294120548089397",
+                            GlobalId = new Guid("98e7f4ce-fee5-4cdb-8961-64c5a5b75d6d"),
+                            LastUpdate = "133294124516592437",
                             PriceValue = 35.03f
                         },
                         new
@@ -334,8 +334,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 2,
                             PriceListId = 3,
                             Currency = "GBP",
-                            GlobalId = new Guid("617618ad-b47a-472f-b547-5316e071768d"),
-                            LastUpdate = "133294120548089413",
+                            GlobalId = new Guid("f3f153e6-74f7-4fa4-8f3c-e5843c94e337"),
+                            LastUpdate = "133294124516592453",
                             PriceValue = 29.67f
                         },
                         new
@@ -343,8 +343,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 2,
                             PriceListId = 4,
                             Currency = "USD",
-                            GlobalId = new Guid("d5e1bf76-f7a1-4dd7-adba-ad0e3ba0d6b4"),
-                            LastUpdate = "133294120548089428",
+                            GlobalId = new Guid("ebebca2b-2460-4429-af09-b16eeaf21c21"),
+                            LastUpdate = "133294124516592468",
                             PriceValue = 39.98f
                         },
                         new
@@ -352,8 +352,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 2,
                             PriceListId = 5,
                             Currency = "RMB",
-                            GlobalId = new Guid("d7b5d332-ea95-4d6c-b161-1e0ae08084d2"),
-                            LastUpdate = "133294120548089443",
+                            GlobalId = new Guid("08f470d9-14ca-4f83-b213-d7b67b710bfb"),
+                            LastUpdate = "133294124516592485",
                             PriceValue = 256.77f
                         },
                         new
@@ -361,8 +361,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 2,
                             PriceListId = 6,
                             Currency = "INR",
-                            GlobalId = new Guid("791e2170-6fdf-4e56-bd76-9f8281bd01bc"),
-                            LastUpdate = "133294120548089458",
+                            GlobalId = new Guid("66436012-e7c3-41ce-b50d-4c253cb9aea4"),
+                            LastUpdate = "133294124516592500",
                             PriceValue = 2926.26f
                         },
                         new
@@ -370,8 +370,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 2,
                             PriceListId = 7,
                             Currency = "JPY",
-                            GlobalId = new Guid("79d3d510-3926-4cfa-8b95-08cad56fab7e"),
-                            LastUpdate = "133294120548089473",
+                            GlobalId = new Guid("8c403570-c2a6-43f1-bd07-84df317d2b78"),
+                            LastUpdate = "133294124516592515",
                             PriceValue = 4327.57f
                         },
                         new
@@ -379,8 +379,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 3,
                             PriceListId = 1,
                             Currency = "RSD",
-                            GlobalId = new Guid("1a362e99-12a6-46d8-b034-4f193967d18c"),
-                            LastUpdate = "133294120548089490",
+                            GlobalId = new Guid("b8d13016-21aa-43e7-924f-d2c3f17fe1e8"),
+                            LastUpdate = "133294124516592530",
                             PriceValue = 6383.75f
                         },
                         new
@@ -388,8 +388,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 3,
                             PriceListId = 2,
                             Currency = "EUR",
-                            GlobalId = new Guid("09a5cbf4-44d6-499e-ab9a-048648e101fc"),
-                            LastUpdate = "133294120548089505",
+                            GlobalId = new Guid("8d173d67-1b37-4be7-98a2-9e044adb034d"),
+                            LastUpdate = "133294124516592545",
                             PriceValue = 54.26f
                         },
                         new
@@ -397,8 +397,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 3,
                             PriceListId = 3,
                             Currency = "GBP",
-                            GlobalId = new Guid("07a17286-b850-40a5-abd8-7c158e331df7"),
-                            LastUpdate = "133294120548089520",
+                            GlobalId = new Guid("14c55ef1-dcd6-42ec-9403-d5de90e84a43"),
+                            LastUpdate = "133294124516592559",
                             PriceValue = 45.96f
                         },
                         new
@@ -406,8 +406,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 3,
                             PriceListId = 4,
                             Currency = "USD",
-                            GlobalId = new Guid("b9a34e31-53e6-4a0a-ba1e-a3b2f8c3d66b"),
-                            LastUpdate = "133294120548089537",
+                            GlobalId = new Guid("ca7dff79-3e56-47c0-8853-efde6f2d4e85"),
+                            LastUpdate = "133294124516592575",
                             PriceValue = 61.92f
                         },
                         new
@@ -415,8 +415,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 3,
                             PriceListId = 5,
                             Currency = "RMB",
-                            GlobalId = new Guid("65b36c96-977e-4a86-96df-b49c70aa799e"),
-                            LastUpdate = "133294120548089552",
+                            GlobalId = new Guid("a6fc1026-1a84-4aad-b5b0-4e3de9fea902"),
+                            LastUpdate = "133294124516592623",
                             PriceValue = 397.71f
                         },
                         new
@@ -424,8 +424,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 3,
                             PriceListId = 6,
                             Currency = "INR",
-                            GlobalId = new Guid("3672bd4e-4000-4b16-ac26-77ecfc073c84"),
-                            LastUpdate = "133294120548089567",
+                            GlobalId = new Guid("75b58041-8122-489e-bfdc-a1cf2734efb0"),
+                            LastUpdate = "133294124516592642",
                             PriceValue = 4532.46f
                         },
                         new
@@ -433,8 +433,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 3,
                             PriceListId = 7,
                             Currency = "JPY",
-                            GlobalId = new Guid("537fedd9-2e92-4e48-b997-e8bf92453598"),
-                            LastUpdate = "133294120548089612",
+                            GlobalId = new Guid("a14f1295-7d14-4811-9dd8-2a26eb54b9b0"),
+                            LastUpdate = "133294124516592657",
                             PriceValue = 6702.94f
                         },
                         new
@@ -442,8 +442,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 4,
                             PriceListId = 1,
                             Currency = "RSD",
-                            GlobalId = new Guid("0f9cd6f7-eded-43aa-998f-202b3b812356"),
-                            LastUpdate = "133294120548089630",
+                            GlobalId = new Guid("0cd16cdb-c96f-4599-a2ec-a7d26d0b150c"),
+                            LastUpdate = "133294124516592671",
                             PriceValue = 8925f
                         },
                         new
@@ -451,8 +451,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 4,
                             PriceListId = 2,
                             Currency = "EUR",
-                            GlobalId = new Guid("24f54f43-f3e5-4bc5-af31-e3b8828e7228"),
-                            LastUpdate = "133294120548089648",
+                            GlobalId = new Guid("c8df9e58-c66b-49df-9e9c-723261bdee38"),
+                            LastUpdate = "133294124516592686",
                             PriceValue = 75.86f
                         },
                         new
@@ -460,8 +460,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 4,
                             PriceListId = 3,
                             Currency = "GBP",
-                            GlobalId = new Guid("7fb3c118-a1e1-4235-bd07-658b88f6f8a6"),
-                            LastUpdate = "133294120548089663",
+                            GlobalId = new Guid("2035d506-24ed-4f5a-ac44-546b43d1c0f5"),
+                            LastUpdate = "133294124516592700",
                             PriceValue = 64.26f
                         },
                         new
@@ -469,8 +469,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 4,
                             PriceListId = 4,
                             Currency = "USD",
-                            GlobalId = new Guid("07c9f56f-fe15-4c84-a44b-0e7a4fa06b81"),
-                            LastUpdate = "133294120548089678",
+                            GlobalId = new Guid("1ea448b3-09fd-4c68-a7f2-85806c72d095"),
+                            LastUpdate = "133294124516592714",
                             PriceValue = 86.57f
                         },
                         new
@@ -478,8 +478,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 4,
                             PriceListId = 5,
                             Currency = "RMB",
-                            GlobalId = new Guid("95e70c48-17bf-4af0-8907-d2ee20333616"),
-                            LastUpdate = "133294120548089693",
+                            GlobalId = new Guid("628a501f-f5bb-43e5-87fb-48e6cb13f53b"),
+                            LastUpdate = "133294124516592728",
                             PriceValue = 556.03f
                         },
                         new
@@ -487,8 +487,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 4,
                             PriceListId = 6,
                             Currency = "INR",
-                            GlobalId = new Guid("91bf3825-d075-4fd3-b538-4b1bdff44977"),
-                            LastUpdate = "133294120548089708",
+                            GlobalId = new Guid("887b38c1-7274-4a39-b7d3-c7fe2efc7c09"),
+                            LastUpdate = "133294124516592743",
                             PriceValue = 6336.75f
                         },
                         new
@@ -496,8 +496,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 4,
                             PriceListId = 7,
                             Currency = "JPY",
-                            GlobalId = new Guid("3258ce4d-2b62-4a38-9bc0-051149bcbf0e"),
-                            LastUpdate = "133294120548089723",
+                            GlobalId = new Guid("76ce0b62-a52c-46a8-99c3-ec2e0e51f1a1"),
+                            LastUpdate = "133294124516592759",
                             PriceValue = 9371.25f
                         },
                         new
@@ -505,8 +505,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 5,
                             PriceListId = 1,
                             Currency = "RSD",
-                            GlobalId = new Guid("a069a11b-1917-40b7-9967-2a3648eb56cf"),
-                            LastUpdate = "133294120548089738",
+                            GlobalId = new Guid("6d8dadcd-ea15-4590-87e3-d535d769d7e7"),
+                            LastUpdate = "133294124516592773",
                             PriceValue = 5241f
                         },
                         new
@@ -514,8 +514,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 5,
                             PriceListId = 2,
                             Currency = "EUR",
-                            GlobalId = new Guid("ce2944e6-84fd-4bdc-87c9-6f0127bc6924"),
-                            LastUpdate = "133294120548089752",
+                            GlobalId = new Guid("55c3eca9-8ad2-4c7f-9fdc-67d9237abf5c"),
+                            LastUpdate = "133294124516592788",
                             PriceValue = 44.55f
                         },
                         new
@@ -523,8 +523,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 5,
                             PriceListId = 3,
                             Currency = "GBP",
-                            GlobalId = new Guid("2346f9e6-f9d6-4cd6-8e87-49288b14682a"),
-                            LastUpdate = "133294120548089769",
+                            GlobalId = new Guid("0dd3018d-21cd-4e84-98e3-a915010c98de"),
+                            LastUpdate = "133294124516592802",
                             PriceValue = 37.74f
                         },
                         new
@@ -532,8 +532,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 5,
                             PriceListId = 4,
                             Currency = "USD",
-                            GlobalId = new Guid("ac427ee6-398c-4b7d-9cab-b4fb6f19ad10"),
-                            LastUpdate = "133294120548089784",
+                            GlobalId = new Guid("0d744046-f80a-462c-8da6-f04ea1495ba1"),
+                            LastUpdate = "133294124516592816",
                             PriceValue = 50.84f
                         },
                         new
@@ -541,8 +541,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 5,
                             PriceListId = 5,
                             Currency = "RMB",
-                            GlobalId = new Guid("30f08b38-6563-4190-95e2-43dc5fbb8693"),
-                            LastUpdate = "133294120548089799",
+                            GlobalId = new Guid("762f69bb-d8bd-458a-8a27-9c23c2e7af82"),
+                            LastUpdate = "133294124516592831",
                             PriceValue = 326.51f
                         },
                         new
@@ -550,8 +550,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 5,
                             PriceListId = 6,
                             Currency = "INR",
-                            GlobalId = new Guid("4d3bfecf-6700-4534-ad6f-ba26956d6333"),
-                            LastUpdate = "133294120548089815",
+                            GlobalId = new Guid("9bcd7e0e-4833-4c1d-88da-9056d433aad0"),
+                            LastUpdate = "133294124516592847",
                             PriceValue = 3721.11f
                         },
                         new
@@ -559,8 +559,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 5,
                             PriceListId = 7,
                             Currency = "JPY",
-                            GlobalId = new Guid("06dd754b-f9ec-4cbf-bfe9-206d377a7a50"),
-                            LastUpdate = "133294120548089830",
+                            GlobalId = new Guid("27f2aa3a-3cab-4365-999a-fc8123abea75"),
+                            LastUpdate = "133294124516592862",
                             PriceValue = 5503.05f
                         },
                         new
@@ -568,8 +568,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 6,
                             PriceListId = 1,
                             Currency = "RSD",
-                            GlobalId = new Guid("f1de492f-324c-40bf-84c9-db7d0743b30e"),
-                            LastUpdate = "133294120548089844",
+                            GlobalId = new Guid("ec9135ae-fdee-4a5b-bd42-0cb2bd99b144"),
+                            LastUpdate = "133294124516592878",
                             PriceValue = 7568.5f
                         },
                         new
@@ -577,8 +577,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 6,
                             PriceListId = 2,
                             Currency = "EUR",
-                            GlobalId = new Guid("c4d170b8-273a-4803-ac7a-d9587e55097f"),
-                            LastUpdate = "133294120548089859",
+                            GlobalId = new Guid("6a26ead0-6c7d-4b7e-ad9f-13f7426e727a"),
+                            LastUpdate = "133294124516592893",
                             PriceValue = 64.33f
                         },
                         new
@@ -586,8 +586,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 6,
                             PriceListId = 3,
                             Currency = "GBP",
-                            GlobalId = new Guid("3857a94b-ed25-4fd0-99fb-218b634f1a3c"),
-                            LastUpdate = "133294120548089873",
+                            GlobalId = new Guid("7c84f7a8-b45e-463b-a34d-c636c3f7db62"),
+                            LastUpdate = "133294124516592907",
                             PriceValue = 54.49f
                         },
                         new
@@ -595,8 +595,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 6,
                             PriceListId = 4,
                             Currency = "USD",
-                            GlobalId = new Guid("7a1c2a44-96c2-450e-b6f6-ec657648eb02"),
-                            LastUpdate = "133294120548089890",
+                            GlobalId = new Guid("baa48451-f1ec-498e-b213-d0dbdac9a51f"),
+                            LastUpdate = "133294124516592921",
                             PriceValue = 73.41f
                         },
                         new
@@ -604,8 +604,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 6,
                             PriceListId = 5,
                             Currency = "RMB",
-                            GlobalId = new Guid("1953a2e5-9986-425c-812d-e153b84eec32"),
-                            LastUpdate = "133294120548089905",
+                            GlobalId = new Guid("0720c017-93fa-4e52-8466-f88fc5acce85"),
+                            LastUpdate = "133294124516592969",
                             PriceValue = 471.52f
                         },
                         new
@@ -613,8 +613,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 6,
                             PriceListId = 6,
                             Currency = "INR",
-                            GlobalId = new Guid("b318981a-5042-4997-a56c-688aac5cf60b"),
-                            LastUpdate = "133294120548089919",
+                            GlobalId = new Guid("60d080d2-38ad-4247-a7a7-ade2c47829f2"),
+                            LastUpdate = "133294124516592985",
                             PriceValue = 5373.63f
                         },
                         new
@@ -622,8 +622,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 6,
                             PriceListId = 7,
                             Currency = "JPY",
-                            GlobalId = new Guid("f27fe3f8-619c-42d8-b82c-32f8628f726c"),
-                            LastUpdate = "133294120548089963",
+                            GlobalId = new Guid("5ccd86fb-e1a0-43b8-a59d-a00f6848d32e"),
+                            LastUpdate = "133294124516593000",
                             PriceValue = 7946.92f
                         },
                         new
@@ -631,8 +631,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 7,
                             PriceListId = 1,
                             Currency = "RSD",
-                            GlobalId = new Guid("78a83957-b0d5-4e65-ba64-16e5634462f4"),
-                            LastUpdate = "133294120548089980",
+                            GlobalId = new Guid("029668e4-e6e9-444b-b113-ba28b5979c2f"),
+                            LastUpdate = "133294124516593014",
                             PriceValue = 1953.75f
                         },
                         new
@@ -640,8 +640,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 7,
                             PriceListId = 2,
                             Currency = "EUR",
-                            GlobalId = new Guid("2bce7a6c-1810-43eb-b781-e995f58db26a"),
-                            LastUpdate = "133294120548089995",
+                            GlobalId = new Guid("0d1c70f3-ebab-4fbb-ae8d-b176e256ec3d"),
+                            LastUpdate = "133294124516593030",
                             PriceValue = 16.61f
                         },
                         new
@@ -649,8 +649,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 7,
                             PriceListId = 3,
                             Currency = "GBP",
-                            GlobalId = new Guid("3a3556fc-b279-4883-b031-aec375dab542"),
-                            LastUpdate = "133294120548090010",
+                            GlobalId = new Guid("898bdb73-41b2-4353-bfe4-0506d0575ba2"),
+                            LastUpdate = "133294124516593046",
                             PriceValue = 14.07f
                         },
                         new
@@ -658,8 +658,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 7,
                             PriceListId = 4,
                             Currency = "USD",
-                            GlobalId = new Guid("181be247-a519-407c-b9de-14e9c75eb833"),
-                            LastUpdate = "133294120548090025",
+                            GlobalId = new Guid("6f5c55db-de12-45b7-9de5-fdc8eec6e07d"),
+                            LastUpdate = "133294124516593060",
                             PriceValue = 18.95f
                         },
                         new
@@ -667,8 +667,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 7,
                             PriceListId = 5,
                             Currency = "RMB",
-                            GlobalId = new Guid("e1e454f9-9edc-417c-a7f8-9ad24e9e9e13"),
-                            LastUpdate = "133294120548090041",
+                            GlobalId = new Guid("f711a2ee-806f-4bbb-952e-d81064a44f4f"),
+                            LastUpdate = "133294124516593074",
                             PriceValue = 121.72f
                         },
                         new
@@ -676,8 +676,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 7,
                             PriceListId = 6,
                             Currency = "INR",
-                            GlobalId = new Guid("e86caa02-0144-4ecc-90de-abcad19b340b"),
-                            LastUpdate = "133294120548090056",
+                            GlobalId = new Guid("9f03ab39-9664-4209-bea4-f9d6c6770ac1"),
+                            LastUpdate = "133294124516593088",
                             PriceValue = 1387.16f
                         },
                         new
@@ -685,8 +685,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 7,
                             PriceListId = 7,
                             Currency = "JPY",
-                            GlobalId = new Guid("3a88e44a-d62f-4ded-9fe2-4e8af0e84914"),
-                            LastUpdate = "133294120548090071",
+                            GlobalId = new Guid("8802426d-967f-4813-9e2a-97755e1ddfc3"),
+                            LastUpdate = "133294124516593103",
                             PriceValue = 2051.44f
                         },
                         new
@@ -694,8 +694,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 8,
                             PriceListId = 1,
                             Currency = "RSD",
-                            GlobalId = new Guid("8c4d6aa2-89e2-4197-9031-123369cb67bf"),
-                            LastUpdate = "133294120548090085",
+                            GlobalId = new Guid("4b43344f-0909-40c9-9036-75dca636d96a"),
+                            LastUpdate = "133294124516593117",
                             PriceValue = 6546.5f
                         },
                         new
@@ -703,8 +703,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 8,
                             PriceListId = 2,
                             Currency = "EUR",
-                            GlobalId = new Guid("d31c8ef8-7725-4c0f-8155-a0e30c5307c1"),
-                            LastUpdate = "133294120548090100",
+                            GlobalId = new Guid("f971e36b-5476-42a1-8742-a707478e0d26"),
+                            LastUpdate = "133294124516593131",
                             PriceValue = 55.65f
                         },
                         new
@@ -712,8 +712,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 8,
                             PriceListId = 3,
                             Currency = "GBP",
-                            GlobalId = new Guid("00f7cac2-92e0-4644-8130-317465fd0ad0"),
-                            LastUpdate = "133294120548090115",
+                            GlobalId = new Guid("190e4445-d006-4ae4-9641-5a2be4b2ee50"),
+                            LastUpdate = "133294124516593147",
                             PriceValue = 47.13f
                         },
                         new
@@ -721,8 +721,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 8,
                             PriceListId = 4,
                             Currency = "USD",
-                            GlobalId = new Guid("7a2219b6-0b53-4ec8-a010-17ec7c0ebf92"),
-                            LastUpdate = "133294120548090129",
+                            GlobalId = new Guid("0c51b2e4-4501-448f-8402-8c2b7251814e"),
+                            LastUpdate = "133294124516593162",
                             PriceValue = 63.5f
                         },
                         new
@@ -730,8 +730,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 8,
                             PriceListId = 5,
                             Currency = "RMB",
-                            GlobalId = new Guid("3d860df0-8fa2-4501-8973-627d3c6f0025"),
-                            LastUpdate = "133294120548090144",
+                            GlobalId = new Guid("82a95b38-3ec8-47cf-96fe-7b4aaa1bb1cf"),
+                            LastUpdate = "133294124516593177",
                             PriceValue = 407.85f
                         },
                         new
@@ -739,8 +739,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 8,
                             PriceListId = 6,
                             Currency = "INR",
-                            GlobalId = new Guid("ea91b45c-0aad-4b4c-b8de-3747fa71f4a0"),
-                            LastUpdate = "133294120548090160",
+                            GlobalId = new Guid("8f7b5451-422f-4e2b-bd7e-2606c74fa13f"),
+                            LastUpdate = "133294124516593191",
                             PriceValue = 4648.01f
                         },
                         new
@@ -748,8 +748,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 8,
                             PriceListId = 7,
                             Currency = "JPY",
-                            GlobalId = new Guid("c3b26b98-d24d-48cd-842f-521c1ce2e6f4"),
-                            LastUpdate = "133294120548090175",
+                            GlobalId = new Guid("1c2e4499-7e90-4c50-be3d-217171236398"),
+                            LastUpdate = "133294124516593205",
                             PriceValue = 6873.82f
                         },
                         new
@@ -757,8 +757,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 9,
                             PriceListId = 1,
                             Currency = "RSD",
-                            GlobalId = new Guid("3b4c5d85-6d2d-410e-bcbc-2e00a4429a5a"),
-                            LastUpdate = "133294120548090189",
+                            GlobalId = new Guid("937d337d-eae6-4eda-9e8e-a3d1143c044a"),
+                            LastUpdate = "133294124516593220",
                             PriceValue = 4037f
                         },
                         new
@@ -766,8 +766,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 9,
                             PriceListId = 2,
                             Currency = "EUR",
-                            GlobalId = new Guid("2f8c5919-9e5c-49d2-bfbb-a4a704ae77ab"),
-                            LastUpdate = "133294120548090204",
+                            GlobalId = new Guid("a4b5e0c8-1543-4b44-8652-d57fb6ef648f"),
+                            LastUpdate = "133294124516593234",
                             PriceValue = 34.31f
                         },
                         new
@@ -775,8 +775,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 9,
                             PriceListId = 3,
                             Currency = "GBP",
-                            GlobalId = new Guid("bfc226b0-13dc-47a6-a1a7-ac5be49b3266"),
-                            LastUpdate = "133294120548090218",
+                            GlobalId = new Guid("5b68d6bb-5ead-4f9b-92ad-dc5b75b943bf"),
+                            LastUpdate = "133294124516593249",
                             PriceValue = 29.07f
                         },
                         new
@@ -784,8 +784,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 9,
                             PriceListId = 4,
                             Currency = "USD",
-                            GlobalId = new Guid("deaba8f4-324e-4f73-8e79-73ae70d27c43"),
-                            LastUpdate = "133294120548090232",
+                            GlobalId = new Guid("b2e3258c-f504-4ee1-a83b-7dd262c7a9b3"),
+                            LastUpdate = "133294124516593264",
                             PriceValue = 39.16f
                         },
                         new
@@ -793,8 +793,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 9,
                             PriceListId = 5,
                             Currency = "RMB",
-                            GlobalId = new Guid("6ef01671-4df2-4717-96c9-cbd5c56d54cc"),
-                            LastUpdate = "133294120548090247",
+                            GlobalId = new Guid("fd9b0556-3ed1-4c2a-afaf-198923f54370"),
+                            LastUpdate = "133294124516593279",
                             PriceValue = 251.51f
                         },
                         new
@@ -802,8 +802,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 9,
                             PriceListId = 6,
                             Currency = "INR",
-                            GlobalId = new Guid("a0129533-ed6d-45de-b4ed-2a042563e4c9"),
-                            LastUpdate = "133294120548090261",
+                            GlobalId = new Guid("b5fd513f-5e4d-454b-b4b6-e973f0223ffd"),
+                            LastUpdate = "133294124516593325",
                             PriceValue = 2866.27f
                         },
                         new
@@ -811,8 +811,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 9,
                             PriceListId = 7,
                             Currency = "JPY",
-                            GlobalId = new Guid("8ac47f49-f688-4b74-be34-3aba2a9036ba"),
-                            LastUpdate = "133294120548090278",
+                            GlobalId = new Guid("e7297730-6851-474a-8b3d-07ebf15b3fbf"),
+                            LastUpdate = "133294124516593341",
                             PriceValue = 4238.85f
                         },
                         new
@@ -820,8 +820,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 10,
                             PriceListId = 1,
                             Currency = "RSD",
-                            GlobalId = new Guid("990879c5-a46d-436e-a5fe-0e0fd10a2ed6"),
-                            LastUpdate = "133294120548090341",
+                            GlobalId = new Guid("9f4787d1-eebe-437a-9d00-5ee92a584050"),
+                            LastUpdate = "133294124516593355",
                             PriceValue = 8614.5f
                         },
                         new
@@ -829,8 +829,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 10,
                             PriceListId = 2,
                             Currency = "EUR",
-                            GlobalId = new Guid("48fcaab6-66e7-4a35-9f5f-1388b03c75d8"),
-                            LastUpdate = "133294120548090361",
+                            GlobalId = new Guid("76f3ce67-6013-4487-85c7-d281202bd256"),
+                            LastUpdate = "133294124516593369",
                             PriceValue = 73.22f
                         },
                         new
@@ -838,8 +838,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 10,
                             PriceListId = 3,
                             Currency = "GBP",
-                            GlobalId = new Guid("cda6717c-5d77-4043-9250-b1875b14079f"),
-                            LastUpdate = "133294120548090377",
+                            GlobalId = new Guid("9ca1eef3-d7ac-43b1-8e3f-5e545a0a4b64"),
+                            LastUpdate = "133294124516593386",
                             PriceValue = 62.02f
                         },
                         new
@@ -847,8 +847,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 10,
                             PriceListId = 4,
                             Currency = "USD",
-                            GlobalId = new Guid("05490fa5-4694-4f53-805a-29111c8f9293"),
-                            LastUpdate = "133294120548090392",
+                            GlobalId = new Guid("75f9de70-e17c-47ec-b0f7-747931e6e4b2"),
+                            LastUpdate = "133294124516593400",
                             PriceValue = 83.56f
                         },
                         new
@@ -856,8 +856,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 10,
                             PriceListId = 5,
                             Currency = "RMB",
-                            GlobalId = new Guid("6143f308-2384-406a-936e-a68ac6345192"),
-                            LastUpdate = "133294120548090406",
+                            GlobalId = new Guid("44e01457-8048-42b9-bf4a-cf7b3d88933c"),
+                            LastUpdate = "133294124516593417",
                             PriceValue = 536.68f
                         },
                         new
@@ -865,8 +865,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 10,
                             PriceListId = 6,
                             Currency = "INR",
-                            GlobalId = new Guid("29b83926-cc80-47fe-9597-bd9a38c3cf14"),
-                            LastUpdate = "133294120548090420",
+                            GlobalId = new Guid("0751fb76-3800-49fb-9e27-144ce75e2957"),
+                            LastUpdate = "133294124516593431",
                             PriceValue = 6116.29f
                         },
                         new
@@ -874,8 +874,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 10,
                             PriceListId = 7,
                             Currency = "JPY",
-                            GlobalId = new Guid("d789e092-f6ba-4156-a857-88030fb67f77"),
-                            LastUpdate = "133294120548090434",
+                            GlobalId = new Guid("875c248d-ae7a-465e-8d81-48cc9abb1cbf"),
+                            LastUpdate = "133294124516593446",
                             PriceValue = 9045.22f
                         },
                         new
@@ -883,8 +883,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 11,
                             PriceListId = 1,
                             Currency = "RSD",
-                            GlobalId = new Guid("edd71760-bff6-492f-8949-f190423d02b0"),
-                            LastUpdate = "133294120548090451",
+                            GlobalId = new Guid("ed5f78b6-1529-4ad9-be36-04759f1df9f7"),
+                            LastUpdate = "133294124516593461",
                             PriceValue = 1386.5f
                         },
                         new
@@ -892,8 +892,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 11,
                             PriceListId = 2,
                             Currency = "EUR",
-                            GlobalId = new Guid("c4a77347-2a5d-4543-b701-af9ef5c9e2a0"),
-                            LastUpdate = "133294120548090465",
+                            GlobalId = new Guid("0be11327-7f12-40ee-a0e0-4035a2e8cab2"),
+                            LastUpdate = "133294124516593475",
                             PriceValue = 11.79f
                         },
                         new
@@ -901,8 +901,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 11,
                             PriceListId = 3,
                             Currency = "GBP",
-                            GlobalId = new Guid("ec53ad64-4d5f-4870-8dc0-1aa9786899ab"),
-                            LastUpdate = "133294120548090480",
+                            GlobalId = new Guid("0fcb4b4c-a774-45dd-a5cd-e8cf5e81809c"),
+                            LastUpdate = "133294124516593490",
                             PriceValue = 9.98f
                         },
                         new
@@ -910,8 +910,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 11,
                             PriceListId = 4,
                             Currency = "USD",
-                            GlobalId = new Guid("f8e34bf4-20f9-4f26-9ef9-a374b2d8052a"),
-                            LastUpdate = "133294120548090494",
+                            GlobalId = new Guid("71d46f26-a754-4f1e-a6fb-9b382c29e720"),
+                            LastUpdate = "133294124516593504",
                             PriceValue = 13.45f
                         },
                         new
@@ -919,8 +919,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 11,
                             PriceListId = 5,
                             Currency = "RMB",
-                            GlobalId = new Guid("a62cfdb4-63b8-4c41-bfcc-653a0f68a718"),
-                            LastUpdate = "133294120548090509",
+                            GlobalId = new Guid("46cfab78-f1d3-4806-8f42-16629d48c1ac"),
+                            LastUpdate = "133294124516593518",
                             PriceValue = 86.38f
                         },
                         new
@@ -928,8 +928,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 11,
                             PriceListId = 6,
                             Currency = "INR",
-                            GlobalId = new Guid("bce0c9f7-cc95-44fa-8f33-8b47de9cf101"),
-                            LastUpdate = "133294120548090524",
+                            GlobalId = new Guid("3038feb2-f4df-4e74-9696-13772386a8be"),
+                            LastUpdate = "133294124516593534",
                             PriceValue = 984.41f
                         },
                         new
@@ -937,8 +937,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 11,
                             PriceListId = 7,
                             Currency = "JPY",
-                            GlobalId = new Guid("6b812f27-dce7-4bb6-93b7-81ff0ff8d037"),
-                            LastUpdate = "133294120548090538",
+                            GlobalId = new Guid("9119a34d-9ca6-4b33-8e27-497c15ba94a1"),
+                            LastUpdate = "133294124516593549",
                             PriceValue = 1455.82f
                         },
                         new
@@ -946,8 +946,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 12,
                             PriceListId = 1,
                             Currency = "RSD",
-                            GlobalId = new Guid("bbdc2544-aa80-4c0b-a4d6-72378a94efff"),
-                            LastUpdate = "133294120548090552",
+                            GlobalId = new Guid("5531e261-4d61-4dd5-a0f1-d785836429bd"),
+                            LastUpdate = "133294124516593563",
                             PriceValue = 5970.5f
                         },
                         new
@@ -955,8 +955,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 12,
                             PriceListId = 2,
                             Currency = "EUR",
-                            GlobalId = new Guid("ae3c8fed-f27e-41fa-b12a-d2691840d34f"),
-                            LastUpdate = "133294120548090569",
+                            GlobalId = new Guid("7013ab56-0cb7-44cf-b2e7-68dffa5f73f7"),
+                            LastUpdate = "133294124516593577",
                             PriceValue = 50.75f
                         },
                         new
@@ -964,8 +964,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 12,
                             PriceListId = 3,
                             Currency = "GBP",
-                            GlobalId = new Guid("1b6d6365-9aea-4b83-96db-ac7b7b335270"),
-                            LastUpdate = "133294120548090584",
+                            GlobalId = new Guid("c4f860dc-f537-4ddf-ae16-c0b4a3c045a8"),
+                            LastUpdate = "133294124516593592",
                             PriceValue = 42.99f
                         },
                         new
@@ -973,8 +973,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 12,
                             PriceListId = 4,
                             Currency = "USD",
-                            GlobalId = new Guid("e786fb29-a909-45ff-80c9-c101b35877a7"),
-                            LastUpdate = "133294120548090598",
+                            GlobalId = new Guid("41ee6aa6-ed8c-4f58-a250-4c8b733c19ae"),
+                            LastUpdate = "133294124516593639",
                             PriceValue = 57.91f
                         },
                         new
@@ -982,8 +982,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 12,
                             PriceListId = 5,
                             Currency = "RMB",
-                            GlobalId = new Guid("0d81cfc0-76d6-442c-8429-0e2ae905e05e"),
-                            LastUpdate = "133294120548090612",
+                            GlobalId = new Guid("1064cfcd-e796-4a7a-b309-1731c5f70610"),
+                            LastUpdate = "133294124516593656",
                             PriceValue = 371.96f
                         },
                         new
@@ -991,8 +991,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 12,
                             PriceListId = 6,
                             Currency = "INR",
-                            GlobalId = new Guid("9128f8f3-9dde-4771-bb8b-a2551bd5a576"),
-                            LastUpdate = "133294120548090626",
+                            GlobalId = new Guid("4b23c446-48b9-4c93-94e5-a955ac3f7461"),
+                            LastUpdate = "133294124516593670",
                             PriceValue = 4239.05f
                         },
                         new
@@ -1000,8 +1000,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 12,
                             PriceListId = 7,
                             Currency = "JPY",
-                            GlobalId = new Guid("34cd0a26-53a1-4804-a649-90747fa8e8d9"),
-                            LastUpdate = "133294120548090672",
+                            GlobalId = new Guid("0108f0ec-5c8e-41d1-97d8-ceb2ef00d04b"),
+                            LastUpdate = "133294124516593686",
                             PriceValue = 6269.02f
                         },
                         new
@@ -1009,8 +1009,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 13,
                             PriceListId = 1,
                             Currency = "RSD",
-                            GlobalId = new Guid("8d7703a1-4bb4-4a18-869e-81f1db487865"),
-                            LastUpdate = "133294120548090687",
+                            GlobalId = new Guid("9ff506ab-0c39-47a5-bb4a-ac18cadf5b49"),
+                            LastUpdate = "133294124516593701",
                             PriceValue = 3177.25f
                         },
                         new
@@ -1018,8 +1018,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 13,
                             PriceListId = 2,
                             Currency = "EUR",
-                            GlobalId = new Guid("d4d13d3f-34a2-4b81-bd55-c77d69b3b65a"),
-                            LastUpdate = "133294120548090702",
+                            GlobalId = new Guid("2f4963d8-ab85-4988-91db-bbfa084bf84f"),
+                            LastUpdate = "133294124516593715",
                             PriceValue = 27.01f
                         },
                         new
@@ -1027,8 +1027,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 13,
                             PriceListId = 3,
                             Currency = "GBP",
-                            GlobalId = new Guid("12c5b02a-2e95-4449-80fe-95a07389a0ad"),
-                            LastUpdate = "133294120548090718",
+                            GlobalId = new Guid("d568839a-71dd-477f-93ca-9e114f61b8cc"),
+                            LastUpdate = "133294124516593729",
                             PriceValue = 22.88f
                         },
                         new
@@ -1036,8 +1036,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 13,
                             PriceListId = 4,
                             Currency = "USD",
-                            GlobalId = new Guid("5fa4c9a3-92c4-477a-8073-01b22d162a94"),
-                            LastUpdate = "133294120548090733",
+                            GlobalId = new Guid("a5ec2228-b3e7-4492-81ed-d13a1d5bf3c5"),
+                            LastUpdate = "133294124516593744",
                             PriceValue = 30.82f
                         },
                         new
@@ -1045,8 +1045,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 13,
                             PriceListId = 5,
                             Currency = "RMB",
-                            GlobalId = new Guid("c1803f12-f315-4862-8f11-5a8b07db5165"),
-                            LastUpdate = "133294120548090747",
+                            GlobalId = new Guid("279b9e2b-5636-46c5-9449-0d84e51517c8"),
+                            LastUpdate = "133294124516593758",
                             PriceValue = 197.94f
                         },
                         new
@@ -1054,8 +1054,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 13,
                             PriceListId = 6,
                             Currency = "INR",
-                            GlobalId = new Guid("307698c5-72e6-4861-ba6d-2aa0fa16acd6"),
-                            LastUpdate = "133294120548090762",
+                            GlobalId = new Guid("2dc695a6-fe5a-4f45-ab71-3c1ff48fc8e0"),
+                            LastUpdate = "133294124516593772",
                             PriceValue = 2255.85f
                         },
                         new
@@ -1063,8 +1063,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 13,
                             PriceListId = 7,
                             Currency = "JPY",
-                            GlobalId = new Guid("6d0ac40d-61d6-433f-8896-e87214615790"),
-                            LastUpdate = "133294120548090776",
+                            GlobalId = new Guid("d41176ad-ce27-4e45-840e-0f28de3d7a84"),
+                            LastUpdate = "133294124516593786",
                             PriceValue = 3336.11f
                         },
                         new
@@ -1072,8 +1072,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 14,
                             PriceListId = 1,
                             Currency = "RSD",
-                            GlobalId = new Guid("5ae52256-bbe4-4370-b7d2-fd60f9a53160"),
-                            LastUpdate = "133294120548090790",
+                            GlobalId = new Guid("0a1f6069-266d-4bf6-923e-88643c5f469c"),
+                            LastUpdate = "133294124516593802",
                             PriceValue = 9264.75f
                         },
                         new
@@ -1081,8 +1081,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 14,
                             PriceListId = 2,
                             Currency = "EUR",
-                            GlobalId = new Guid("024503ec-0e40-48f5-80fd-56c045dea65f"),
-                            LastUpdate = "133294120548090804",
+                            GlobalId = new Guid("5389e098-792c-4631-9ddb-add32b52296e"),
+                            LastUpdate = "133294124516593817",
                             PriceValue = 78.75f
                         },
                         new
@@ -1090,8 +1090,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 14,
                             PriceListId = 3,
                             Currency = "GBP",
-                            GlobalId = new Guid("aa7640fe-fb46-4434-ab6d-2c28fdc1ebdf"),
-                            LastUpdate = "133294120548090819",
+                            GlobalId = new Guid("e0f5ad1d-78ba-4dcb-ac1c-3190ee715a2a"),
+                            LastUpdate = "133294124516593832",
                             PriceValue = 66.71f
                         },
                         new
@@ -1099,8 +1099,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 14,
                             PriceListId = 4,
                             Currency = "USD",
-                            GlobalId = new Guid("7f69ed09-ca80-4f3d-bce0-03a2c6198ee3"),
-                            LastUpdate = "133294120548090835",
+                            GlobalId = new Guid("4d58e5ab-df16-411b-9145-4f039efea11c"),
+                            LastUpdate = "133294124516593846",
                             PriceValue = 89.87f
                         },
                         new
@@ -1108,8 +1108,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 14,
                             PriceListId = 5,
                             Currency = "RMB",
-                            GlobalId = new Guid("b33e01b0-13a0-4232-91d7-19a0abb72836"),
-                            LastUpdate = "133294120548090849",
+                            GlobalId = new Guid("ead22f44-573e-42be-92af-4ab80c338965"),
+                            LastUpdate = "133294124516593860",
                             PriceValue = 577.19f
                         },
                         new
@@ -1117,8 +1117,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 14,
                             PriceListId = 6,
                             Currency = "INR",
-                            GlobalId = new Guid("b300e455-387b-4c66-888b-a090cb07bfca"),
-                            LastUpdate = "133294120548090864",
+                            GlobalId = new Guid("c6003f5d-e50c-4714-88d0-e9cfbf46d28d"),
+                            LastUpdate = "133294124516593874",
                             PriceValue = 6577.97f
                         },
                         new
@@ -1126,8 +1126,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 14,
                             PriceListId = 7,
                             Currency = "JPY",
-                            GlobalId = new Guid("0958b354-c5fb-42fb-a8c5-5b8d35816b22"),
-                            LastUpdate = "133294120548090878",
+                            GlobalId = new Guid("efbbddca-1040-40d1-b5f7-27170918ed58"),
+                            LastUpdate = "133294124516593889",
                             PriceValue = 9727.99f
                         },
                         new
@@ -1135,8 +1135,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 15,
                             PriceListId = 1,
                             Currency = "RSD",
-                            GlobalId = new Guid("d345a242-0616-41b2-980c-0f1f3c14ac41"),
-                            LastUpdate = "133294120548090892",
+                            GlobalId = new Guid("013a6fec-ee0d-4242-8239-6eab52cb4248"),
+                            LastUpdate = "133294124516593903",
                             PriceValue = 7812f
                         },
                         new
@@ -1144,8 +1144,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 15,
                             PriceListId = 2,
                             Currency = "EUR",
-                            GlobalId = new Guid("3b568f26-2fc9-4737-93ca-6d7bb7842bfe"),
-                            LastUpdate = "133294120548090907",
+                            GlobalId = new Guid("5c42be4f-5a3a-4760-949a-4ae178f42e3d"),
+                            LastUpdate = "133294124516593919",
                             PriceValue = 66.4f
                         },
                         new
@@ -1153,8 +1153,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 15,
                             PriceListId = 3,
                             Currency = "GBP",
-                            GlobalId = new Guid("56d9ae5f-7dfc-4d5b-97c3-b01de5202f3e"),
-                            LastUpdate = "133294120548090921",
+                            GlobalId = new Guid("59a1db88-358a-48f1-b611-25b9ffac0a28"),
+                            LastUpdate = "133294124516593934",
                             PriceValue = 56.25f
                         },
                         new
@@ -1162,8 +1162,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 15,
                             PriceListId = 4,
                             Currency = "USD",
-                            GlobalId = new Guid("3d9b033c-cbf5-436a-a309-f76908bb0e74"),
-                            LastUpdate = "133294120548090935",
+                            GlobalId = new Guid("fcdd5f3a-5031-47c8-9a1b-172d980c3fe7"),
+                            LastUpdate = "133294124516593948",
                             PriceValue = 75.78f
                         },
                         new
@@ -1171,8 +1171,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 15,
                             PriceListId = 5,
                             Currency = "RMB",
-                            GlobalId = new Guid("63176c83-5ba3-4fa9-a86d-570cfb0d5f56"),
-                            LastUpdate = "133294120548090951",
+                            GlobalId = new Guid("71d34311-3b81-44e6-8854-64e77e55a242"),
+                            LastUpdate = "133294124516593992",
                             PriceValue = 486.69f
                         },
                         new
@@ -1180,8 +1180,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 15,
                             PriceListId = 6,
                             Currency = "INR",
-                            GlobalId = new Guid("87f24255-fdd3-43a5-9f92-bdf1cecb0fe9"),
-                            LastUpdate = "133294120548090966",
+                            GlobalId = new Guid("e55456ef-66d1-4c50-9e97-60eb765e3571"),
+                            LastUpdate = "133294124516594010",
                             PriceValue = 5546.52f
                         },
                         new
@@ -1189,8 +1189,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 15,
                             PriceListId = 7,
                             Currency = "JPY",
-                            GlobalId = new Guid("ac8ea95f-6fc0-4607-8bcf-ad169f5b960e"),
-                            LastUpdate = "133294120548090980",
+                            GlobalId = new Guid("545837f3-6fc2-4786-b934-c868f38cec6c"),
+                            LastUpdate = "133294124516594024",
                             PriceValue = 8202.6f
                         },
                         new
@@ -1198,8 +1198,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 16,
                             PriceListId = 1,
                             Currency = "RSD",
-                            GlobalId = new Guid("e6234bb5-58b4-4dbd-85b8-d3377233d0bc"),
-                            LastUpdate = "133294120548091028",
+                            GlobalId = new Guid("65b987c7-f023-41f2-b8b4-b7bc799a596e"),
+                            LastUpdate = "133294124516594039",
                             PriceValue = 2985.25f
                         },
                         new
@@ -1207,8 +1207,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 16,
                             PriceListId = 2,
                             Currency = "EUR",
-                            GlobalId = new Guid("46c8316c-556d-4961-94f8-d54fd320d723"),
-                            LastUpdate = "133294120548091044",
+                            GlobalId = new Guid("45d2338d-c6fc-42df-bf95-9e42fef344c2"),
+                            LastUpdate = "133294124516594053",
                             PriceValue = 25.37f
                         },
                         new
@@ -1216,8 +1216,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 16,
                             PriceListId = 3,
                             Currency = "GBP",
-                            GlobalId = new Guid("84f7fbd6-b718-4293-889f-e5456090f14d"),
-                            LastUpdate = "133294120548091059",
+                            GlobalId = new Guid("226d1b59-f1f3-4759-8fe3-c096808289c4"),
+                            LastUpdate = "133294124516594070",
                             PriceValue = 21.49f
                         },
                         new
@@ -1225,8 +1225,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 16,
                             PriceListId = 4,
                             Currency = "USD",
-                            GlobalId = new Guid("1937ecf9-e4b5-4d2f-9a0a-9a38dac51a35"),
-                            LastUpdate = "133294120548091073",
+                            GlobalId = new Guid("b9d8a18e-cdf3-4727-9ab3-f4a885a499fe"),
+                            LastUpdate = "133294124516594084",
                             PriceValue = 28.96f
                         },
                         new
@@ -1234,8 +1234,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 16,
                             PriceListId = 5,
                             Currency = "RMB",
-                            GlobalId = new Guid("99926c08-b6f7-4445-a49b-2cb7010fc76d"),
-                            LastUpdate = "133294120548091087",
+                            GlobalId = new Guid("74291caa-8218-4b44-b77f-dd4f33e67fd8"),
+                            LastUpdate = "133294124516594099",
                             PriceValue = 185.98f
                         },
                         new
@@ -1243,8 +1243,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 16,
                             PriceListId = 6,
                             Currency = "INR",
-                            GlobalId = new Guid("280c3b84-675c-4f15-9b46-c1226344c023"),
-                            LastUpdate = "133294120548091103",
+                            GlobalId = new Guid("e4a09eb0-047c-4b8a-a89f-eac03b8575a6"),
+                            LastUpdate = "133294124516594113",
                             PriceValue = 2119.53f
                         },
                         new
@@ -1252,8 +1252,8 @@ namespace Levi9.ERP.Domain.Migrations
                             ProductId = 16,
                             PriceListId = 7,
                             Currency = "JPY",
-                            GlobalId = new Guid("b72368ac-cd74-48ad-8c3a-a2fbed421c15"),
-                            LastUpdate = "133294120548091118",
+                            GlobalId = new Guid("ce84f6f4-66cc-4997-aa6e-1e7792a73ba6"),
+                            LastUpdate = "133294124516594127",
                             PriceValue = 3134.51f
                         });
                 });
@@ -1335,49 +1335,49 @@ namespace Levi9.ERP.Domain.Migrations
                         new
                         {
                             Id = 8,
-                            GlobalId = new Guid("83a7470b-03db-48da-b5c2-be5173fab193"),
+                            GlobalId = new Guid("4a3cf575-b6bf-416a-84d3-72f9be1530c9"),
                             LastUpdate = "634792557112051697",
                             Name = "RSD 2 Price List"
                         },
                         new
                         {
                             Id = 9,
-                            GlobalId = new Guid("1454ad88-ca65-41be-9467-1363507a94ab"),
+                            GlobalId = new Guid("3cb95d3c-12c1-4d85-99d1-6e115de1ae7b"),
                             LastUpdate = "634792557112051698",
                             Name = "EUR 2 Price List"
                         },
                         new
                         {
                             Id = 10,
-                            GlobalId = new Guid("3114766f-bb82-4b80-bcab-fab12422b526"),
+                            GlobalId = new Guid("dfec18a3-c756-4a65-a680-05f280f3cf72"),
                             LastUpdate = "634792557112051699",
                             Name = "GBP 2 Price List"
                         },
                         new
                         {
                             Id = 11,
-                            GlobalId = new Guid("a48e16ce-af75-49b6-a084-ae4dd9f1372f"),
+                            GlobalId = new Guid("7212f0f2-22c0-4a00-8e35-1edb1193c6e1"),
                             LastUpdate = "634792557112051701",
                             Name = "USD 2 Price List"
                         },
                         new
                         {
                             Id = 12,
-                            GlobalId = new Guid("4c520af1-6d25-41c9-9876-7459fc7ca051"),
+                            GlobalId = new Guid("3c798b1b-849d-41c9-b8dd-916f542e170c"),
                             LastUpdate = "634792557112051702",
                             Name = "RMB 2 Price List"
                         },
                         new
                         {
                             Id = 13,
-                            GlobalId = new Guid("6a1f457f-8427-4e1f-b564-8006dea1d006"),
+                            GlobalId = new Guid("b7558651-e751-4385-b6e9-a3574692f71b"),
                             LastUpdate = "634792557112051703",
                             Name = "INR 2 Price List"
                         },
                         new
                         {
                             Id = 14,
-                            GlobalId = new Guid("dd4f671a-a42a-44aa-8d18-33ae9d34047e"),
+                            GlobalId = new Guid("86377c6d-1075-40fc-a49b-35c4cca9b53c"),
                             LastUpdate = "634792557112051704",
                             Name = "JPY 2 Price List"
                         });
