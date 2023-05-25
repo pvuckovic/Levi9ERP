@@ -78,11 +78,38 @@ namespace Levi9.ERP.Domain.Repositories
         {
             _logger.LogInformation("Entering {FunctionName} in DocumentRepository. Timestamp: {Timestamp}.", nameof(UpdateDocument), DateTime.UtcNow);
             Document documentMap = _mapper.Map<Document>(document);
-            var updatedDocument = await _context.Documents.FirstOrDefaultAsync(d => d.GlobalId == document.GlobalId);
-            updatedDocument.LastUpdate = document.LastUpdate;
+            var existingDocument = await _context.Documents.Include(p => p.ProductDocuments).FirstOrDefaultAsync(d => d.GlobalId == document.GlobalId);
+            //documentMap.ProductDocuments = await _context.ProductDocuments.Where(pd => pd.DocumentId == existingDocument.Id).ToListAsync();
+            documentMap.LastUpdate = DateTime.Now.ToFileTimeUtc().ToString();
+            documentMap.ProductDocuments.ForEach(x => x.DocumentId = existingDocument.Id);
+            foreach (var article in existingDocument.ProductDocuments)
+            {
+
+                article.PriceValue = documentMap.ProductDocuments.FirstOrDefault(x => x.DocumentId == existingDocument.Id && x.ProductId == article.ProductId).PriceValue;
+            }
+            if (existingDocument != null)
+            {
+                _logger.LogInformation("Updating document in {FunctionName} of DocumentRepository. Timestamp: {Timestamp}.", nameof(UpdateDocument), DateTime.UtcNow);
+                return await UpdateDocument(existingDocument, documentMap);
+            }
+            else
+            {
+                _logger.LogInformation("No updated products in {FunctionName} of ProductRepository. Timestamp: {Timestamp}.", nameof(UpdateDocument), DateTime.UtcNow);
+                return null;
+            }
+        }
+
+        private async Task<Document> UpdateDocument(Document contextDocument, Document newDocument)
+        {
+            _logger.LogInformation("Entering {FunctionName} in DocumentRepository. Timestamp: {Timestamp}.", nameof(UpdateDocument), DateTime.UtcNow);
+            contextDocument.GlobalId = newDocument.GlobalId;
+            contextDocument.DocumentType = newDocument.DocumentType;
+            contextDocument.LastUpdate = newDocument.LastUpdate;
+            //contextDocument.ProductDocuments = newDocument.ProductDocuments;
+            //contextDocument.ProductDocuments.ForEach(x => x.DocumentId = contextDocument.Id);
             await _context.SaveChangesAsync();
-            _logger.LogInformation("Retrieving confirmation of updated document in {FunctionName} of DocumentRepository. Timestamp: {Timestamp}.", nameof(UpdateDocument), DateTime.UtcNow);
-            return documentMap;
+            _logger.LogInformation("Retrieving lastUpdate in {FunctionName} of DocumentRepository. Timestamp: {Timestamp}.", nameof(UpdateDocument), DateTime.UtcNow);
+            return contextDocument;
         }
 
         public async Task<bool> DoesDocumentByGlobalIdExists(Guid globalId)

@@ -97,6 +97,7 @@ namespace Levi9.ERP.Controllers
         }
 
         [HttpPost("sync")]
+        [AllowAnonymous]
         public async Task<IActionResult> SyncDocuments(List<DocumentSyncRequest> documents)
         {
             _logger.LogInformation("Entering {FunctionName} in DocumentController. Timestamp: {Timestamp}.", nameof(SyncDocuments), DateTime.UtcNow);
@@ -110,6 +111,8 @@ namespace Levi9.ERP.Controllers
             }
             _logger.LogInformation("Documents updated successfully in {FunctionName} of DocumentController. Timestamp: {Timestamp}.", nameof(SyncDocuments), DateTime.UtcNow);
             return Ok(result);
+        }
+
         [HttpGet("All")]
         public async Task<IActionResult> GetAllDocuments()
         {
