@@ -18,6 +18,7 @@ namespace Levi9.ERP.Datas.Requests
         [Required, StringLength(50)]
         [RegularExpression(@"^(\d{10})$", ErrorMessage = "Wrong phone number")]
         public string Phone { get; set; }
+        public string LastUpdate { get; set; }
         public int PriceListId { get; set; } = 1;
     }
 }

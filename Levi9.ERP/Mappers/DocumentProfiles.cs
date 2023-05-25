@@ -3,6 +3,7 @@ using Levi9.ERP.Datas.Requests;
 using Levi9.ERP.Datas.Responses;
 using Levi9.ERP.Domain.Models;
 using Levi9.ERP.Domain.Models.DTO;
+using Levi9.ERP.Domain.Models.DTO.DocumentDto;
 
 namespace Levi9.ERP.Mappers
 {
@@ -22,6 +23,13 @@ namespace Levi9.ERP.Mappers
                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                .ReverseMap();
             CreateMap<SearchDocumentRequest, SearchDocumentDTO>();
+            //Sync documents
+            CreateMap<DocumentSyncRequest, DocumentSyncDTO>();
+            CreateMap<DocumentItemSyncRequest, DocumentItemSyncDTO>();
+            CreateMap<DocumentSyncDTO, DocumentDTO>()
+                            .ForMember(dest => dest.ClientId, opt => opt.Ignore());
+            CreateMap<DocumentItemSyncDTO, DocumentItemDTO>()
+                            .ForMember(dest => dest.ProductId, opt => opt.Ignore());
         }
     }
 }
