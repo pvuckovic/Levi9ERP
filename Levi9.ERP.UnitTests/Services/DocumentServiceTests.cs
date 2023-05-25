@@ -1,5 +1,7 @@
-﻿using Levi9.ERP.Domain.Models;
+﻿using AutoMapper;
+using Levi9.ERP.Domain.Models;
 using Levi9.ERP.Domain.Models.DTO;
+using Levi9.ERP.Domain.Models.DTO.DocumentDto;
 using Levi9.ERP.Domain.Repositories;
 using Levi9.ERP.Domain.Services;
 using Microsoft.Extensions.Logging;
@@ -11,19 +13,21 @@ namespace Levi9.ERP.UnitTests.Services
     public class DocumentServiceTests
     {
         private Mock<IDocumentRepository> _documentMockRepository;
-        private Mock<IClientService> _clientMockRepository;
+        private Mock<IClientRepository> _clientMockRepository;
         private Mock<IProductRepository> _productMockRepository;
         private DocumentService _documentService;
         private Mock<ILogger<DocumentService>> _loggerMock;
+        private Mock<IMapper> _mapper;
 
         [SetUp]
         public void SetUp()
         {
             _documentMockRepository = new Mock<IDocumentRepository>();
             _loggerMock = new Mock<ILogger<DocumentService>>();
-            _documentService = new DocumentService(_documentMockRepository.Object, _loggerMock.Object);
-            _clientMockRepository = new Mock<IClientService>();
+            _clientMockRepository = new Mock<IClientRepository>();
             _productMockRepository = new Mock<IProductRepository>();
+            _mapper = new Mock<IMapper>();
+            _documentService = new DocumentService(_documentMockRepository.Object, _clientMockRepository.Object, _productMockRepository.Object, _loggerMock.Object, _mapper.Object);
         }
 
         [Test]
@@ -213,6 +217,146 @@ namespace Levi9.ERP.UnitTests.Services
 
             Assert.That(result, Is.InstanceOf<List<DocumentDTO>>());
             Assert.IsEmpty(result);
+        }
+
+        [Test]
+        public async Task SyncDocuments_DocumentExists_UpdatesDocumentAndReturnsLastUpdate()
+        {
+            // Arrange
+            var documents = new List<DocumentSyncDTO>
+            {
+                new DocumentSyncDTO
+                {
+                    LastUpdate = "2023-05-24",
+                    GlobalId = Guid.NewGuid(),
+                    ClientId = Guid.NewGuid(),
+                    Items = new List<DocumentItemSyncDTO>
+                    {
+                        new DocumentItemSyncDTO
+                        {
+                            ProductId = Guid.NewGuid(),
+
+                        },
+                        new DocumentItemSyncDTO
+                        {
+                            ProductId = Guid.NewGuid(),
+
+                        }
+                    }
+                }
+            };
+
+            var document = new DocumentDTO
+            {
+                LastUpdate = "2023-05-24",
+                GlobalId = Guid.NewGuid(),
+                Id = 0,
+                Items = new List<DocumentItemDTO>
+                {
+                    new DocumentItemDTO
+                    {
+                        ProductId = 2
+                    },
+                    new DocumentItemDTO
+                    {
+                        ProductId = 1,
+                    },
+                }
+            };
+
+            var clientId = 123; // Example client ID
+            var productIds = new List<int> { 456, 789 }; // Example product IDs
+            var lastUpdate = "2023-05-24"; // Example last update value
+
+            _mapper.Setup(x => x.Map<DocumentDTO>(It.IsAny<DocumentSyncDTO>()))
+                .Returns(document);
+
+            _clientMockRepository.Setup(x => x.GetClientIdFromClientGlobalId(It.IsAny<Guid>()))
+                .ReturnsAsync(clientId);
+
+            _productMockRepository.SetupSequence(x => x.GetProductIdFromProductGlobalId(It.IsAny<Guid>()))
+                .ReturnsAsync(productIds[0])
+                .ReturnsAsync(productIds[1]);
+
+            _documentMockRepository.Setup(x => x.DoesDocumentByGlobalIdExists(It.IsAny<Guid>()))
+                .ReturnsAsync(true);
+            // Act
+            var result = await _documentService.SyncDocuments(documents);
+
+            // Assert
+            Assert.AreEqual(lastUpdate, result);
+            _documentMockRepository.Verify(x => x.UpdateDocument(document), Times.Once);
+        }
+
+        [Test]
+        public async Task SyncDocuments_DocumentDoesNotExist_AddsDocumentAndReturnsLastUpdate()
+        {
+            // Arrange
+            var documents = new List<DocumentSyncDTO>
+            {
+                new DocumentSyncDTO
+                {
+                    LastUpdate = "2023-05-24",
+                    GlobalId = Guid.NewGuid(),
+                    ClientId = Guid.NewGuid(),
+                    Items = new List<DocumentItemSyncDTO>
+                    {
+                        new DocumentItemSyncDTO
+                        {
+                            ProductId = Guid.NewGuid(),
+
+                        },
+                        new DocumentItemSyncDTO
+                        {
+                            ProductId = Guid.NewGuid(),
+
+                        }
+                    }
+                }
+            };
+
+            var document = new DocumentDTO
+            {
+                LastUpdate = "2023-05-24",
+                GlobalId = Guid.NewGuid(),
+                Id = 0,
+                Items = new List<DocumentItemDTO>
+                {
+                    new DocumentItemDTO
+                    {
+                        ProductId = 2
+                    },
+                    new DocumentItemDTO
+                    {
+                        ProductId = 1,
+                    },
+                }
+            };
+
+            var clientId = 123; // Example client ID
+            var productIds = new List<int> { 456, 789 }; // Example product IDs
+            var lastUpdate = "2023-05-24"; // Example last update value
+            var newGlobalId = Guid.NewGuid(); // Example new global ID for the document
+
+            _mapper.Setup(x => x.Map<DocumentDTO>(It.IsAny<DocumentSyncDTO>()))
+                .Returns(document);
+
+            _clientMockRepository.Setup(x => x.GetClientIdFromClientGlobalId(It.IsAny<Guid>()))
+                .ReturnsAsync(clientId);
+
+            _productMockRepository.SetupSequence(x => x.GetProductIdFromProductGlobalId(It.IsAny<Guid>()))
+                .ReturnsAsync(productIds[0])
+                .ReturnsAsync(productIds[1]);
+
+            _documentMockRepository.Setup(x => x.DoesDocumentByGlobalIdExists(It.IsAny<Guid>()))
+                .ReturnsAsync(false);
+            // Act
+            var result = await _documentService.SyncDocuments(documents);
+
+            // Assert
+            Assert.AreEqual(lastUpdate, result);
+            _documentMockRepository.Verify(x => x.AddDocument(document), Times.Once);
+            Assert.AreEqual(newGlobalId, document.GlobalId);
         }
     }
 }

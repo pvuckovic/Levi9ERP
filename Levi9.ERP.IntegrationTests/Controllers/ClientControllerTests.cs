@@ -151,6 +151,7 @@ namespace Levi9.ERP.IntegrationTests.Controllers
                     Address = "Test1 Address 123",
                     Email = "test1@example.com",
                     Password = "password",
+                    LastUpdate = "123456789987654321",
                     Phone = "0611234567",
                     PriceListId = 1
                 }
@@ -182,6 +183,7 @@ namespace Levi9.ERP.IntegrationTests.Controllers
                     Email = "zlatko123@gmail.com",
                     Password = "password",
                     Phone = "0611234567",
+                    LastUpdate = "123456789987654321",
                     PriceListId = 1
                 }
             };
@@ -195,6 +197,26 @@ namespace Levi9.ERP.IntegrationTests.Controllers
             // Assert
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
             Assert.IsNotNull(result);
+        }
+
+        [Test]
+        public async Task SyncClients_EmptyList_ReturnsBadRequest()
+        {
+            // Arrange
+            // Act
+            var clients = new List<ClientSyncRequest>
+            {
+            };
+
+            var jsonRequest = JsonConvert.SerializeObject(clients);
+            var httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
+
+            var response = await _client.PostAsync("/v1/client/sync", httpContent);
+            var result = await response.Content.ReadAsStringAsync();
+
+            // Assert
+            Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
+            Assert.AreEqual("\"Update failed!\"",result);
         }
     }
 }

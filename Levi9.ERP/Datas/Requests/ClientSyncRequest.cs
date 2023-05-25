@@ -17,6 +17,7 @@ namespace Levi9.ERP.Datas.Requests
         public string Password { get; set; }
         [Required, StringLength(50)]
         public string Phone { get; set; }
+        public string LastUpdate { get; set; }
         public int PriceListId { get; set; } = 1;
         [Required]
         [StringLength(18, MinimumLength = 18)]

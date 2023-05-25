@@ -27,6 +27,7 @@ namespace Levi9.ERP.Domain.Services
             string salt = AuthenticationHelper.GenerateRandomSalt();
             clientModel.Password = AuthenticationHelper.HashPassword(clientModel.Password, salt);
             clientModel.Salt = salt;
+
             if(clientModel.LastUpdate == null)
                 clientModel.LastUpdate = DateTime.Now.ToFileTimeUtc().ToString();
             var clientEntity = await _clientRepository.AddClient(clientModel);
@@ -63,6 +64,7 @@ namespace Levi9.ERP.Domain.Services
         public async Task<string> SyncClients(List<ClientSyncRequestDTO> clients)
         {
             _logger.LogInformation("Entering {FunctionName} in ClientService. Timestamp: {Timestamp}.", nameof(SyncClients), DateTime.UtcNow);
+
 
             string lastUpdate = null;
             foreach (var client in clients)
