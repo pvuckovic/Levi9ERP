@@ -9,5 +9,6 @@ namespace Levi9.ERP.Domain.Services
         public Task<DocumentDTO> GetDocumentById(int id);
         public Task<IEnumerable<DocumentDTO>> GetDocumentsByParameters(SearchDocumentDTO searchParams);
         public Task<string> SyncDocuments(List<DocumentSyncDTO> documents);
+        Task<IEnumerable<DocumentDTO>> GetAllDocuments();
     }
 }

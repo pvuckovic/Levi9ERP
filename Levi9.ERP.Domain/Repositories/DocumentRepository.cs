@@ -93,6 +93,24 @@ namespace Levi9.ERP.Domain.Repositories
             return result;
         }
 
+        public async Task<IEnumerable<DocumentDTO>> GetAllDocuments()
+        {
+            var query = _context.Documents
+                   .Include(d => d.Client)
+                   .Include(d => d.ProductDocuments).ThenInclude(pd => pd.Product).AsQueryable();
+
+            _logger.LogInformation("Entering {FunctionName} in DocumentRepository. Timestamp: {Timestamp}.", nameof(GetAllDocuments), DateTime.UtcNow);
+
+            var documents = await query
+                .ToListAsync();
+
+            var mappedDocuments = documents.Select(p => _mapper.Map<DocumentDTO>(p));
+
+            _logger.LogInformation("Retrieving all documents in {FunctionName} of DocumentRepository. Timestamp: {Timestamp}.", nameof(GetAllDocuments), DateTime.UtcNow);
+
+            mappedDocuments = documents.Select(p => _mapper.Map<DocumentDTO>(p));
+            return mappedDocuments;
+        }
         public async Task<bool> SaveChanges()
         {
             return await _context.SaveChangesAsync() > 0;

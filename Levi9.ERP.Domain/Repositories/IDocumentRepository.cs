@@ -11,5 +11,6 @@ namespace Levi9.ERP.Domain.Repositories
         Task<bool> DoesDocumentByGlobalIdExists(Guid globalId);
         Task<Document> UpdateDocument(DocumentDTO document);
         Task<bool> SaveChanges();
+        Task<IEnumerable<DocumentDTO>> GetAllDocuments();
     }
 }

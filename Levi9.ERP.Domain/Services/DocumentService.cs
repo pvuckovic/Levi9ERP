@@ -78,6 +78,15 @@ namespace Levi9.ERP.Domain.Services
             }
             return lastUpdate;
         }
+        public async Task<IEnumerable<DocumentDTO>> GetAllDocuments()
+        {
+            _logger.LogInformation("Entering {FunctionName} in DocumentService. Timestamp: {Timestamp}.", nameof(GetAllDocuments), DateTime.UtcNow);
 
+            var products = await _documentRepository.GetAllDocuments();
+
+            _logger.LogInformation("Retrieving all documents in {FunctionName} of DocumentService. Timestamp: {Timestamp}.", nameof(GetAllDocuments), DateTime.UtcNow);
+
+            return products;
+        }
     }
 }
