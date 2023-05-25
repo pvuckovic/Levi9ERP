@@ -104,6 +104,14 @@ namespace Levi9.ERP.Domain.Repositories
             return result;
         }
 
+        public async Task<int> GetClientIdFromClientGlobalId(Guid globalId)
+        {
+            _logger.LogInformation("Entering { FunctionName} in ClientRepository.Timestamp { Timestamp}.", nameof(DoesClientByGlobalIdExists), DateTime.UtcNow);
+            var result = await _context.Clients.FirstOrDefaultAsync(p => p.GlobalId == globalId);
+            _logger.LogInformation("Retrieving confirmation of client with GlobalId { Id} in { FunctionName}of ClientRepository. Timestamp { Timestamp}.", globalId, nameof(DoesClientByGlobalIdExists), DateTime.UtcNow);
+            return result.Id;
+        }
+
         public async Task<bool> SaveChanges()
         {
             return await _context.SaveChangesAsync() > 0;

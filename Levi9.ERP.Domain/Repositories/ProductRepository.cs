@@ -96,7 +96,13 @@ namespace Levi9.ERP.Domain.Repositories
                                             .ThenInclude(p => p.PriceList)
                                             .ToListAsync();
         }
-
+        public async Task<int> GetProductIdFromProductGlobalId(Guid globalId)
+        {
+            _logger.LogInformation("Entering { FunctionName} in ProductRepository.Timestamp { Timestamp}.", nameof(GetProductIdFromProductGlobalId), DateTime.UtcNow);
+            var result = await _dataBaseContext.Products.FirstOrDefaultAsync(p => p.GlobalId == globalId);
+            _logger.LogInformation("Retrieving confirmation of product with GlobalId { Id} in { FunctionName}of ProductRepository. Timestamp { Timestamp}.", globalId, nameof(GetProductIdFromProductGlobalId), DateTime.UtcNow);
+            return result.Id;
+        }
         public async Task<IEnumerable<Product>> GetAllProducts()
         {
             _logger.LogInformation("Entering {FunctionName} in ProductRepository. Timestamp: {Timestamp}.", nameof(GetAllProducts), DateTime.UtcNow);

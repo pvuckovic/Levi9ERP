@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using Levi9.ERP.Datas.Requests;
 using Levi9.ERP.Datas.Responses;
+using Levi9.ERP.Domain.Models;
 using Levi9.ERP.Domain.Models.DTO;
+using Levi9.ERP.Domain.Models.DTO.DocumentDto;
 using Levi9.ERP.Domain.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -92,6 +94,36 @@ namespace Levi9.ERP.Controllers
             };
             _logger.LogInformation("Successful search in {FunctionName} of DocumentController. Timestamp: {Timestamp}.", nameof(SearchDocuments), DateTime.UtcNow);
             return Ok(responseProducts);
+        }
+
+        [HttpPost("sync")]
+        public async Task<IActionResult> SyncDocuments(List<DocumentSyncRequest> documents)
+        {
+            _logger.LogInformation("Entering {FunctionName} in DocumentController. Timestamp: {Timestamp}.", nameof(SyncDocuments), DateTime.UtcNow);
+            var newDocuments = _mapper.Map<List<DocumentSyncDTO>>(documents);
+            string result = await _documentService.SyncDocuments(newDocuments);
+            if (result == null)
+            {
+                _logger.LogError("Filed to update documents in {FunctionName} of DocumentController. Timestamp: {Timestamp}.", nameof(SyncDocuments), DateTime.UtcNow);
+                string error = "Update failed!";
+                return BadRequest(error);
+            }
+            _logger.LogInformation("Documents updated successfully in {FunctionName} of DocumentController. Timestamp: {Timestamp}.", nameof(SyncDocuments), DateTime.UtcNow);
+            return Ok(result);
+        [HttpGet("All")]
+        public async Task<IActionResult> GetAllDocuments()
+        {
+            _logger.LogInformation("Entering {FunctionName} in DocumentController. Timestamp: {Timestamp}.", nameof(GetAllDocuments), DateTime.UtcNow);
+            var documents = await _documentService.GetAllDocuments();
+            if (documents == null || !documents.Any())
+            {
+                _logger.LogInformation("No documents found in {FunctionName} in DocumentController. Timestamp: {Timestamp}.", nameof(GetAllDocuments), DateTime.UtcNow);
+                return NotFound("No documents found.");
+            }
+
+            var documentsResponses = _mapper.Map<IEnumerable<DocumentResponse>>(documents);
+            _logger.LogInformation("Retrieving all documents in {FunctionName} of DocumentController. Timestamp: {Timestamp}.", nameof(GetAllDocuments), DateTime.UtcNow);
+            return Ok(documentsResponses);
         }
     }
 }

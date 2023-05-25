@@ -301,5 +301,25 @@ namespace Levi9.ERP.IntegrationTests.Controllers
             Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
             Assert.AreEqual("\"No documents were found that match the search parameters\"", result);
         }
+
+        [Test]
+        public async Task SyncDocuments_EmptyList_ReturnsBadRequest()
+        {
+            // Arrange
+            // Act
+            var clients = new List<DocumentSyncRequest>
+            {
+            };
+
+            var jsonRequest = JsonConvert.SerializeObject(clients);
+            var httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
+
+            var response = await _client.PostAsync("/v1/document/sync", httpContent);
+            var result = await response.Content.ReadAsStringAsync();
+
+            // Assert
+            Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
+            Assert.AreEqual("\"Update failed!\"", result);
+        }
     }
 }

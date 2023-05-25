@@ -72,6 +72,45 @@ namespace Levi9.ERP.Domain.Repositories
             _logger.LogInformation("Retrieving documents in {FunctionName} of DocumentRepository. Timestamp: {Timestamp}.", nameof(GetDocumentsByParameters), DateTime.UtcNow);
             return mappedDocuments;
         }
+
+
+        public async Task<Document> UpdateDocument(DocumentDTO document)
+        {
+            _logger.LogInformation("Entering {FunctionName} in DocumentRepository. Timestamp: {Timestamp}.", nameof(UpdateDocument), DateTime.UtcNow);
+            Document documentMap = _mapper.Map<Document>(document);
+            var updatedDocument = await _context.Documents.FirstOrDefaultAsync(d => d.GlobalId == document.GlobalId);
+            updatedDocument.LastUpdate = document.LastUpdate;
+            await _context.SaveChangesAsync();
+            _logger.LogInformation("Retrieving confirmation of updated document in {FunctionName} of DocumentRepository. Timestamp: {Timestamp}.", nameof(UpdateDocument), DateTime.UtcNow);
+            return documentMap;
+        }
+
+        public async Task<bool> DoesDocumentByGlobalIdExists(Guid globalId)
+        {
+            _logger.LogInformation("Entering { FunctionName} in DocumentRepository.Timestamp { Timestamp}.", nameof(DoesDocumentByGlobalIdExists), DateTime.UtcNow);
+            var result = await _context.Documents.AnyAsync(p => p.GlobalId == globalId);
+            _logger.LogInformation("Retrieving confirmation of document with GlobalId { Id} in { FunctionName}of DocumentRepository. Timestamp { Timestamp}.", globalId, nameof(DoesDocumentByGlobalIdExists), DateTime.UtcNow);
+            return result;
+        }
+
+        public async Task<IEnumerable<DocumentDTO>> GetAllDocuments()
+        {
+            var query = _context.Documents
+                   .Include(d => d.Client)
+                   .Include(d => d.ProductDocuments).ThenInclude(pd => pd.Product).AsQueryable();
+
+            _logger.LogInformation("Entering {FunctionName} in DocumentRepository. Timestamp: {Timestamp}.", nameof(GetAllDocuments), DateTime.UtcNow);
+
+            var documents = await query
+                .ToListAsync();
+
+            var mappedDocuments = documents.Select(p => _mapper.Map<DocumentDTO>(p));
+
+            _logger.LogInformation("Retrieving all documents in {FunctionName} of DocumentRepository. Timestamp: {Timestamp}.", nameof(GetAllDocuments), DateTime.UtcNow);
+
+            mappedDocuments = documents.Select(p => _mapper.Map<DocumentDTO>(p));
+            return mappedDocuments;
+        }
         public async Task<bool> SaveChanges()
         {
             return await _context.SaveChangesAsync() > 0;
