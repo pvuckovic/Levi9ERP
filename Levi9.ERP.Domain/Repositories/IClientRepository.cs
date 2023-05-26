@@ -14,6 +14,7 @@ namespace Levi9.ERP.Domain.Repositories
         Task<bool> DoesClientByGlobalIdExists(Guid globalId);
         Task<Client> UpdateClient(ClientSyncRequestDTO client);  
         Task<Client> UpdateClientByEmail(ClientSyncRequestDTO client);
+        Task<int> GetClientIdFromClientGlobalId(Guid globalId);
 
     }
 }

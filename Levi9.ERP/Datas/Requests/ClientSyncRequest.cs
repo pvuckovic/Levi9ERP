@@ -16,8 +16,10 @@ namespace Levi9.ERP.Datas.Requests
         [Required, StringLength(100)]
         public string Password { get; set; }
         [Required, StringLength(50)]
-        [RegularExpression(@"^(\d{10})$", ErrorMessage = "Wrong phone number")]
         public string Phone { get; set; }
         public int PriceListId { get; set; } = 1;
+        [Required]
+        [StringLength(18, MinimumLength = 18)]
+        public string LastUpdate { get; set; }
     }
 }

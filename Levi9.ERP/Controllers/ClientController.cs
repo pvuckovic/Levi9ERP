@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
-using Levi9.ERP.Data.Responses;
 using Levi9.ERP.Datas.Requests;
 using Levi9.ERP.Datas.Responses;
-using Levi9.ERP.Domain.Models;
 using Levi9.ERP.Domain.Models.DTO;
 using Levi9.ERP.Domain.Services;
 using Levi9.ERP.Requests;
@@ -81,6 +79,7 @@ namespace Levi9.ERP.Controllers
         }
 
         [HttpPost("sync")]
+        [AllowAnonymous]
         public async Task<IActionResult> SyncClients(List<ClientSyncRequest> clients)
         {
             _logger.LogInformation("Entering {FunctionName} in ClientController. Timestamp: {Timestamp}.", nameof(SyncClients), DateTime.UtcNow);

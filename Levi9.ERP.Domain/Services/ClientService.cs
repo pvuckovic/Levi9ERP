@@ -23,8 +23,8 @@ namespace Levi9.ERP.Domain.Services
         public async Task<ClientDTO> CreateClient(ClientDTO clientModel)
         {
             _logger.LogInformation("Entering {FunctionName} in ClientService. Timestamp: {Timestamp}.", nameof(CreateClient), DateTime.UtcNow);
-            
-            clientModel.GlobalId = Guid.NewGuid();
+            if (clientModel.GlobalId == null || clientModel.GlobalId == new Guid("00000000-0000-0000-0000-000000000000"))
+                clientModel.GlobalId = Guid.NewGuid();
             string salt = AuthenticationHelper.GenerateRandomSalt();
             clientModel.Password = AuthenticationHelper.HashPassword(clientModel.Password, salt);
             clientModel.Salt = salt;
