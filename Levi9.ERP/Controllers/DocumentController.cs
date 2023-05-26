@@ -75,6 +75,7 @@ namespace Levi9.ERP.Controllers
         }
         [Authorize]
         [HttpGet]
+        [HttpGet("Search")]
         public async Task<IActionResult> SearchDocuments([FromQuery] SearchDocumentRequest searchParams)
         {
             var mappedParams = _mapper.Map<SearchDocumentDTO>(searchParams);
@@ -93,6 +94,7 @@ namespace Levi9.ERP.Controllers
             _logger.LogInformation("Successful search in {FunctionName} of DocumentController. Timestamp: {Timestamp}.", nameof(SearchDocuments), DateTime.UtcNow);
             return Ok(responseProducts);
         }
+        [Authorize]
         [HttpGet("All")]
         public async Task<IActionResult> GetAllDocuments()
         {
